@@ -3,33 +3,24 @@ import styled from 'styled-components'
 
 export const Navbar = () => {
     return (
-        <Container>
-            <MainBar>
-                <LeftText>Seller</LeftText>
-                <RightContainer>
-                    <IconBox>
-                        <Icon src={'/images/icons/shop.png'}></Icon>
-                    </IconBox>
-                    <IconBox>
-                        <Icon src={'/images/icons/heart.png'}></Icon>
-                    </IconBox>
-                    <Picture src={'/images/profile_pic.png'} />
-                    <NameText>Jan Kowalski</NameText>
-                    <IconBox>
-                        <Icon src={'/images/icons/exit.png'}></Icon>
-                    </IconBox>
-                </RightContainer>
-            </MainBar>
-        </Container>
+        <MainBar>
+            <LeftText>Seller</LeftText>
+            <RightContainer>
+                <IconBox>
+                    <Icon src={'/images/icons/shop.png'}></Icon>
+                </IconBox>
+                <IconBox>
+                    <Icon src={'/images/icons/heart.png'}></Icon>
+                </IconBox>
+                <Picture src={'/images/profile_pic.png'} />
+                <NameText>Jan Kowalski</NameText>
+                <IconBox>
+                    <Icon src={'/images/icons/exit.png'}></Icon>
+                </IconBox>
+            </RightContainer>
+        </MainBar>
     )
 }
-
-const Container = styled.div`
-    @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@800&display=swap');
-    & h2, div {
-        font-family: 'Mulish', sans-serif;
-    }
-`
 
 const MainBar = styled.nav`
     background-color: white;
