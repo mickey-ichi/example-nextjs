@@ -65,6 +65,11 @@ const SectionContainer = styled.div`
     margin-right: 5px;
     margin-left: 5px;
     display: flex;
+    
+    @media only screen and (max-width: 900px) {
+        margin-right: 0;
+        margin-left: 0;
+    }
 `
 
 const Step = styled.div`
@@ -72,6 +77,10 @@ const Step = styled.div`
     flex-direction: column;
     justify-content: center;
     width: 5rem;
+    
+    @media only screen and (max-width: 450px) {
+        width: 4rem;
+    }
 `
 
 const IconContainer = styled.div`
@@ -79,9 +88,13 @@ const IconContainer = styled.div`
     height: 3rem;
     margin: auto;
     margin-right: 1rem;
-    padding: auto;
     background: #FFF5EC;
     border-radius: 50%;
+    
+    @media only screen and (max-width: 450px) {
+        width: 2rem;
+        height: 2rem;
+    }
 `
 
 const CurrentIconContainer = styled(IconContainer)`
@@ -93,12 +106,24 @@ const Icon = styled.img`
     height: 1rem;
     margin-top: 1rem;
     margin-left: 1rem;
+    
+    @media only screen and (max-width: 450px) {
+        margin-top: 0.5rem;
+        margin-left: 0.5rem;
+    }
 `
 
 const Checkmark = styled.img`
     width: 20px;
     height: 20px;
     margin-left: 2rem;
+    
+    @media only screen and (max-width: 450px) {
+        width: 15px;
+        height: 15px;
+        margin-top: -1rem;
+        margin-left: 1.5rem;
+    }
 `
 
 const StepText = styled.div`
@@ -108,10 +133,24 @@ const StepText = styled.div`
     font-size: 18px;
     text-align: center;
     margin-top: 10px;
+    
+    @media only screen and (max-width: 900px) {
+        font-size: 13px;
+    }
+    @media only screen and (max-width: 450px) {
+        font-size: 12px;
+    }
 `
 
 const Line = styled.img`
     width: 100px;
     height: 4px;
     margin-top: 1.5rem;
+    
+    @media only screen and (max-width: 900px) {
+        width: 50px;
+    }
+    @media only screen and (max-width: 600px) {
+        display: none;
+    }
 `
