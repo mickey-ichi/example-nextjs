@@ -3,47 +3,43 @@ import styled from 'styled-components'
 
 export const Progressbar = ( step: number ) => {
 
-    const imageNames = [
-        'description.png',
-        'categories.png',
-        'photos.png',
-        'delivery.png',
-        'complaints.png'
-    ]
-
-    const completedImageNames = [
-        'description_completed.png',
-        'categories_completed.png',
-        'photos_completed.png',
-        'delivery_completed.png',
-        'complaints_completed.png'
-    ]
-    const stepNames = [
-        'Description',
-        'Categories',
-        'Photos',
-        'Delivery',
-        'Complaints'
+    const stepData = [
+        {step: 'Description', img1: 'description.png', img2: 'description_completed.png'},
+        {step: 'Categories', img1: 'categories.png', img2: 'categories_completed.png'},
+        {step: 'Photos', img1: 'photos.png', img2: 'photos_completed.png'},
+        {step: 'Delivery', img1: 'delivery.png', img2: 'delivery_completed.png'},
+        {step: 'Complaints', img1: 'complaints.png', img2: 'complaints_completed.png'},
     ]
 
     return (
         <BarContainer>
-            {imageNames.map((name, counter) => {
+            {stepData.map((item, counter) => {
                 return (
                     <SectionContainer key={Math.random()}>
                         <Step>
-                            {(counter + 1) <= step ?
-                                <CompletedIconContainer>
-                                    <Icon src={`/images/icons/` + `${completedImageNames[counter]}`}/>
-                                </CompletedIconContainer>
+                            {(counter + 1) === step ?
+                                <CurrentIconContainer>
+                                    <Icon src={`/images/icons/` + `${item.img2}`}/>
+                                </CurrentIconContainer>
                                 :
-                                <IconContainer>
-                                    <Icon src={`/images/icons/` + `${name}`} />
-                                </IconContainer>
+                                (counter + 1) < step ?
+                                    <IconContainer>
+                                        <Icon src={`/images/icons/` + `${item.img1}`} />
+                                        <Checkmark src={'/images/icons/checkmark.png'} />
+                                    </IconContainer>
+                                    :
+                                    <IconContainer>
+                                        <Icon src={`/images/icons/` + `${item.img1}`} />
+                                    </IconContainer>
                             }
-                            <StepText>{stepNames[counter]}</StepText>
+                            <StepText>{item.step}</StepText>
                         </Step>
-                        <Line src={'/images/icons/line.png'}/>
+                        {counter < 4 &&
+                            (counter + 1) < step ?
+                                <Line src={'/images/icons/line_completed.png'}/>
+                                :
+                                (counter + 1) < 5 && <Line src={'/images/icons/line.png'}/>
+                        }
                     </SectionContainer>
                 )})
             }
@@ -84,7 +80,7 @@ const IconContainer = styled.div`
     border-radius: 50%;
 `
 
-const CompletedIconContainer = styled(IconContainer)`
+const CurrentIconContainer = styled(IconContainer)`
     background: #FF782D;
 `
 
@@ -93,6 +89,12 @@ const Icon = styled.img`
     height: 1rem;
     margin-top: 1rem;
     margin-left: 1rem;
+`
+
+const Checkmark = styled.img`
+    width: 20px;
+    height: 20px;
+    margin-left: 2rem;
 `
 
 const StepText = styled.div`
