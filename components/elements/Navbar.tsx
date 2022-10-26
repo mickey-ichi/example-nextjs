@@ -32,6 +32,10 @@ const MainBar = styled.nav`
     left: 0px;
     top: 0px;
     display: flex;
+     
+     @media only screen and (max-width: 600px) {
+        justify-content: space-between;
+    }
 `
 
 const LeftText = styled.h2`
@@ -43,11 +47,21 @@ const LeftText = styled.h2`
     margin: auto;
     line-height: 5rem;
     margin-left: 5rem;
+    
+    @media only screen and (max-width: 600px) {
+        font-size: 25px;
+        margin-left: 1rem;
+        margin-right: 2rem;
+    }
 `
 
 const RightContainer = styled.div`
     display: flex;
     margin-right: 4rem;
+    
+    @media only screen and (max-width: 600px) {
+        margin-right: 0;
+    }
 `
 
 const IconBox = styled.div`
@@ -82,4 +96,9 @@ const NameText = styled.div`
     margin: auto;
     margin-left: 1rem;
     margin-right: 2rem;
+    
+    @media only screen and (max-width: 600px) {
+        font-size: 14px;
+        margin-right: 0rem;
+    }
 `
