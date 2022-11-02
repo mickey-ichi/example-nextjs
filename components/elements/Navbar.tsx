@@ -99,6 +99,6 @@ const NameText = styled.div`
     
     @media only screen and (max-width: 600px) {
         font-size: 14px;
-        margin-right: 0rem;
+        margin-right: 10px;
     }
 `

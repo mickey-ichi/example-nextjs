@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 type ProgressbarProps = {
-    step?: number
+    step: number
 }
 
-export const Progressbar = ({ step = 1 }: ProgressbarProps ) => {
+export const Progressbar = ({ step }: ProgressbarProps ) => {
 
     const stepData = [
         {step: 'Description', img1: 'description.png', img2: 'description_completed.png'},
@@ -52,6 +52,7 @@ export const Progressbar = ({ step = 1 }: ProgressbarProps ) => {
 }
 
 const BarContainer = styled.div`
+    margin-top: 4rem;
     width: 100vw;
     height: 10rem;
     display: flex;
