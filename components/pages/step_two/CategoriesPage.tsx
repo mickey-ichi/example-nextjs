@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
 import { Form } from '../../elements/Form'
+import { FormContext } from '../../../context/CurrentFormContext'
 
 type CategoriesProps = {
     title?: string,
@@ -10,7 +11,9 @@ type CategoriesProps = {
     onBack: ()=>void,
 }
 
-export const CategoriesPage = ({ title = 'Graphic Card', onNext, onBack }: CategoriesProps ) => {
+export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
+
+    const { content } = useContext(FormContext)
 
     return (
         <PageContainer>
@@ -18,7 +21,7 @@ export const CategoriesPage = ({ title = 'Graphic Card', onNext, onBack }: Categ
                 <LeftForm>
                     <Instructions>Fill in the basic information about your item</Instructions>
                     <TitleLabel>Title</TitleLabel>
-                    <Title defaultValue='Step Two' type='text'></Title>
+                    <Title type='text'></Title>
                     <DescriptionLabel>Description</DescriptionLabel>
                     {/* should use context like this later */}
                     {/* <Description value={value?.description || ''} defaultValue='The NVIDIA RTX 3050 graphics card is a design equipped with 8GB of GDDR6 memory, supports PCI-E 4.0 and offers a number of unique technologies from NVIDIA to enhance the smoothness and high quality of generated graphics. At the same time, it provides support for Ray Tracing, allowing you to enjoy photorealistic graphics.' /> */}

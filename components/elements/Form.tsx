@@ -5,8 +5,8 @@ export const Form = styled.div`
     width: 95%;
     height: 80%;
     display: flex;
-    color: black;
-    font-family: 'Mulish', sans-serif;
+    color: ${(props) => props.theme.colors.text};
+    font-family: ${(props) => props.theme.font.family};
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
