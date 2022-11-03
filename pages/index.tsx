@@ -1,21 +1,24 @@
 import type { NextPage } from 'next'
-import { CurrentFormProvider } from '../context/CurrentFormContext'
-import { SellerLayout } from "../components/modules/SellerLayout";
-import { DescriptionPage } from '../components/pages/home/DescriptionPage'
-import {router} from "next/client";
+import { useRouter } from 'next/router'
+import { SellerLayout } from "../components/modules/SellerLayout"
 
 const Home: NextPage = () => {
-    const handleNext = (values?:any) => {
+    const router = useRouter()
+
+    const handleNext = () => {
         // updateContext
         // push to step 2
-        // router.push('/step_two')
+        router.push('/step_two')
     }
+
     return (
-      <CurrentFormProvider>
-          <SellerLayout step={1}>
-              {/*<DescriptionPage value={{title: ''}} onNext={handleNext}/>*/}
-          </SellerLayout>
-      </CurrentFormProvider>
+            <SellerLayout
+                step={1}
+                onNext={handleNext}
+                onBack={function (): void {
+                    throw new Error('Function not implemented.')
+                } }
+            />
     )
 }
 

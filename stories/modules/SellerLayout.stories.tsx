@@ -9,6 +9,10 @@ export default {
     component: SellerLayout,
 } as Meta
 
-const Template: Story = (args) => <SellerLayout {...args} ></SellerLayout>
+const Template: Story = (args) => <SellerLayout step={0} onNext={function (): void {
+    throw new Error('Function not implemented.')
+} } onBack={function (): void {
+    throw new Error('Function not implemented.')
+} } {...args} />
 
 export const Primary = Template.bind({})

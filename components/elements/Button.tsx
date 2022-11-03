@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
-export const Button = styled.div`
+export const Button = styled.d
+iv`
     margin: 1em;
     padding: 5px 20px;
     display: inline-block;
@@ -10,7 +11,8 @@ export const Button = styled.div`
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
-    
+    background: #EFEFEF;
+        
     &:hover {
         cursor: pointer;
         transform: scale(1.1);

@@ -5,7 +5,7 @@ type ProgressbarProps = {
     step: number
 }
 
-export const Progressbar = ({ step }: ProgressbarProps ) => {
+export const Progressbar = ({ step = 1 }: ProgressbarProps ) => {
 
     const stepData = [
         {step: 'Description', img1: 'description.png', img2: 'description_completed.png'},
@@ -52,6 +52,7 @@ export const Progressbar = ({ step }: ProgressbarProps ) => {
 }
 
 const BarContainer = styled.div`
+    color: ${(props) => props.theme.colors.text};
     margin-top: 4rem;
     width: 100vw;
     height: 10rem;
@@ -128,7 +129,7 @@ const Checkmark = styled.img`
 `
 
 const StepText = styled.div`
-    font-family: 'Mulish', sans-serif;
+    font-family: ${(props) => props.theme.font.family};
     font-style: normal;
     font-weight: 300;
     font-size: 18px;

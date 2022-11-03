@@ -23,14 +23,14 @@ export const Navbar = () => {
 }
 
 const MainBar = styled.nav`
+    z-index: 2;
+    position: sticky;
+    top: 0;
     background-color: white;
     box-shadow: 0px 0px 10px rgba(132, 132, 132, 0.15);
-    position: absolute;
     width: 100%;
     height: 10%;
     min-height: 5rem;
-    left: 0px;
-    top: 0px;
     display: flex;
      
      @media only screen and (max-width: 600px) {
