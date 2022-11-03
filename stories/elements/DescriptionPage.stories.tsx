@@ -9,6 +9,8 @@ export default {
     component: DescriptionPage,
 } as Meta
 
-const Template: Story = (args) => <DescriptionPage {...args} ></DescriptionPage>
+const Template: Story = (args) => <DescriptionPage onNext={function (values: any): void {
+    throw new Error('Function not implemented.')
+} } {...args} ></DescriptionPage>
 
 export const Primary = Template.bind({})

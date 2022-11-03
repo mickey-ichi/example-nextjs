@@ -1,21 +1,22 @@
 import React from 'react'
-import { useRouter } from 'next/router'
-
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
+import { PageContainer } from '../../elements/PageContainer'
+import { Form } from '../../elements/Form'
 
 type DescriptionProps = {
     title?: string
-    onNext: (values: any) => void
+    onNext: () => void
 }
 
 export const DescriptionPage = ({ title = 'Graphic Card', onNext }: DescriptionProps ) => {
     const handleClick = (e: { preventDefault: () => void }) => {
         e.preventDefault()
-        onNext({
-            title:'',
-            height: 444
-        })
+        // onNext({
+        //     title:'',
+        //     height: 444
+        // })
+        onNext()
     }
 
     return (
@@ -26,7 +27,9 @@ export const DescriptionPage = ({ title = 'Graphic Card', onNext }: DescriptionP
                     <TitleLabel>Title</TitleLabel>
                     <Title defaultValue='Graphic card GIGABYTE GeForce RTX 3050' type='text'></Title>
                     <DescriptionLabel>Description</DescriptionLabel>
-                    <Description value={value?.description || ''} defaultValue='The NVIDIA RTX 3050 graphics card is a design equipped with 8GB of GDDR6 memory, supports PCI-E 4.0 and offers a number of unique technologies from NVIDIA to enhance the smoothness and high quality of generated graphics. At the same time, it provides support for Ray Tracing, allowing you to enjoy photorealistic graphics.' />
+                    {/* should use context like this later */}
+                    {/* <Description value={value?.description || ''} defaultValue='The NVIDIA RTX 3050 graphics card is a design equipped with 8GB of GDDR6 memory, supports PCI-E 4.0 and offers a number of unique technologies from NVIDIA to enhance the smoothness and high quality of generated graphics. At the same time, it provides support for Ray Tracing, allowing you to enjoy photorealistic graphics.' /> */}
+                    <Description defaultValue='The NVIDIA RTX 3050 graphics card is a design equipped with 8GB of GDDR6 memory, supports PCI-E 4.0 and offers a number of unique technologies from NVIDIA to enhance the smoothness and high quality of generated graphics. At the same time, it provides support for Ray Tracing, allowing you to enjoy photorealistic graphics.' />
                 </LeftForm>
                 <RightForm>
                     <AvailabilityLabel>Number of units available</AvailabilityLabel>
@@ -50,37 +53,6 @@ export const DescriptionPage = ({ title = 'Graphic Card', onNext }: DescriptionP
     )
 }
 
-const PageContainer = styled.div`
-    margin: 5rem;
-    margin-top: 1rem;
-    background: white;
-    border-radius: 16px;
-    z-index: 1;
-    height: 70vh;
-    text-align: center;
-    padding-top: 2rem;
-    
-    @media only screen and (max-width: 900px) {
-        height: auto;
-        margin: 1rem;
-    }
-`
-
-const Form = styled.div`
-    margin: auto;
-    width: 95%;
-    height: 80%;
-    display: flex;
-    color: black;
-    font-family: 'Mulish', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    
-     @media only screen and (max-width: 900px) {
-        flex-direction: column;
-    }
-`
 
 const LeftForm = styled.div`
     flex-grow: 0.7;
@@ -196,6 +168,7 @@ const LengthLabel = styled.label`
     margin: auto;
     margin-right: 1rem;
     margin-left: 0;
+    font-size: 0.8em;
 `
 
 const Width = styled.input`
@@ -211,6 +184,7 @@ const WidthLabel = styled.label`
     margin: auto;
     margin-right: 1rem;
     margin-left: 0;
+    font-size: 0.8em;
 `
 
 const Height = styled.input`
@@ -225,6 +199,7 @@ const HeightLabel = styled.label`
     margin: auto;
     margin-right: 1rem;
     margin-left: 0;
+    font-size: 0.8em;
 `
 
 const Price = styled.input`

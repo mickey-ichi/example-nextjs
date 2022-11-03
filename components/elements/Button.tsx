@@ -10,7 +10,8 @@ export const Button = styled.div`
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
-    
+    background: #EFEFEF;
+        
     &:hover {
         cursor: pointer;
         transform: scale(1.1);

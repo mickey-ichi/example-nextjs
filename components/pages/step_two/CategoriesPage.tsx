@@ -1,59 +1,52 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import { Button } from '../../elements/Button'
+import { PageContainer } from '../../elements/PageContainer'
+import { Form } from '../../elements/Form'
 
 type CategoriesProps = {
-    title?: string
+    title?: string,
+    onNext: ()=>void,
+    onBack: ()=>void,
 }
 
-export const CategoriesPage = ({ title = 'Graphic Card' }: CategoriesProps ) => {
+export const CategoriesPage = ({ title = 'Graphic Card', onNext, onBack }: CategoriesProps ) => {
 
     return (
         <PageContainer>
             <Form>
                 <LeftForm>
+                    <Instructions>Fill in the basic information about your item</Instructions>
+                    <TitleLabel>Title</TitleLabel>
+                    <Title defaultValue='Step Two' type='text'></Title>
+                    <DescriptionLabel>Description</DescriptionLabel>
+                    {/* should use context like this later */}
+                    {/* <Description value={value?.description || ''} defaultValue='The NVIDIA RTX 3050 graphics card is a design equipped with 8GB of GDDR6 memory, supports PCI-E 4.0 and offers a number of unique technologies from NVIDIA to enhance the smoothness and high quality of generated graphics. At the same time, it provides support for Ray Tracing, allowing you to enjoy photorealistic graphics.' /> */}
+                    <Description defaultValue='' />
                 </LeftForm>
                 <RightForm>
+                    <AvailabilityLabel>Number of units available</AvailabilityLabel>
+                    <Availability placeholder='Availability' type='number'></Availability>
+                    <DimensionsLabel>Dimensions (optional)</DimensionsLabel>
+                    <DimensionsContainer>
+                        <LengthLabel>Length [mm]</LengthLabel>
+                        <Length placeholder='0' type='number'></Length>
+                        <WidthLabel>Width [mm]</WidthLabel>
+                        <Width placeholder='0' type='number'></Width>
+                        <HeightLabel>Height [mm]</HeightLabel>
+                        <Height placeholder='0' type='number'></Height>
+                    </DimensionsContainer>
+                    <PriceLabel>Price</PriceLabel>
+                    <Price placeholder='Product price in PLN (gross)' type='number'></Price>
                 </RightForm>
             </Form>
 
-            <Button>Next →</Button>
+            <Button onClick={() => onBack()}>Back</Button>
+            <Button onClick={() => onNext()}>Next →</Button>
         </PageContainer>
     )
 }
 
-const PageContainer = styled.div`
-    margin: 5rem;
-    margin-top: 1rem;
-    background: white;
-    border-radius: 16px;
-    z-index: 1;
-    height: 70vh;
-    text-align: center;
-    padding-top: 2rem;
-    
-    @media only screen and (max-width: 900px) {
-        height: auto;
-        margin: 1rem;
-    }
-`
-
-const Form = styled.div`
-    margin: auto;
-    width: 95%;
-    height: 80%;
-    display: flex;
-    color: black;
-    font-family: 'Mulish', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    
-     @media only screen and (max-width: 900px) {
-        flex-direction: column;
-    }
-`
 
 const LeftForm = styled.div`
     flex-grow: 0.7;
@@ -106,6 +99,7 @@ const RightForm = styled.div`
     
     @media only screen and (max-width: 900px) {
         margin-left: 0;
+        margin-top: -2rem;
     }
 `
 
@@ -139,12 +133,20 @@ const DimensionsContainer = styled.div`
         margin: 5px;
         padding: 5px;
     }
+    
+    @media only screen and (max-width: 900px) {
+        margin-bottom: 2rem;
+    }
 `
 
 const DimensionsLabel = styled.label`
     margin-top: 1rem;
     margin-left: 5px;
     font-weight: 600;
+    
+    @media only screen and (max-width: 900px) {
+        margin-top: 2rem;
+    }
 `
 
 const Length = styled.input`
@@ -160,6 +162,7 @@ const LengthLabel = styled.label`
     margin: auto;
     margin-right: 1rem;
     margin-left: 0;
+    font-size: 0.8em;
 `
 
 const Width = styled.input`
@@ -175,6 +178,7 @@ const WidthLabel = styled.label`
     margin: auto;
     margin-right: 1rem;
     margin-left: 0;
+    font-size: 0.8em;
 `
 
 const Height = styled.input`
@@ -189,6 +193,7 @@ const HeightLabel = styled.label`
     margin: auto;
     margin-right: 1rem;
     margin-left: 0;
+    font-size: 0.8em;
 `
 
 const Price = styled.input`

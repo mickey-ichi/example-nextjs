@@ -5,7 +5,7 @@ type ProgressbarProps = {
     step: number
 }
 
-export const Progressbar = ({ step }: ProgressbarProps ) => {
+export const Progressbar = ({ step = 1 }: ProgressbarProps ) => {
 
     const stepData = [
         {step: 'Description', img1: 'description.png', img2: 'description_completed.png'},

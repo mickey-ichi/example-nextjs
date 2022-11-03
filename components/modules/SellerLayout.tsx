@@ -2,32 +2,36 @@ import React from 'react'
 import styled from 'styled-components'
 import { Navbar } from '../elements/Navbar'
 import { Progressbar } from '../elements/Progressbar'
+import {DescriptionPage} from "../pages/home/DescriptionPage";
 import {CategoriesPage} from "../pages/step_two/CategoriesPage";
 
 type SellerLayoutProps = {
     step: number,
-    children: React.ReactNode
+    onNext: ()=>void,
+    onBack: ()=>void,
+    // children: React.ReactNode
 }
 
-export const SellerLayout = ({ step, children }: SellerLayoutProps ) => {
+export const SellerLayout = ({ step, onNext, onBack }: SellerLayoutProps ) => {
     return (
        // navbar, progressbar, page template
         <>
             <Navbar></Navbar>
             <Progressbar step={step}></Progressbar>
             <PageBody>
-                {children}
+                {step === 1 && <DescriptionPage onNext={onNext}/>}
+                {step === 2 && <CategoriesPage onNext={onNext} onBack={onBack} />}
+                {step === 3 && <div>hello</div>}
             </PageBody>
         </>
     )
 }
 
 const PageBody = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
+    position: relative;
+    z-index: 1;
     width: 100vw;
-    height: 100vh;
+    height: auto;
     background: #F8F8F8;
+    padding: 1rem;
 `
