@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 
 export const Navbar = () => {
@@ -38,9 +39,10 @@ const MainBar = styled.nav`
 `
 
 const LeftText = styled.h2`
-    // color: ${props => props.theme.colors.active};
-    // font-family: ${props => props.theme.font.family};
-    font-weight: 700;
+    color: #FF782D;
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+    font-weight: 800;
     font-size: 32px;
     margin: auto;
     line-height: 5rem;
@@ -87,8 +89,7 @@ const Picture = styled.img`
 `
 
 const NameText = styled.div`
-    // color: ${(props) => props.theme.colors.text};
-    // font-family: ${(props) => props.theme.font.family};
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 18px;

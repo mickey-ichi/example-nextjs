@@ -1,15 +1,14 @@
 import React from 'react'
 import { Navbar } from '../elements/Navbar'
-import { PageBody } from '../elements/PageBody';
 import { Progressbar } from '../elements/Progressbar'
-import { DescriptionPage } from "../pages/home/DescriptionPage";
-import { CategoriesPage } from "../pages/step_two/CategoriesPage";
+import {DescriptionPage} from "../pages/home/DescriptionPage";
+import {CategoriesPage} from "../pages/step_two/CategoriesPage";
 
 type SellerLayoutProps = {
     step: number,
     onNext: ()=>void,
     onBack: ()=>void,
-    children: React.ReactNode
+    // children: React.ReactNode
 }
 
 export const SellerLayout = ({ step, onNext, onBack, children }: SellerLayoutProps ) => {
@@ -26,3 +25,12 @@ export const SellerLayout = ({ step, onNext, onBack, children }: SellerLayoutPro
         </>
     )
 }
+
+const PageBody = styled.div`
+    position: relative;
+    z-index: 1;
+    width: 100vw;
+    height: auto;
+    background: #F8F8F8;
+    padding: 1rem;
+`

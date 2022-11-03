@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
 import { Form } from '../../elements/Form'
+import { FormContext } from '../../../context/CurrentFormContext'
 
 type CategoriesProps = {
     title?: string,
@@ -10,13 +11,35 @@ type CategoriesProps = {
     onBack: ()=>void,
 }
 
-export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
-
+export const CategoriesPage = ({ title = 'Graphic Card', onNext, onBack }: CategoriesProps ) => {
 
     return (
         <PageContainer>
             <Form>
-
+                <LeftForm>
+                    <Instructions>Fill in the basic information about your item</Instructions>
+                    <TitleLabel>Title</TitleLabel>
+                    <Title defaultValue='Step Two' type='text'></Title>
+                    <DescriptionLabel>Description</DescriptionLabel>
+                    {/* should use context like this later */}
+                    {/* <Description value={value?.description || ''} defaultValue='The NVIDIA RTX 3050 graphics card is a design equipped with 8GB of GDDR6 memory, supports PCI-E 4.0 and offers a number of unique technologies from NVIDIA to enhance the smoothness and high quality of generated graphics. At the same time, it provides support for Ray Tracing, allowing you to enjoy photorealistic graphics.' /> */}
+                    <Description defaultValue='' />
+                </LeftForm>
+                <RightForm>
+                    <AvailabilityLabel>Number of units available</AvailabilityLabel>
+                    <Availability placeholder='Availability' type='number'></Availability>
+                    <DimensionsLabel>Dimensions (optional)</DimensionsLabel>
+                    <DimensionsContainer>
+                        <LengthLabel>Length [mm]</LengthLabel>
+                        <Length placeholder='0' type='number'></Length>
+                        <WidthLabel>Width [mm]</WidthLabel>
+                        <Width placeholder='0' type='number'></Width>
+                        <HeightLabel>Height [mm]</HeightLabel>
+                        <Height placeholder='0' type='number'></Height>
+                    </DimensionsContainer>
+                    <PriceLabel>Price</PriceLabel>
+                    <Price placeholder='Product price in PLN (gross)' type='number'></Price>
+                </RightForm>
             </Form>
 
             <Button onClick={() => onBack()}>Back</Button>
