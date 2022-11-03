@@ -16,7 +16,7 @@ const StepTwo: NextPage = () => {
   }
 
   return (
-    <SellerLayout step={2} onNext={handleNext} onBack={handleBack} />
+      <SellerLayout step={2} onNext={handleNext} onBack={handleBack} />
   )
 }
 

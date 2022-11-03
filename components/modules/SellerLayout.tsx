@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Navbar } from '../elements/Navbar'
 import { Progressbar } from '../elements/Progressbar'
@@ -13,13 +13,13 @@ type SellerLayoutProps = {
 }
 
 export const SellerLayout = ({ step, onNext, onBack }: SellerLayoutProps ) => {
+
     return (
-       // navbar, progressbar, page template
         <>
             <Navbar></Navbar>
             <Progressbar step={step}></Progressbar>
             <PageBody>
-                {step === 1 && <DescriptionPage onNext={onNext}/>}
+                {step === 1 && <DescriptionPage onNext={onNext} />}
                 {step === 2 && <CategoriesPage onNext={onNext} onBack={onBack} />}
                 {step === 3 && <div>hello</div>}
             </PageBody>

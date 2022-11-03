@@ -1,6 +1,6 @@
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { CurrentFormProvider } from '../context/CurrentFormContext'
 import { SellerLayout } from "../components/modules/SellerLayout"
 
 const Home: NextPage = () => {
@@ -11,11 +11,15 @@ const Home: NextPage = () => {
         // push to step 2
         router.push('/step_two')
     }
+
     return (
-      <CurrentFormProvider>
-          <SellerLayout step={1} onNext={handleNext} />
-              {/* <DescriptionPage value={{title: ''}} onNext={handleNext}/> */}
-      </CurrentFormProvider>
+            <SellerLayout
+                step={1}
+                onNext={handleNext}
+                onBack={function (): void {
+                    throw new Error('Function not implemented.')
+                } }
+            />
     )
 }
 
