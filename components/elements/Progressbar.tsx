@@ -52,6 +52,7 @@ export const Progressbar = ({ step = 1 }: ProgressbarProps ) => {
 }
 
 const BarContainer = styled.div`
+    color: ${(props) => props.theme.colors.text};
     margin-top: 4rem;
     width: 100vw;
     height: 10rem;
@@ -128,7 +129,7 @@ const Checkmark = styled.img`
 `
 
 const StepText = styled.div`
-    font-family: 'Mulish', sans-serif;
+    font-family: ${(props) => props.theme.font.family};
     font-style: normal;
     font-weight: 300;
     font-size: 18px;

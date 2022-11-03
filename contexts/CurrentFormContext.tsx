@@ -1,8 +1,7 @@
 import { createContext } from 'react'
 
 export type FormContent = {
-    content: 
-    {
+    content: {
         title: string,
         description: string,
         numUnits: number,
@@ -15,8 +14,7 @@ export type FormContent = {
 }
 
 export const FormContext = createContext<FormContent>({
-    content: 
-    {
+    content: { 
         title: '',
         description: '',
         numUnits: 0,

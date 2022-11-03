@@ -9,6 +9,7 @@ export const PageContainer = styled.div`
     min-height: 80vh;
     text-align: center;
     padding-top: 2rem;
+    color: ${(props) => props.theme.colors.text};
     
     @media only screen and (max-width: 900px) {
         height: auto;

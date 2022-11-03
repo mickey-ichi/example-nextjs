@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
 import { Form } from '../../elements/Form'
-import { FormContext } from '../../../context/CurrentFormContext'
-import { prepareServerlessUrl } from 'next/dist/server/base-server'
+import { FormContext } from '../../../contexts/CurrentFormContext'
 
 type DescriptionProps = {
     onNext: () => void
@@ -13,19 +12,11 @@ type DescriptionProps = {
 export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
    
     const { content, setContent } = useContext(FormContext)
-    
-    const handleNext = (e: { preventDefault: () => void }) => {
-        e.preventDefault()
-
-        //go to the next page
-        onNext()
-    }
 
     const handleChange = (
         e: {
             target: any, preventDefault: () => void 
         }) => {
-
         e.preventDefault()
         setContent((prev: object) => ({...prev, [e.target.name]: e.target.value}))
     }
@@ -36,7 +27,12 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                 <LeftForm>
                     <Instructions>Fill in the basic information about your item</Instructions>
                     <TitleLabel>Title</TitleLabel>
-                    <Title type='text' name='title' value={content.title} onChange={(e) => handleChange(e)}></Title>
+                    <Title
+                        type='text'
+                        name='title'
+                        value={content.title}
+                        onChange={(e) => handleChange(e)}>
+                     </Title>
                     <DescriptionLabel>Description</DescriptionLabel>
                     {/* should use context like this later */}
                     {/* <Description value={value?.description || ''} defaultValue='The NVIDIA RTX 3050 graphics card is a design equipped with 8GB of GDDR6 memory, supports PCI-E 4.0 and offers a number of unique technologies from NVIDIA to enhance the smoothness and high quality of generated graphics. At the same time, it provides support for Ray Tracing, allowing you to enjoy photorealistic graphics.' /> */}
@@ -59,7 +55,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                 </RightForm>
             </Form>
 
-            <Button onClick={handleNext}>Next →</Button>
+            <Button onClick={() => onNext()}>Next →</Button>
         </PageContainer>
     )
 }
@@ -96,8 +92,6 @@ const Description = styled.textarea`
     border: none;
     border-radius: 8px;
     padding: 10px;
-    
-    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-weight: 200;
     font-size: 16px;
