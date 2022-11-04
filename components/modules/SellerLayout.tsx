@@ -3,15 +3,15 @@ import { Navbar } from '../elements/Navbar'
 import { Progressbar } from '../elements/Progressbar'
 import {DescriptionPage} from "../pages/home/DescriptionPage";
 import {CategoriesPage} from "../pages/step_two/CategoriesPage";
+import styled from 'styled-components'
 
 type SellerLayoutProps = {
     step: number,
     onNext: ()=>void,
     onBack: ()=>void,
-    // children: React.ReactNode
 }
 
-export const SellerLayout = ({ step, onNext, onBack, children }: SellerLayoutProps ) => {
+export const SellerLayout = ({ step, onNext, onBack }: SellerLayoutProps ) => {
 
     return (
         <>

@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
 import { Form } from '../../elements/Form'
-import { FormContext } from '../../../context/CurrentFormContext'
-import { prepareServerlessUrl } from 'next/dist/server/base-server'
+import { FormContext } from '../../../contexts/CurrentFormContext'
 
 type DescriptionProps = {
     onNext: () => void

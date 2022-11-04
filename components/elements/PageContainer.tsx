@@ -9,11 +9,13 @@ export const PageContainer = styled.div`
     min-height: 80vh;
     text-align: center;
     padding-top: 2rem;
-    color: ${(props) => props.theme.colors.text};
+    color: black;
     
     @media only screen and (max-width: 900px) {
         height: auto;
         margin: 1rem;
     }
 `
+//color: ${(props) => props.theme.colors.text};
+
 
