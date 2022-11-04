@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const [content, setContent] = useState({
     title: 'hello',
-    description: '',
+    description: 'good morning',
     numUnits: 0,
     length: 0,
     width: 0,

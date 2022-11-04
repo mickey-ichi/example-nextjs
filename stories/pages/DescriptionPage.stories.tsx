@@ -6,10 +6,11 @@ import { DescriptionPage } from '../../components/pages/home/DescriptionPage'
 
 export default {
     title: 'pages/DescriptionPage',
-    label: 'Button',
     component: DescriptionPage,
 } as Meta
 
-const Template: Story = (args) => <DescriptionPage {...args}></DescriptionPage>
+const Template: Story = (args) => <DescriptionPage onNext={function (): void {
+    throw new Error('Function not implemented.')
+}} {...args}></DescriptionPage>
 
 export const Primary = Template.bind({})

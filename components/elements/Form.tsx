@@ -5,7 +5,6 @@ export const Form = styled.div`
     width: 95%;
     height: 80%;
     display: flex;
-
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -17,3 +16,4 @@ export const Form = styled.div`
 
 // color: ${(props) => props.theme.colors.text};
 // font-family: ${(props) => props.theme.font.family};
+

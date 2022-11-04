@@ -9,6 +9,6 @@ export default {
     component: Progressbar,
 } as Meta
 
-const Template: Story = (args) => <Progressbar {...args} ></Progressbar>
+const Template: Story = (args) => <Progressbar step={1} {...args} ></Progressbar>
 
 export const Primary = Template.bind({})

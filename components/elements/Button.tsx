@@ -11,15 +11,14 @@ export const Button = styled.div`
     font-weight: 400;
     font-size: 20px;
     background: #EFEFEF;
-        
+    color: black;
+    
     &:hover {
         cursor: pointer;
         transform: scale(1.1);
     }
 `
 
-// color: ${(props) => props.theme.colors.primary};
-// margin: 1em;
-// padding: 5px 20px;
-// display: inline-block;
-// background: ${(props) => props.theme.colors.secondary};
+// color: ${(props) => props.theme.colors.text};
+
+
