@@ -8,11 +8,11 @@ const StepTwo: NextPage = () => {
   const handleNext = () => {
     // updateContext
     // push to step 2
-    router.push('/step_two')
+    router.push('/step_two').then(() => console.log('loaded page two'))
   }
 
   const handleBack = () => {
-    router.push('/')
+    router.push('/').then(() => console.log('loaded page one'))
   }
 
   return (

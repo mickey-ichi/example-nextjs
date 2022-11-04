@@ -12,13 +12,6 @@ type DescriptionProps = {
 export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
    
     const { content, setContent } = useContext(FormContext)
-    
-    const handleNext = (e: { preventDefault: () => void }) => {
-        e.preventDefault()
-
-        //go to the next page
-        onNext()
-    }
 
     const handleChange = (
         e: {
@@ -58,7 +51,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                 </RightForm>
             </Form>
 
-            <Button onClick={handleNext}>Next →</Button>
+            <Button onClick={() => onNext()}>Next →</Button>
         </PageContainer>
     )
 }

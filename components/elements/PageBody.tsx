@@ -7,7 +7,6 @@ export const PageBody = styled.div`
     height: auto;
     background: #F8F8F8;
     padding: 1rem;
-    color: black;
+    color: ${(props) => props.theme.colors.text};
 `
 
-//color: ${(props) => props.theme.colors.text};

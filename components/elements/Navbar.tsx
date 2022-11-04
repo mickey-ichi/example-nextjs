@@ -26,17 +26,22 @@ const MainBar = styled.nav`
     z-index: 2;
     position: sticky;
     top: 0;
+    left: 0;
     background-color: white;
     box-shadow: 0px 0px 10px rgba(132, 132, 132, 0.15);
-    width: 100%;
+    width: 100vw;
     height: 10%;
     min-height: 5rem;
     display: flex;
+    background-color: ${(props) => props.theme.colors.light};
+    color: ${(props) => props.theme.colors.text};
+    font-family: ${(props) => props.theme.font.family};
      
      @media only screen and (max-width: 600px) {
         justify-content: space-between;
     }
 `
+
 
 const LeftText = styled.h2`
     color: #FF782D;
@@ -89,7 +94,6 @@ const Picture = styled.img`
 `
 
 const NameText = styled.div`
-    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
