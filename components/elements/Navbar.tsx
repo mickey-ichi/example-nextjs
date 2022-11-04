@@ -33,14 +33,15 @@ const MainBar = styled.nav`
     height: 10%;
     min-height: 5rem;
     display: flex;
+    background-color: ${(props) => props.theme.colors.light};
+    color: ${(props) => props.theme.colors.text};
+    font-family: ${(props) => props.theme.font.family};
      
      @media only screen and (max-width: 600px) {
         justify-content: space-between;
     }
 `
-// background-color: ${(props) => props.theme.colors.light};
-// color: ${(props) => props.theme.colors.text};
-// font-family: ${(props) => props.theme.font.family};
+
 
 const LeftText = styled.h2`
     color: #FF782D;

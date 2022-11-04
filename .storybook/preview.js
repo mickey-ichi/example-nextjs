@@ -1,3 +1,7 @@
+import { addDecorator } from "@storybook/react";
+import { withThemesProvider } from "storybook-addon-styled-component-theme";
+import { theme } from "../styles/theme"
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
@@ -7,3 +11,7 @@ export const parameters = {
     },
   },
 }
+
+
+const themes = [theme];
+addDecorator(withThemesProvider(themes));

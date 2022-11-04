@@ -44,8 +44,13 @@ export const Input = styled.input`
     height: 20px;
     width: 20px;
     margin-right: 1rem;
-    border: 2.5px solid lightgrey;
+    // outline: 2.5px solid lightgrey;
     border-radius: 2px;
-    appearance: none;
+    accent-color: ${(props) => props.theme.colors.active};
+    background-color: white;
+    // appearance: none;
+    
+    &:checked{
+    }
 `
 export const Label = styled.label``

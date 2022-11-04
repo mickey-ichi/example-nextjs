@@ -58,8 +58,8 @@ const BarContainer = styled.div`
     height: 10rem;
     display: flex;
     justify-content: center;
+    color: ${(props) => props.theme.colors.text};
 `
-// color: ${(props) => props.theme.colors.text};
 
 const SectionContainer = styled.div`
     width: auto;
