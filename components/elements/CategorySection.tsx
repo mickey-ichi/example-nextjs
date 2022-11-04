@@ -1,20 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 type CategorySectionProps = {
     name: string,
     items: string[],
+    numSelected: number,
+    setNumSelected: React.Dispatch<React.SetStateAction<number>>,
+    selected: string[],
+    setSelected: React.Dispatch<React.SetStateAction<string[]>>,
 }
 
-export const CategorySection = ({ name, items }: CategorySectionProps ) => {
+export const CategorySection = ({ name, items, numSelected, setNumSelected, selected, setSelected }: CategorySectionProps ) => {
+
+    const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false])
+    const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>, index: number) => {
+        setNumSelected(prev => prev + 1)
+        if (numSelected < 3) {
+            setChecked((prev) => {
+                const newArray = prev
+                newArray[index] = !prev[index]
+                return newArray
+            })
+            setSelected((prev) => [...prev, (e.target as Element).id])
+        }
+    }
+
+    useEffect(() => {
+
+    }, [selected])
+
     return (
         <Category>
             <NameText>{name}</NameText>
             <ItemsContainer>
-                {items.map(item => {
+                {items.map((item, index) => {
                     return (
                         <ItemRow key={Math.random()}>
-                            <Input id={item} type='checkbox' />
+                            <Input id={item} type='checkbox' defaultChecked={checked[index]} onClick={(e) => handleClick(e, index)}/>
                             <Label>{item}</Label>
                         </ItemRow>
                     )}
