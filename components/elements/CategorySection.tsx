@@ -13,8 +13,8 @@ type CategorySectionProps = {
 export const CategorySection = ({ name, items, numSelected, setNumSelected, selected, setSelected }: CategorySectionProps ) => {
 
     const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false])
+
     const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>, index: number) => {
-        setNumSelected(prev => prev + 1)
         if (numSelected < 3) {
             setChecked((prev) => {
                 const newArray = prev
@@ -22,11 +22,21 @@ export const CategorySection = ({ name, items, numSelected, setNumSelected, sele
                 return newArray
             })
             setSelected((prev) => [...prev, (e.target as Element).id])
+            setNumSelected(prev => prev + 1)
         }
     }
 
     useEffect(() => {
+        console.log('test')
 
+        if(selected) {
+            const checkedArray: boolean[] = items.map((item, index) => {
+                return selected.includes(item)
+            })
+            console.log(checkedArray)
+            setChecked(checkedArray)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selected])
 
     return (
@@ -36,7 +46,13 @@ export const CategorySection = ({ name, items, numSelected, setNumSelected, sele
                 {items.map((item, index) => {
                     return (
                         <ItemRow key={Math.random()}>
-                            <Input id={item} type='checkbox' defaultChecked={checked[index]} onClick={(e) => handleClick(e, index)}/>
+                            <Checkbox
+                                id={item}
+                                type='checkbox'
+                                defaultChecked={checked[index]}
+                                onClick={(e) => handleClick(e, index)}
+                                disabled={numSelected < 3 ? false : true}
+                            />
                             <Label>{item}</Label>
                         </ItemRow>
                     )}
@@ -62,7 +78,7 @@ export const ItemRow = styled.div`
     display: flex;
     line-height: 30px;
 `
-export const Input = styled.input`
+export const Checkbox = styled.input`
     height: 20px;
     width: 20px;
     margin-right: 1rem;
@@ -72,7 +88,12 @@ export const Input = styled.input`
     background-color: white;
     // appearance: none;
     
-    &:checked{
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:checked {
+        check-color: white;
     }
 `
 export const Label = styled.label``
