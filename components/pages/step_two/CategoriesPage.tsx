@@ -18,8 +18,8 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
     const [selected, setSelected] = useState<string[]>([])
 
     useEffect(() => {
-        console.log(selected)
-    }, [selected])
+        console.log(numSelected)
+    }, [numSelected])
 
     const { content, setContent } = useContext(FormContext)
 
@@ -50,6 +50,8 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
         'Automotive',
         'Properties'];
 
+        const controlArray = [0,1,2,3]
+
     return (
         <PageContainer>
             <InstructionsText>Select the category your goods belong to (max. 3)</InstructionsText>
@@ -58,22 +60,30 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
                     <CategoryButtons names={names}/>
                 </CategoryNames>
                 <CategoriesArea>
-                    <CategoriesBlock style={{background: 'none'}}>
-                        <CategorySection name="Phones and accessories" items={items} numSelected={numSelected} setNumSelected={setNumSelected} setSelected={setSelected}/>
-                        <CategorySection name="Phones and accessories" items={items.map(item => item + '1')} numSelected={numSelected} setNumSelected={setNumSelected} setSelected={setSelected}/>
-                    </CategoriesBlock>
-                    <CategoriesBlock style={{background: 'none'}}>
-                        <CategorySection name="Phones and accessories" items={items.map(item => item + '2')} numSelected={numSelected} setNumSelected={setNumSelected} setSelected={setSelected}/>
-                        <CategorySection name="Phones and accessories" items={items.map(item => item + '3')} numSelected={numSelected} setNumSelected={setNumSelected} setSelected={setSelected}/>
-                    </CategoriesBlock>
-                    <CategoriesBlock style={{background: 'none'}}>
-                        <CategorySection name="Phones and accessories" items={items.map(item => item + '4')} numSelected={numSelected} setNumSelected={setNumSelected} setSelected={setSelected}/>
-                        <CategorySection name="Phones and accessories" items={items.map(item => item + '5')} numSelected={numSelected} setNumSelected={setNumSelected} setSelected={setSelected}/>
-                    </CategoriesBlock>
-                    <CategoriesBlock style={{background: 'none'}}>
-                        <CategorySection name="Phones and accessories" items={items.map(item => item + '6')} numSelected={numSelected} setNumSelected={setNumSelected} setSelected={setSelected}/>
-                        <CategorySection name="Phones and accessories" items={items.map(item => item + '7')} numSelected={numSelected} setNumSelected={setNumSelected} setSelected={setSelected}/>
-                    </CategoriesBlock>
+                    {controlArray.map((number, index) => (
+                        <CategoriesBlock style={{background: 'none'}} key={Math.random()}>
+                            <CategorySection
+                                name="Phones and accessories"
+                                items={items.map(item => 
+                                    item + (number + index))
+                                }
+                                numSelected={numSelected}
+                                setNumSelected={setNumSelected}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />
+                            <CategorySection
+                                name="Phones and accessories"
+                                items={items.map(item => 
+                                    item + (number + index + 1))
+                                }
+                                numSelected={numSelected}
+                                setNumSelected={setNumSelected}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />
+                        </CategoriesBlock>
+                    ))}
                 </CategoriesArea>
             </CategoryContainer>
             <SelectedContainer>
