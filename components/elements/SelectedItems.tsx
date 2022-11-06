@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 type SelectedItemsProps = {
@@ -63,6 +63,3 @@ export const Item = styled.div`
         transform: scale(1.1);
     }
 `
-
-
-

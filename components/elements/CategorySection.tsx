@@ -14,28 +14,27 @@ export const CategorySection = ({ name, items, numSelected, setNumSelected, sele
 
     const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false])
 
-    const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>, index: number) => {
-        if (numSelected < 3) {
-            setChecked((prev) => {
-                const newArray = prev
-                newArray[index] = !prev[index]
-                return newArray
-            })
-            setSelected((prev) => [...prev, (e.target as Element).id])
+    const handleClick = (index: number) => {
+        if (numSelected < 3 && !selected.includes(items[index])) {
+            // setChecked((prev) => {
+            //     const newArray = prev
+            //     newArray[index] = !prev[index]
+            //     return newArray
+            // })
+            setChecked((prev) => 
+                prev.map((item, arrIndex) => 
+                    arrIndex === index ? !prev[index] : prev[index])
+            )
+            setSelected((prev) => [...prev, items[index]])
             setNumSelected(prev => prev + 1)
         }
     }
 
     useEffect(() => {
-        console.log('test')
-
-        if(selected) {
-            const checkedArray: boolean[] = items.map((item, index) => {
-                return selected.includes(item)
-            })
-            console.log(checkedArray)
-            setChecked(checkedArray)
-        }
+        selected &&
+            setChecked(
+                items.map((item) => selected.includes(item))
+            )
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selected])
 
@@ -50,7 +49,7 @@ export const CategorySection = ({ name, items, numSelected, setNumSelected, sele
                                 id={item}
                                 type='checkbox'
                                 defaultChecked={checked[index]}
-                                onClick={(e) => handleClick(e, index)}
+                                onClick={() => handleClick(index)}
                                 disabled={numSelected < 3 ? false : true}
                             />
                             <Label>{item}</Label>
