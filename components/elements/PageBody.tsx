@@ -8,5 +8,10 @@ export const PageBody = styled.div`
     background: #F8F8F8;
     padding: 1rem;
     color: ${(props) => props.theme.colors.text};
+    
+    @media only screen and (max-width: 600px) {
+        margin: auto;
+        padding: auto;
+    }
 `
 

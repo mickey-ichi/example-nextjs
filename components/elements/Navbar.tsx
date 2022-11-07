@@ -14,7 +14,7 @@ export const Navbar = () => {
                 </IconBox>
                 <Picture src={'/images/profile_pic.png'} />
                 <NameText>Jan Kowalski</NameText>
-                <IconBox>
+                <IconBox className='exit'>
                     <Icon src={'/images/icons/exit.png'}></Icon>
                 </IconBox>
             </RightContainer>
@@ -58,6 +58,9 @@ const LeftText = styled.h2`
         margin-left: 1rem;
         margin-right: 2rem;
     }
+    @media only screen and (max-width: 450px) {
+        margin-right: 1rem;
+    }
 `
 
 const RightContainer = styled.div`
@@ -65,7 +68,7 @@ const RightContainer = styled.div`
     margin-right: 4rem;
     
     @media only screen and (max-width: 600px) {
-        margin-right: 0;
+        margin-right: 2rem;
     }
 `
 
@@ -78,6 +81,12 @@ const IconBox = styled.div`
     padding: auto;
     background: #FFF5EC;
     border-radius: 8px;
+    
+    @media only screen and (max-width: 450px) {
+        &.exit {
+            display: none;   
+        }
+    }
 `
 
 const Icon = styled.img`
@@ -104,5 +113,9 @@ const NameText = styled.div`
     @media only screen and (max-width: 600px) {
         font-size: 14px;
         margin-right: 10px;
+    }
+    
+    @media only screen and (max-width: 450px) {
+        display: none;   
     }
 `

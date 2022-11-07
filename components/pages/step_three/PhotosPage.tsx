@@ -32,8 +32,8 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
         }
     }
 
-    const handleDelete = (itemToDelete: string) => {
-        setUploads(prev => prev.filter(item => (item.name !== itemToDelete)))
+    const handleDelete = (urlToDelete: string) => {
+        setUploads(prev => prev.filter(item => (item.url !== urlToDelete)))
     }
 
 
@@ -50,7 +50,7 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
                 <UploadSection>
                     <Label htmlFor='upload'>
                         <Icon src={'/images/icons/upload.png'}></Icon>
-                        <p>Upload a photo</p>
+                        <p>Upload photo(s)</p>
                     </Label>
                     <input id='upload' type='file' multiple onChange={(e) => handleChange(e)} style={{visibility: 'hidden'}}/>
                 </UploadSection>
@@ -62,7 +62,7 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
                                 <PhotoDetails>
                                     <TrashContainer
                                         className="trash-container"
-                                        onClick={() => handleDelete(item.name)}
+                                        onClick={() => handleDelete(item.url)}
                                     >
                                         <Icon src={'/images/icons/trash.png'}></Icon>
                                     </TrashContainer>
@@ -86,6 +86,7 @@ export const InstructionsText = styled.h4`
 `
 
 export const PhotosContainer = styled.div`
+    margin: auto;
     width: 95%;
     height: auto;
     min-height: 50vh;
@@ -106,6 +107,10 @@ export const PhotosContainer = styled.div`
 
 export const UploadSection = styled.div`
     width: 10rem;
+    
+    @media only screen and (max-width: 600px) {
+        margin: auto;
+    }
 `
 
 export const Label = styled.label`
