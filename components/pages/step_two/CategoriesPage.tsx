@@ -17,19 +17,18 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
     const [numSelected, setNumSelected] = useState<number>(0)
     const [selected, setSelected] = useState<string[]>([])
 
-    useEffect(() => {
-        console.log(numSelected)
-    }, [numSelected])
 
-    const { content, setContent } = useContext(FormContext)
 
-    const handleChange = (
-        e: {
-            target: any, preventDefault: () => void
-        }) => {
+    const { categoriesContent, setCategoriesContent } = useContext(FormContext)
 
-        e.preventDefault()
-        setContent((prev: object) => ({...prev, [e.target.name]: e.target.value}))
+    // useEffect(() => {
+    //     console.log(categoriesContent)
+    // }, [categoriesContent])
+
+    const handleSubmit = () => {
+        // setContent((prev: object) => ({...prev, [e.target.name]: e.target.value}))
+        setCategoriesContent({category1: selected[0] || '', category2: selected[1] || '', category3: selected[2] || ''})
+        onNext()
     }
 
     const items = [
@@ -50,11 +49,11 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
         'Automotive',
         'Properties'];
 
-        const controlArray = [0,1,2,3]
+    const controlArray = [0,1,2,3]
 
     return (
         <PageContainer>
-            <InstructionsText>Select the category your goods belong to (max. 3)</InstructionsText>
+            <InstructionsText>Select the category your goods belong to (max 3)</InstructionsText>
             <CategoryContainer>
                 <CategoryNames>
                     <CategoryButtons names={names}/>
@@ -64,7 +63,7 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
                         <CategoriesBlock style={{background: 'none'}} key={Math.random()}>
                             <CategorySection
                                 name="Phones and accessories"
-                                items={items.map(item => 
+                                items={items.map(item =>
                                     item + (number + index))
                                 }
                                 numSelected={numSelected}
@@ -74,7 +73,7 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
                             />
                             <CategorySection
                                 name="Phones and accessories"
-                                items={items.map(item => 
+                                items={items.map(item =>
                                     item + (number + index + 1))
                                 }
                                 numSelected={numSelected}
@@ -91,7 +90,7 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
                 <SelectedItems selected={selected} setSelected={setSelected} setNumSelected={setNumSelected}></SelectedItems>
             </SelectedContainer>
             <Button onClick={() => onBack()}>Back</Button>
-            <Button onClick={() => onNext()}>Next →</Button>
+            <Button onClick={() => handleSubmit()}>Next →</Button>
         </PageContainer>
     )
 }
@@ -115,6 +114,13 @@ export const CategoriesArea = styled.div`
     display: flex;
     flex-wrap: wrap;
     max-width: 900px;
+    
+    @media only screen and (max-width: 600px) {
+        margin-left: -5rem;
+    }
+    @media only screen and (max-width: 400px) {
+        margin-left: -6rem;
+    }
 `
 export const CategoriesBlock = styled.div`
     height: auto;
@@ -126,10 +132,21 @@ export const CategoriesBlock = styled.div`
 export const SelectedContainer = styled.div`
     display: flex;
     margin-top: 2rem;
+    
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+        margin: auto;
+        align-items: center;
+    }
 `
 
 export const SelectedText = styled.h4`
     text-align: left;
     margin-left: 2rem;
+    
+    @media only screen and (max-width: 600px) {
+        margin-left: auto;
+        margin-right: auto;
+    }
 `
 

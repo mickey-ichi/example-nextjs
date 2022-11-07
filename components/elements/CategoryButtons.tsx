@@ -57,10 +57,24 @@ export const Button = styled.button`
     display: flex;
     justify-content: space-between;
     
+    @media only screen and (max-width: 600px) {
+        width: 130px;
+    }
+    @media only screen and (max-width: 400px) {
+        margin-left: -1rem;
+    }
+    
     * {
         margin: 0;
         padding: 0;
         line-height: 3rem;
+    }
+    
+    span {
+        @media only screen and (max-width: 600px) {
+            display: none;
+        }
+    }
     }
     
     &:hover {

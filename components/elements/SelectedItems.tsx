@@ -40,6 +40,9 @@ export const Container = styled.div`
     @media only screen and (max-width: 900px) {
         flex-direction: column;
     }
+    @media only screen and (max-width: 600px) {
+        margin: auto;
+    }
 `
 
 export const Item = styled.div`

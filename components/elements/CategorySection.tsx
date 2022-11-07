@@ -76,6 +76,10 @@ export const ItemsContainer = styled.div`
 export const ItemRow = styled.div`
     display: flex;
     line-height: 30px;
+    
+    @media only screen and (max-width: 400px) {
+        flex-direction: column;
+    }
 `
 export const Checkbox = styled.input`
     height: 20px;
@@ -93,6 +97,10 @@ export const Checkbox = styled.input`
 
     &:checked {
         check-color: white;
+    }
+    
+    @media only screen and (max-width: 400px) {
+        margin: auto;
     }
 `
 export const Label = styled.label``

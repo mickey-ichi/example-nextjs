@@ -1,7 +1,8 @@
 import { createContext } from 'react'
+import {resolveAny} from "dns";
 
 export type FormContent = {
-    content: {
+    descriptionContent: {
         title: string,
         description: string,
         numUnits: number,
@@ -10,11 +11,17 @@ export type FormContent = {
         height: number,
         price: number,
     },
-    setContent: (t: any) => void,
+    setDescriptionContent: (t: any) => void,
+    categoriesContent: {
+        category1: string,
+        category2: string,
+        category3: string,
+    },
+    setCategoriesContent: (t: any) => void,
 }
 
 export const FormContext = createContext<FormContent>({
-    content: { 
+    descriptionContent: {
         title: '',
         description: '',
         numUnits: 0,
@@ -23,7 +30,13 @@ export const FormContext = createContext<FormContent>({
         height: 0,
         price: 0,
     },
-    setContent: () => {},
+    setDescriptionContent: () => {},
+    categoriesContent: {
+        category1: '',
+        category2: '',
+        category3: '',
+    },
+    setCategoriesContent:  () => {},
 })
 
 

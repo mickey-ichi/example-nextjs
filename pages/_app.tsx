@@ -7,9 +7,9 @@ import {theme} from "../styles/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
 
-  const [content, setContent] = useState({
-    title: 'hello',
-    description: 'good morning',
+  const [descriptionContent, setDescriptionContent] = useState({
+    title: 'insert title',
+    description: 'insert description',
     numUnits: 0,
     length: 0,
     width: 0,
@@ -17,9 +17,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     price: 0,
   })
 
+const [categoriesContent, setCategoriesContent] = useState({
+    category1: '',
+    category2: '',
+    category3: '',
+})
+
   return (
     <ThemeProvider theme={theme}>
-      <FormContext.Provider value={{content, setContent}}>
+      <FormContext.Provider value={{descriptionContent, setDescriptionContent, categoriesContent, setCategoriesContent}}>
           <Component {...pageProps} />
       </FormContext.Provider>
     </ThemeProvider>
