@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
@@ -11,7 +11,30 @@ type DescriptionProps = {
 
 export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
    
-    const { content, setContent } = useContext(FormContext)
+    const { descriptionContent, setDescriptionContent } = useContext(FormContext)
+
+    type DescContent = {
+            title: string,
+            description: string,
+            numUnits: number,
+            length: number,
+            width: number,
+            height: number,
+            price: number,
+    }
+
+    const [descContent, setDescContent] = useState<DescContent>({
+        title: '',
+        description: '',
+        numUnits: 0,
+        length: 0,
+        width: 0,
+        height: 0,
+        price: 0,
+    })
+
+    useEffect(() => setDescContent(descriptionContent), [descriptionContent])
+
 
     const handleChange = (
         e: {
@@ -19,7 +42,14 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
         }) => {
 
         e.preventDefault()
-        setContent((prev: object) => ({...prev, [e.target.name]: e.target.value}))
+        setDescContent((prev) => ({...prev, [e.target.name]: e.target.value}))
+        console.log(descContent)
+    }
+
+    const handleSubmit = () => {
+        // setContent((prev: object) => ({...prev, [e.target.name]: e.target.value}))
+        setDescriptionContent(descContent)
+        onNext()
     }
 
     return (
@@ -28,11 +58,11 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                 <LeftForm>
                     <Instructions>Fill in the basic information about your item</Instructions>
                     <TitleLabel>Title</TitleLabel>
-                    <Title type='text' name='title' value={content.title} onChange={(e) => handleChange(e)}></Title>
+                    <Title type='text' name='title' value={descContent.title} onChange={(e) => handleChange(e)}></Title>
                     <DescriptionLabel>Description</DescriptionLabel>
                     {/* should use context like this later */}
                     {/* <Description value={value?.description || ''} defaultValue='The NVIDIA RTX 3050 graphics card is a design equipped with 8GB of GDDR6 memory, supports PCI-E 4.0 and offers a number of unique technologies from NVIDIA to enhance the smoothness and high quality of generated graphics. At the same time, it provides support for Ray Tracing, allowing you to enjoy photorealistic graphics.' /> */}
-                    <Description name='description' value={content.description} onChange={(e) => handleChange(e)} />
+                    <Description name='description' value={descContent.description} onChange={(e) => handleChange(e)} />
                 </LeftForm>
                 <RightForm>
                     <AvailabilityLabel>Number of units available</AvailabilityLabel>
@@ -51,7 +81,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                 </RightForm>
             </Form>
 
-            <Button onClick={() => onNext()}>Next →</Button>
+            <Button onClick={() => handleSubmit()}>Next →</Button>
         </PageContainer>
     )
 }
@@ -75,6 +105,8 @@ const Title = styled.input`
     border-radius: 8px;
     line-height: 2rem;
     padding: 10px;
+    font-weight: 200;
+    font-size: 16px;
 `
 
 const TitleLabel = styled.div`

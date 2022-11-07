@@ -2,22 +2,22 @@ import type { NextPage } from 'next'
 import { SellerLayout } from "../components/modules/SellerLayout";
 import { useRouter } from 'next/router'
 
-const StepTwo: NextPage = () => {
+const StepThree: NextPage = () => {
   const router = useRouter()
 
   const handleNext = () => {
     // updateContext
-    // push to step 3
+    // push to step 2
     router.push('/step_three').then(() => console.log('loaded page three'))
   }
 
   const handleBack = () => {
-    router.push('/').then(() => console.log('loaded page one'))
+    router.push('/step_two').then(() => console.log('loaded page two'))
   }
 
   return (
-      <SellerLayout step={2} onNext={handleNext} onBack={handleBack} />
+      <SellerLayout step={3} onNext={handleNext} onBack={handleBack} />
   )
 }
 
-export default StepTwo
+export default StepThree

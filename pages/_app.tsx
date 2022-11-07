@@ -7,23 +7,35 @@ import {theme} from "../styles/theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
 
-  const [content, setContent] = useState({
-    title: 'hello',
-    description: 'good morning',
+    const [descriptionContent, setDescriptionContent] = useState({
+    title: 'insert title',
+    description: 'insert description',
     numUnits: 0,
     length: 0,
     width: 0,
     height: 0,
     price: 0,
-  })
+    })
 
-  return (
-    <ThemeProvider theme={theme}>
-      <FormContext.Provider value={{content, setContent}}>
-          <Component {...pageProps} />
-      </FormContext.Provider>
-    </ThemeProvider>
-  )
+    const [categoriesContent, setCategoriesContent] = useState({
+        category1: '',
+        category2: '',
+        category3: '',
+    })
+
+    const [photosContext, setPhotosContext] = useState([])
+
+    return (
+        <ThemeProvider theme={theme}>
+          <FormContext.Provider value={{
+              descriptionContent, setDescriptionContent,
+              categoriesContent, setCategoriesContent,
+              photosContext, setPhotosContext,
+          }}>
+              <Component {...pageProps} />
+          </FormContext.Provider>
+        </ThemeProvider>
+    )
 }
 
 export default MyApp

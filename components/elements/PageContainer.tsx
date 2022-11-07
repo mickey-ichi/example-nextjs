@@ -16,6 +16,11 @@ export const PageContainer = styled.div`
         height: auto;
         margin: 1rem;
     }
+    
+    @media only screen and (max-width: 600px) {
+        width: 90vw;
+        margin: 0;
+    }
 `
 
 
