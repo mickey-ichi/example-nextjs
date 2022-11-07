@@ -17,16 +17,9 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
     const [numSelected, setNumSelected] = useState<number>(0)
     const [selected, setSelected] = useState<string[]>([])
 
-
-
-    const { categoriesContent, setCategoriesContent } = useContext(FormContext)
-
-    // useEffect(() => {
-    //     console.log(categoriesContent)
-    // }, [categoriesContent])
+    const { setCategoriesContent } = useContext(FormContext)
 
     const handleSubmit = () => {
-        // setContent((prev: object) => ({...prev, [e.target.name]: e.target.value}))
         setCategoriesContent({category1: selected[0] || '', category2: selected[1] || '', category3: selected[2] || ''})
         onNext()
     }

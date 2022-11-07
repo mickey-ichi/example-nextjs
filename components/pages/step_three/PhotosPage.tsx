@@ -11,8 +11,10 @@ type PhotosProps = {
 
 export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
 
-    // const { categoriesContent, descriptionContent } = useContext(FormContext)
+    const { photosContext, setPhotosContext } = useContext(FormContext)
+    const context = useContext(FormContext)
 
+    console.log(context)
 
     const [uploads, setUploads] = useState<{
         url: string,
@@ -38,7 +40,7 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
 
 
     const handleSubmit = () => {
-        // setContent((prev: object) => ({...prev, [e.target.name]: e.target.value}))
+        setPhotosContext(uploads)
         // reloads this page until next page is built
         onNext()
     }
@@ -53,6 +55,7 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
                         <p>Upload photo(s)</p>
                     </Label>
                     <input id='upload' type='file' multiple onChange={(e) => handleChange(e)} style={{visibility: 'hidden'}}/>
+                    <UploadInfo>Max size - 25Mb  Jpg, Png, Gif</UploadInfo>
                 </UploadSection>
                 <PhotosUploaded>
                     {uploads &&
@@ -87,6 +90,7 @@ export const InstructionsText = styled.h4`
 
 export const PhotosContainer = styled.div`
     margin: auto;
+    padding-bottom: 1rem;
     width: 95%;
     height: auto;
     min-height: 50vh;
@@ -140,6 +144,15 @@ export const Icon = styled.img`
     height: 1rem;
 `
 
+export const UploadInfo = styled.h4`
+    color: #5C5C5C;
+    font-weight: 400;
+    font-size: 12px;
+    margin: auto;
+    margin-top: -2rem;
+    width: 100px;
+`
+
 export const PhotosUploaded = styled.div`
     display: flex;
     justify-content: space-around;
@@ -163,8 +176,8 @@ export const PhotoBox = styled.div`
 
 export const Photo = styled.img`
     margin: 10px;
-    width: 6rem;
-    height: 6rem;
+    width: 7rem;
+    height: 7rem;
     display: flex;
     flex-direction: column;
 `
@@ -183,16 +196,16 @@ export const PhotoDetails = styled.div`
 export const TrashContainer = styled.div`
     background: #FF3030;
     border-radius: 8px;
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     padding: auto;
     text-align: center;
     margin: auto;
     position: absolute;
-    margin-top: -4.5rem;
-    margin-left: 2.5rem;
+    margin-top: -5.5rem;
+    margin-left: 3rem;
     * {
-        margin-top: 0.5rem;
+        margin-top: 0.75rem;
     }
     
     &:hover {
