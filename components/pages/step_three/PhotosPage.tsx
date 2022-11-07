@@ -11,10 +11,7 @@ type PhotosProps = {
 
 export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
 
-    const { photosContext, setPhotosContext } = useContext(FormContext)
-    const context = useContext(FormContext)
-
-    console.log(context)
+    const { setPhotosContext } = useContext(FormContext)
 
     const [uploads, setUploads] = useState<{
         url: string,

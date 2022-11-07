@@ -13,7 +13,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
    
     const { descriptionContent, setDescriptionContent } = useContext(FormContext)
 
-    type DescContent = {
+    type LocalContent = {
             title: string,
             description: string,
             numUnits: number,
@@ -23,7 +23,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
             price: number,
     }
 
-    const [descContent, setDescContent] = useState<DescContent>({
+    const [localContent, setLocalContent] = useState<LocalContent>({
         title: '',
         description: '',
         numUnits: 0,
@@ -33,7 +33,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
         price: 0,
     })
 
-    useEffect(() => setDescContent(descriptionContent), [descriptionContent])
+    useEffect(() => setLocalContent(descriptionContent), [descriptionContent])
 
 
     const handleChange = (
@@ -42,13 +42,12 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
         }) => {
 
         e.preventDefault()
-        setDescContent((prev) => ({...prev, [e.target.name]: e.target.value}))
-        console.log(descContent)
+        setLocalContent((prev) => ({...prev, [e.target.name]: e.target.value}))
     }
 
     const handleSubmit = () => {
         // setContent((prev: object) => ({...prev, [e.target.name]: e.target.value}))
-        setDescriptionContent(descContent)
+        setDescriptionContent(localContent)
         onNext()
     }
 
@@ -58,29 +57,64 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                 <LeftForm>
                     <Instructions>Fill in the basic information about your item</Instructions>
                     <TitleLabel>Title</TitleLabel>
-                    <Title type='text' name='title' value={descContent.title} onChange={(e) => handleChange(e)}></Title>
+                    <Title
+                        type='text'
+                        placeholder='Enter item title here'
+                        name='title'
+                        value={localContent.title}
+                        onChange={(e) => handleChange(e)}
+                    />
                     <DescriptionLabel>Description</DescriptionLabel>
-                    {/* should use context like this later */}
-                    {/* <Description value={value?.description || ''} defaultValue='The NVIDIA RTX 3050 graphics card is a design equipped with 8GB of GDDR6 memory, supports PCI-E 4.0 and offers a number of unique technologies from NVIDIA to enhance the smoothness and high quality of generated graphics. At the same time, it provides support for Ray Tracing, allowing you to enjoy photorealistic graphics.' /> */}
-                    <Description name='description' value={descContent.description} onChange={(e) => handleChange(e)} />
+                    <Description
+                        name='description'
+                        placeholder='Enter item description here'
+                        value={localContent.description}
+                        onChange={(e) => handleChange(e)}
+                    />
                 </LeftForm>
                 <RightForm>
                     <AvailabilityLabel>Number of units available</AvailabilityLabel>
-                    <Availability placeholder='Availability' type='number'></Availability>
+                    <Availability
+                        type='number'
+                        placeholder='Availability'
+                        name='numUnits'
+                        value={localContent.numUnits}
+                        onChange={(e) => handleChange(e)}
+                    />
                     <DimensionsLabel>Dimensions (optional)</DimensionsLabel>
                     <DimensionsContainer>
                         <LengthLabel>Length [mm]</LengthLabel>
-                        <Length placeholder='0' type='number'></Length>
+                        <Length
+                            type='number'
+                            name='length'
+                            value={localContent.length}
+                            onChange={(e) => handleChange(e)}
+                        />
                         <WidthLabel>Width [mm]</WidthLabel>
-                        <Width placeholder='0' type='number'></Width>
+                        <Width
+                            type='number'
+                            name='width'
+                            value={localContent.width}
+                            onChange={(e) => handleChange(e)}
+                        />
                         <HeightLabel>Height [mm]</HeightLabel>
-                        <Height placeholder='0' type='number'></Height>
+                        <Height
+                            type='number'
+                            name='height'
+                            value={localContent.height}
+                            onChange={(e) => handleChange(e)}
+                        />
                     </DimensionsContainer>
                     <PriceLabel>Price</PriceLabel>
-                    <Price placeholder='Product price in PLN (gross)' type='number'></Price>
+                    <Price
+                        type='number'
+                        placeholder='Product price in PLN (gross)'
+                        name='price'
+                        value={localContent.price}
+                        onChange={(e) => handleChange(e)}
+                    />
                 </RightForm>
             </Form>
-
             <Button onClick={() => handleSubmit()}>Next →</Button>
         </PageContainer>
     )
