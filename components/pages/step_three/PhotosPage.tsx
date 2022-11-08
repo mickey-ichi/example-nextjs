@@ -11,7 +11,7 @@ type PhotosProps = {
 
 export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
 
-    const { setPhotosContext } = useContext(FormContext)
+    const { descriptionContent, categoriesContent, photosContent, setPhotosContent } = useContext(FormContext)
 
     const [uploads, setUploads] = useState<{
         url: string,
@@ -45,9 +45,8 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
         setUploads(prev => prev.filter(item => (item.url !== urlToDelete)))
     }
 
-
     const handleSubmit = () => {
-        setPhotosContext(uploads)
+        setPhotosContent(uploads)
         // reloads this page until next page is built
         onNext()
     }
@@ -171,7 +170,7 @@ export const UploadInfo = styled.h4`
 
 export const PhotosUploaded = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: left;
     flex-wrap: wrap;
 `
 

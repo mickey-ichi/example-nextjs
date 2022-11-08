@@ -4,8 +4,8 @@ import { Progressbar } from '../elements/Progressbar'
 import {DescriptionPage} from "../pages/home/DescriptionPage";
 import {CategoriesPage} from "../pages/step_two/CategoriesPage";
 import {PhotosPage} from "../pages/step_three/PhotosPage";
-
-import styled from 'styled-components'
+import {DeliveryPage} from "../pages/step_four/DeliveryPage";
+import {PageBody} from "../elements/PageBody";
 
 type SellerLayoutProps = {
     step: number,
@@ -23,16 +23,8 @@ export const SellerLayout = ({ step, onNext, onBack }: SellerLayoutProps ) => {
                 {step === 1 && <DescriptionPage onNext={onNext} />}
                 {step === 2 && <CategoriesPage onNext={onNext} onBack={onBack} />}
                 {step === 3 && <PhotosPage onNext={onNext} onBack={onBack} />}
+                {step === 4 && <DeliveryPage onNext={onNext} onBack={onBack} />}
             </PageBody>
         </>
     )
 }
-
-const PageBody = styled.div`
-    position: relative;
-    z-index: 1;
-    width: 100vw;
-    height: auto;
-    background: #F8F8F8;
-    padding: 1rem;
-`
