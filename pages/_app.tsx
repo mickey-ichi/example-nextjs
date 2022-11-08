@@ -8,8 +8,8 @@ import {theme} from "../styles/theme";
 function MyApp({ Component, pageProps }: AppProps) {
 
     const [descriptionContent, setDescriptionContent] = useState({
-    title: 'insert title',
-    description: 'insert description',
+    title: '',
+    description: '',
     numUnits: 0,
     length: 0,
     width: 0,

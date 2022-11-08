@@ -11,10 +11,7 @@ type PhotosProps = {
 
 export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
 
-    const { photosContext, setPhotosContext } = useContext(FormContext)
-    const context = useContext(FormContext)
-
-    console.log(context)
+    const { setPhotosContext } = useContext(FormContext)
 
     const [uploads, setUploads] = useState<{
         url: string,
@@ -23,14 +20,24 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
     }[]>([],)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let fileTooBig: boolean = false
         if (e.target.files) {
-            const newUploads = Array.from(e.target.files).map((file) => {
-                return {url: URL.createObjectURL(file), name: file.name, size: file.size/1000000}
-            })
-            if ((uploads.length + newUploads.length) <= 10) {
-                setUploads(prev  => [...prev, ...newUploads])
+            const filesArray = Array.from(e.target.files)
+            const sizeCheckArray = filesArray.filter(file => file.size <= 25000000)
+            fileTooBig = sizeCheckArray.length !== filesArray.length
+
+            if (!fileTooBig) {
+                const newUploads = filesArray.map((file) => {
+                    return {url: URL.createObjectURL(file), name: file.name, size: file.size/1000000}
+                })
+                if ((uploads.length + newUploads.length) <= 10) {
+                    setUploads(prev  => [...prev, ...newUploads])
+                }
+                else (alert('maximum 10 photo uploads allowed'))
             }
-            else (alert('maximum 10 photo uploads allowed'))
+            else{
+                alert('one or more files exceeded 25 Mb')
+            }
         }
     }
 
@@ -54,7 +61,14 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
                         <Icon src={'/images/icons/upload.png'}></Icon>
                         <p>Upload photo(s)</p>
                     </Label>
-                    <input id='upload' type='file' multiple onChange={(e) => handleChange(e)} style={{visibility: 'hidden'}}/>
+                    <input
+                        id='upload'
+                        type='file'
+                        multiple
+                        accept='.jpg,.JPG,.jpeg,.JPEG,.png,.PNG,.gif,.GIF'
+                        onChange={(e) => handleChange(e)}
+                        style={{visibility: 'hidden'}}
+                    />
                     <UploadInfo>Max size - 25Mb  Jpg, Png, Gif</UploadInfo>
                 </UploadSection>
                 <PhotosUploaded>
@@ -71,6 +85,8 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
                                     </TrashContainer>
                                     <Name>{item.name}</Name>
                                     <Size>{`${item.size} Mb`}</Size>
+                                    {/*<label htmlFor='progress'>upload progress</label>*/}
+                                    {/*<progress id='progress' value='100' max='100'></progress>*/}
                                 </PhotoDetails>
                             </PhotoBox>
                         ))
@@ -176,6 +192,7 @@ export const PhotoBox = styled.div`
 
 export const Photo = styled.img`
     margin: 10px;
+    margin-bottom: 1rem;
     width: 7rem;
     height: 7rem;
     display: flex;
