@@ -101,7 +101,6 @@ export const CategoryNames = styled.div`
     width: auto;
 `
 
-
 export const CategoriesArea = styled.div`
     margin-left: auto;
     display: flex;

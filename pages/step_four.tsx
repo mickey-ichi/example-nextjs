@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { SellerLayout } from "../components/modules/SellerLayout";
 import { useRouter } from 'next/router'
 
-const StepThree: NextPage = () => {
+const StepFour: NextPage = () => {
   const router = useRouter()
 
   const handleNext = () => {
@@ -12,12 +12,12 @@ const StepThree: NextPage = () => {
   }
 
   const handleBack = () => {
-    router.push('/step_two').then(() => console.log('loaded page two'))
+    router.push('/step_three').then(() => console.log('loaded page three'))
   }
 
   return (
-      <SellerLayout step={3} onNext={handleNext} onBack={handleBack} />
+      <SellerLayout step={4} onNext={handleNext} onBack={handleBack} />
   )
 }
 
-export default StepThree
+export default StepFour

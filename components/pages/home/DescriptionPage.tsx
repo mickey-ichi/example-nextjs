@@ -10,7 +10,7 @@ type DescriptionProps = {
 }
 
 export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
-   
+
     const { descriptionContent, setDescriptionContent } = useContext(FormContext)
 
     type LocalContent = {

@@ -23,14 +23,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         category3: '',
     })
 
-    const [photosContext, setPhotosContext] = useState([])
+    const [photosContent, setPhotosContent] = useState([])
 
     return (
         <ThemeProvider theme={theme}>
           <FormContext.Provider value={{
               descriptionContent, setDescriptionContent,
               categoriesContent, setCategoriesContent,
-              photosContext, setPhotosContext,
+              photosContent, setPhotosContent,
           }}>
               <Component {...pageProps} />
           </FormContext.Provider>

@@ -59,6 +59,10 @@ const BarContainer = styled.div`
     display: flex;
     justify-content: center;
     color: ${(props) => props.theme.colors.text};
+    
+    @media only screen and (max-width: 450px) {
+        width: 90vw;
+    }
 `
 
 const SectionContainer = styled.div`

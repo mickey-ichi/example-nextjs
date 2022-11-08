@@ -25,8 +25,8 @@ export type FormContent = {
     },
     setCategoriesContent: (t: any) => void,
 
-    photosContext: Photos [],
-    setPhotosContext: (t: any) => void,
+    photosContent: Photos [],
+    setPhotosContent: (t: any) => void,
 
 }
 
@@ -49,8 +49,8 @@ export const FormContext = createContext<FormContent>({
     },
     setCategoriesContent:  () => {},
 
-    photosContext: [],
-    setPhotosContext: () => {},
+    photosContent: [],
+    setPhotosContent: () => {},
 })
 
 

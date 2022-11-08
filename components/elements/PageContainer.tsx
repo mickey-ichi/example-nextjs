@@ -18,7 +18,7 @@ export const PageContainer = styled.div`
     }
     
     @media only screen and (max-width: 600px) {
-        width: 90vw;
+        width: auto;
         margin: 0;
     }
 `
