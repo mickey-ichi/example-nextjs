@@ -19,15 +19,50 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
         size: number,
     }[]>([],)
 
+
+    const getExtension = (filename: string) => {
+        const parts = filename.split('.');
+        return parts[parts.length - 1];
+    }
+
+    const isImage = (filename: string) => {
+        const ext = getExtension(filename);
+        switch (ext.toLowerCase()) {
+            case 'jpg':
+            case 'jpeg':
+            case 'gif':
+            case 'png':
+                return true;
+        }
+        return false;
+    }
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let fileTooBig: boolean = false
+        let fileWrongFormat: boolean = false
         if (e.target.files) {
-            const newUploads = Array.from(e.target.files).map((file) => {
-                return {url: URL.createObjectURL(file), name: file.name, size: file.size/1000000}
-            })
-            if ((uploads.length + newUploads.length) <= 10) {
-                setUploads(prev  => [...prev, ...newUploads])
+            const filesArray = Array.from(e.target.files)
+
+            const sizeCheckArray = filesArray.filter(file => file.size <= 25000000)
+            fileTooBig = sizeCheckArray.length !== filesArray.length
+
+            const formatCheckArray = filesArray.filter(file => isImage(file.name))
+            fileWrongFormat = formatCheckArray.length !== filesArray.length
+
+            if (!fileTooBig && !fileWrongFormat) {
+                const newUploads = filesArray.map((file) => {
+                    return {url: URL.createObjectURL(file), name: file.name, size: file.size/1000000}
+                })
+                if ((uploads.length + newUploads.length) <= 10) {
+                    setUploads(prev  => [...prev, ...newUploads])
+                }
+                else (alert('maximum 10 photo uploads allowed'))
             }
-            else (alert('maximum 10 photo uploads allowed'))
+            else{
+                const alertMessage1 = fileTooBig ? 'one or more files exceeded 25 Mb' : ''
+                const alertMessage2 = fileWrongFormat ? 'one or more files is the wrong format' : ''
+                alert(alertMessage1 + '\n' + alertMessage2)
+            }
         }
     }
 
@@ -68,6 +103,8 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
                                     </TrashContainer>
                                     <Name>{item.name}</Name>
                                     <Size>{`${item.size} Mb`}</Size>
+                                    <label htmlFor='progress'>upload progress</label>
+                                    <progress id='progress' value='30' max='100'></progress>
                                 </PhotoDetails>
                             </PhotoBox>
                         ))
