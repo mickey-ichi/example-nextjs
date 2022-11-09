@@ -14,14 +14,11 @@ export const Checkbox = ({ isChecked }: CheckboxProps) => (
                 border: isChecked ? '2px solid white' : '2px solid #D7D7D7',
             }}
         >
-            <Icon
+            {isChecked && <Icon
                 viewBox="0 0 24 24"
-                style={{
-                    visibility: isChecked ? 'visible' : 'hidden',
-                }}
             >
                 <polyline points="20 6 9 17 4 12" />
-            </Icon>
+            </Icon>}
         </StyledCheckbox>
     </CheckboxContainer>
 )
