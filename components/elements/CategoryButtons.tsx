@@ -3,11 +3,20 @@ import styled from 'styled-components'
 
 type CategoryButtonsProps = {
     names: string[],
+    changeCategory: (index: number) => void
 }
 
-export const CategoryButtons = ({ names }: CategoryButtonsProps ) => {
+
+
+export const CategoryButtons = ({ names, changeCategory }: CategoryButtonsProps ) => {
 
     const [activeIndex, setActiveIndex] = useState(0);
+
+    const handleClick = (index: number) => {
+        setActiveIndex(index)
+        console.log(index)
+        changeCategory(index)
+    }
 
     return (
         <ButtonsContainer>
@@ -16,7 +25,7 @@ export const CategoryButtons = ({ names }: CategoryButtonsProps ) => {
                     <ActiveButton
                         key={Math.random()}
                         role="div"
-                        onClick={() => setActiveIndex(-1)}
+                        onClick={() => handleClick(index)}
                     >
                         <p>{name}</p>
                         <span>&#62;</span>
@@ -25,7 +34,7 @@ export const CategoryButtons = ({ names }: CategoryButtonsProps ) => {
                     <Button
                         key={Math.random()}
                         role="div"
-                        onClick={() => setActiveIndex(index)}
+                        onClick={() => handleClick(index)}
                     >
                         <p>{name}</p>
                         <span>&#62;</span>

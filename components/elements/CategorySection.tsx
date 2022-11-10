@@ -108,4 +108,8 @@ export const ItemRow = styled.div`
 //         margin: auto;
 //     }
 // `
-export const Label = styled.label``
+export const Label = styled.label`
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+`
