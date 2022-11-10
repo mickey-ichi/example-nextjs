@@ -63,10 +63,10 @@ const BarContainer = styled.div`
     color: ${(props) => props.theme.colors.text};
     background: none;
     
-     @media only screen and (max-width: 450px) {
+     @media only screen and (max-width: 600px) {
         flex-wrap: wrap;
         justify-content: flex-start;
-        margin-top: 1rem;
+        margin-top: 6rem;
 
         div {
             line-height: auto;
@@ -86,7 +86,7 @@ const SectionContainer = styled.div`
     @media only screen and (max-width: 900px) {
         margin-right: 0;
         margin-left: 0;
-    }
+    }   
 `
 
 const Step = styled.div`

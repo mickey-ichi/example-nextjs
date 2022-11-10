@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import OrangeImg from '../../public/images/orange_unsplash.jpg'
+import { Hamburger } from './HamburgerButton';
+import { Drawer } from './Drawer';
 
 export const Navbar = () => {
 
@@ -9,14 +12,14 @@ export const Navbar = () => {
         if (window.innerWidth > 600) {
             if(showDrawer) {
                 setShowDrawer(false)
-                console.log('closed')
             }
         }
     }
+
     useEffect(() => {
         window.addEventListener('resize', autoHideDrawer)
         return () => window.removeEventListener('resize', autoHideDrawer)
-    }, [autoHideDrawer])
+    })
 
     const handleClick = () => {
         setShowDrawer(prev => !prev)
@@ -25,37 +28,49 @@ export const Navbar = () => {
     return (
         <MainBar>
             <LeftText>Seller</LeftText>
-            {!showDrawer ?
-                    <Hamburger onClick={() => handleClick()}>
-                        <Span />
-                        <Span />
-                        <Span />
-                    </Hamburger>
-                :
-                <>
-                    <Drawer>
-                        <Hamburger onClick={() => handleClick()} className='hamburger'>
-                            <p>X</p>
-                        </Hamburger>
-                        <FirstContainer>
-                            <Picture src={'/images/profile_pic.png'} />
-                            <NameText>Jan Kowalski</NameText>
-                        </FirstContainer>
-                        <SecondContainer>
-                            <IconBox>
+            <Hamburger onClick={() => handleClick()} className={showDrawer ? 'close-burger' : 'open-burger'}>
+                {!showDrawer ?
+                    <>
+                        <Span/>
+                        <Span/>
+                        <Span/>
+                    </>
+                    :
+                    <p>X</p>
+                }
+            </Hamburger>
+            <Drawer className={showDrawer ? 'show' : 'hide'}>
+                <FirstContainer>
+                    <Picture src={'/images/profile_pic.png'} />
+                    <NameText>Jan Kowalski</NameText>
+                </FirstContainer>
+                <SecondContainer>
+                    <Row>
+                        <RowContent>
+                            <div>cart</div>
+                            <IconBox className='icon-box'>
                                 <Icon src={'/images/icons/shop.png'} className='shop'></Icon>
                             </IconBox>
-                            <IconBox>
+                        </RowContent>
+                    </Row>
+                    <Row>
+                        <RowContent>
+                            <div>favorites</div>
+                            <IconBox className='icon-box'>
                                 <Icon src={'/images/icons/heart.png'} className='heart'></Icon>
                             </IconBox>
-                            <IconBox className='exit'>
+                        </RowContent>
+                    </Row>
+                    <Row>
+                        <RowContent>
+                            <div>exit</div>
+                            <IconBox className='icon-box'>
                                 <Icon src={'/images/icons/exit.png'} className='exit-icon'></Icon>
                             </IconBox>
-                        </SecondContainer>
-
-                    </Drawer>
-                </>
-            }
+                        </RowContent>
+                    </Row>
+                </SecondContainer>
+            </Drawer>
             <RightContainer>
                 <IconBox>
                     <Icon src={'/images/icons/shop.png'}></Icon>
@@ -90,7 +105,11 @@ const MainBar = styled.nav`
     margin: auto;
      
      @media only screen and (max-width: 600px) {
-        justify-content: space-between;
+        position: fixed;
+        margin-bottom: 2rem;
+        top: 0;
+        left: 0;
+        height: auto;
     }
 `
 
@@ -115,48 +134,11 @@ const LeftText = styled.h2`
     }
 `
 
-const Drawer = styled.div`
-    right: -3rem;
-    top: -1rem;
-    position: fixed;
-    width: 0;
-    height: 110%;
-    background: white;
-    padding: 1rem;
-    padding-top: 1rem;
-    padding-right: 5rem;
-    border-left: 2px solid lightgrey;
-    transition: all 1s ease-in-out;
-    
-    .hamburger {
-        margin-right: -1rem;
-    }    
-    
-    @media only screen and (max-width: 600px) {
-        width: 20rem;
-    }   
-    
-    @media only screen and (max-width: 400px) {
-        right: 0;
-        width: 100%;
-        padding-right: 1rem;
-        border-left: none;
-        border-radius: 0;    
-        
-        .hamburger {
-            margin-right: 1rem;
-        }
-    }
-    
-    @media only screen and (min-width: 600px) {
-        display: none;
-        width: 0;
-    }
-`
-
 const FirstContainer = styled.div`
     margin: auto;
-    padding: 3rem;
+    height: 30%;
+    padding-top: 7rem;
+    background-image: url(${OrangeImg.src});
     text-align: center;
     
     img {
@@ -165,53 +147,48 @@ const FirstContainer = styled.div`
     }
     h1 {
         margin: auto;
+        width: 130px;
+        margin-top: 10px;
         font-size: 20px;
     }
 `
 
 const SecondContainer = styled.div`
     width: 100%;
-    
+`
+
+const Row = styled.div`
+    display: flex;
+    height: 5rem;
+    width: 100%;
+    opacity: 0.8;
+        
     div {
-        height: 5rem;
-        width: 5rem;
-    }
-    div > .shop, .heart, .exit-icon {
-        height: 3rem;
-        width: 3rem;
+        margin: auto;
+        margin-left: auto;
+        margin-right: 1rem;
+        padding: 0;
+    }    
+    
+    &:hover {
+        background: #FF782D;
+        color: white;
+        cursor: pointer;
+        opacity: 1;
+        
+        * {
+            transform: scale(1.1);
+        }
+
+        & .icon-box {
+            opacity: 1;
+            background: white;            
+        }
     }
 `
 
-const Hamburger = styled.div`
-    background: #FF782D;
-    width: 3rem;
-    height: 3rem;
+const RowContent = styled.div`
     display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin-left: auto;
-    margin-right: 2rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 15px;
-    opacity: 1;
-    padding-top: 8px;
-    color: white;
-    
-    p {
-        font-size: 30px;
-        margin: 0;
-        padding: 0;
-    }
-    
-    &:hover {
-        opacity: 0.9;
-        cursor: pointer;
-    }
-    
-    @media only screen and (min-width: 600px) {
-        display: none;
-    }
 `
 
 const Span = styled.span`
@@ -223,7 +200,6 @@ const Span = styled.span`
     margin-top: 5px;
     margin-bottom: 0;
 `
-
 
 const RightContainer = styled.div`
     display: flex;
@@ -247,6 +223,13 @@ const IconBox = styled.div`
     padding: auto;
     background: #FFF5EC;
     border-radius: 8px;
+    opacity: 0.8;
+    
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
+    }
+    
 `
 
 const Icon = styled.img`

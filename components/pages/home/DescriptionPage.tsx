@@ -39,12 +39,22 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
     useEffect(() => setLocalContent(descriptionContent), [descriptionContent])
 
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>, name: string) => {
-        e.preventDefault()
-        setLocalContent((prev) => ({...prev, [e.target.name]: e.target.value}))
+    const updateCharacterCount = (name: string, length: number) => {
+        if (name === 'title') {
+            setCharCount(prev => [length, prev[1]])
+        }
+        if (name === 'description') {
+            setCharCount(prev => [prev[0], length])
+        }
+    }
 
-        name === 'title' && setCharCount(prev => [e.target.value.length, prev[1]])
-        name === 'desc' && setCharCount(prev => [prev[0], e.target.value.length])
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+        e.preventDefault()
+        const { name, value } = e.target
+        setLocalContent((prev) => ({...prev, [name]: value}))
+
+        updateCharacterCount(name, value.length)
     }
 
     const handleSubmit = () => {
@@ -64,8 +74,8 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                         placeholder='Enter item title here'
                         name='title'
                         value={localContent.title}
-                        onChange={(e) => handleChange(e, 'title')}
-                        max-length='60'
+                        onChange={(e) => handleChange(e)}
+                        maxLength={60}
                     />
                     <Span>{`${charCount[0]}/60`}</Span>
                     <Spacer />
@@ -74,8 +84,8 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                         name='description'
                         placeholder='Enter item description here'
                         value={localContent.description}
-                        onChange={(e) => handleChange(e, 'desc')}
-                        max-length='1200'
+                        onChange={(e) => handleChange(e)}
+                        maxLength={1200}
                     />
                     <Span>{`${charCount[1]}/1200`}</Span>
                 </LeftForm>
@@ -86,30 +96,30 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                         placeholder='Availability'
                         name='numUnits'
                         value={localContent.numUnits}
-                        onChange={(e) => handleChange(e, '')}
+                        onChange={(e) => handleChange(e)}
                     />
                     <DimensionsLabel>Dimensions (optional)</DimensionsLabel>
                     <DimensionsContainer>
-                        <LengthLabel>Length [mm]</LengthLabel>
-                        <Length
+                        <DimensionLabel>Length [mm]</DimensionLabel>
+                        <Dimension
                             type='number'
                             name='length'
                             value={localContent.length}
-                            onChange={(e) => handleChange(e, '')}
+                            onChange={(e) => handleChange(e)}
                         />
-                        <WidthLabel>Width [mm]</WidthLabel>
-                        <Width
+                        <DimensionLabel>Width [mm]</DimensionLabel>
+                        <Dimension
                             type='number'
                             name='width'
                             value={localContent.width}
-                            onChange={(e) => handleChange(e, '')}
+                            onChange={(e) => handleChange(e)}
                         />
-                        <HeightLabel>Height [mm]</HeightLabel>
-                        <Height
+                        <DimensionLabel>Height [mm]</DimensionLabel>
+                        <Dimension
                             type='number'
                             name='height'
                             value={localContent.height}
-                            onChange={(e) => handleChange(e, '')}
+                            onChange={(e) => handleChange(e)}
                         />
                     </DimensionsContainer>
                     <PriceLabel>Price</PriceLabel>
@@ -118,7 +128,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                         placeholder='Product price in PLN (gross)'
                         name='price'
                         value={localContent.price}
-                        onChange={(e) => handleChange(e, '')}
+                        onChange={(e) => handleChange(e)}
                     />
                 </RightForm>
             </Form>
@@ -171,7 +181,7 @@ const Description = styled.textarea`
     
     &:focus {
         outline: none;
-        border: 2px solid #FF782D;
+        border: 3px solid #FF782D;
     }
 `
 
@@ -243,39 +253,17 @@ const DimensionsLabel = styled.label`
     }
 `
 
-const Length = styled(Input)`
+const Dimension = styled(Input)`
     width: 3rem;
     height: 3rem;
 `
 
-const LengthLabel = styled.label`
+const DimensionLabel = styled.label`
     margin: auto;
     margin-right: 1rem;
     margin-left: 0;
-    font-size: 0.8em;
-`
-
-const Width = styled(Input)`
-    width: 3rem;
-    height: 3rem;
-`
-
-const WidthLabel = styled.label`
-    margin: auto;
-    margin-right: 1rem;
-    margin-left: 0;
-    font-size: 0.8em;
-`
-
-const Height = styled(Input)`
-    width: 3rem;
-    height: 3rem;
-`
-const HeightLabel = styled.label`
-    margin: auto;
-    margin-right: 1rem;
-    margin-left: 0;
-    font-size: 0.8em;
+    font-weight: 600;
+    font-size: 16px;
 `
 
 const Price = styled(Input)`

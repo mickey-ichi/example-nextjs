@@ -140,14 +140,14 @@ export const Label = styled.label`
     flex-direction: column;
     border: 2px solid #2D5BFF;
     border-radius: 8px;
-   
+       
     p {
         margin: auto;
         width: 60px;
         overflow-wrap: wrap;
     }
     &:hover {
-        background: lightyellow;
+        cursor: pointer;
     }
 `
 

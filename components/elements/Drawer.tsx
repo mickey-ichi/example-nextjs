@@ -1,0 +1,29 @@
+import styled from "styled-components";
+
+export const Drawer = styled.div`
+    transition: all 0.5s ease-in-out;
+    position: fixed;
+    right: -3.5rem;
+    top: -1rem;
+    background: white;
+    height: 110%;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 21px;
+    padding-right: 3rem;
+
+    &.show {
+    }
+
+    &.hide {
+        width: 0 !important;
+        right: -10rem;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        width: 80%;
+    }   
+    
+    @media only screen and (min-width: 600px) {
+        display: none;
+        width: 0;
+    }
+`

@@ -10,8 +10,12 @@ export const Input = styled.input`
     color: #181818;
     text-indent: 10px;
     
+    &:hover {
+       outline: none;
+       border: 3px solid #FF782D;
+    }
+    
     &:focus {
         outline: none;
-        border: 2px solid #FF782D;
     }
 `
