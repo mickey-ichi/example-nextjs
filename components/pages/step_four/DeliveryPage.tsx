@@ -2,8 +2,6 @@ import React, {useContext, useState} from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
-import { Form } from '../../elements/Form'
-import { FormContext } from '../../../contexts/CurrentFormContext'
 import { Checkbox } from "../../elements/Checkbox";
 
 type DeliveryProps = {
@@ -52,6 +50,8 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
                                 onClick={(e) => handleClick(e)}
                             >
                                 <Checkbox
+                                    width='32px'
+                                    height='32px'
                                     isChecked={checked[index]}
                                 ></Checkbox>
                                 <label htmlFor={option.name}>

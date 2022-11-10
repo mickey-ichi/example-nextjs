@@ -4,8 +4,8 @@ import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
 import { FormContext } from '../../../contexts/CurrentFormContext'
 import { CategorySection } from '../../elements/CategorySection'
-import {CategoryButtons} from "../../elements/CategoryButtons";
-import {SelectedItems} from "../../elements/SelectedItems";
+import { CategoryButtons } from "../../elements/CategoryButtons";
+import { SelectedItems } from "../../elements/SelectedItems";
 
 type CategoriesProps = {
     onNext: () => void,
