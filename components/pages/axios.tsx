@@ -16,3 +16,5 @@ const postSomething = () => {
             console.log(err)
         });
 }
+
+//https://635a2a5538725a1746bf2903.mockapi.io/category

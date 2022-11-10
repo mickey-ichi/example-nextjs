@@ -3,16 +3,17 @@ import styled from 'styled-components'
 
 type CheckboxProps = {
     isChecked: boolean,
+    width: string,
+    height: string,
 }
 
-export const Checkbox = ({ isChecked }: CheckboxProps) => (
+export const Checkbox = ({ isChecked, width, height }: CheckboxProps) => (
     <CheckboxContainer>
         <HiddenCheckbox defaultChecked={isChecked} />
         <StyledCheckbox
-            style={{
-                background: isChecked ? '#FF782D' : 'white',
-                border: isChecked ? '2px solid white' : '2px solid #D7D7D7',
-            }}
+            width={width}
+            height={height}
+            isChecked={isChecked}
         >
             {isChecked && <Icon
                 viewBox="0 0 24 24"
@@ -50,12 +51,19 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   width: 1px;
 `
 
-const StyledCheckbox = styled.div`
+type StyledCheckboxProps = {
+    height: string,
+    width: string,
+    isChecked: boolean,
+}
+
+const StyledCheckbox = styled.div<StyledCheckboxProps>`
   display: inline-block;
-  height: 2rem;
-  width: 2rem;
-  border: 2px solid #D7D7D7;
+  height: ${props => props.height};
+  width: ${props => props.width};
   border-radius: 4px;
+  background: ${props => props.isChecked ? '#FF782D' : 'white'};
+  outline: ${props => props.isChecked ? '2px solid #FF782D' : '2px solid #D7D7D7'};
   
   &:hover {
     cursor: pointer;

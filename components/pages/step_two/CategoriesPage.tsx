@@ -4,8 +4,9 @@ import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
 import { FormContext } from '../../../contexts/CurrentFormContext'
 import { CategorySection } from '../../elements/CategorySection'
-import {CategoryButtons} from "../../elements/CategoryButtons";
-import {SelectedItems} from "../../elements/SelectedItems";
+import { CategoryButtons } from "../../elements/CategoryButtons";
+import { SelectedItems } from "../../elements/SelectedItems";
+import axios from "axios";
 
 type CategoriesProps = {
     onNext: () => void,
@@ -23,13 +24,35 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
         setCategoriesContent({category1: selected[0] || '', category2: selected[1] || '', category3: selected[2] || ''})
         onNext()
     }
+    const [mockData, setMockData] = useState([])
+    const [categoryData, setCategoryData] = useState([])
+
+    const changeCategory = (index: number) => {
+        console.log(index, mockData.length)
+        setCategoryData(Object.values(mockData[index]))
+    }
+
+    useEffect(() => {
+        axios({
+            url: "https://635a2a5538725a1746bf2903.mockapi.io/category",
+            method: "GET",
+        })
+        .then((res) => {
+            setMockData(res.data)
+            setCategoryData(Object.values(res.data[0]))
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+    },[])
 
     const items = [
         'Smartphones',
         'Smartwatches',
         'Tablets',
         'GSM accessories',
-        'Cases and covers'];
+        'Cases and covers'
+    ];
 
     const names = [
         'Electronics',
@@ -40,7 +63,15 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
         'Culture',
         'Sports and Tourism',
         'Automotive',
-        'Properties'];
+        'Properties'
+    ];
+
+    const getCategoryItems = (index: number) => {
+        if (categoryData[index]) {
+            return categoryData[index]
+        }
+        return items
+    }
 
     const controlArray = [0,1,2,3]
 
@@ -49,16 +80,15 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
             <InstructionsText>Select the category your goods belong to (max 3)</InstructionsText>
             <CategoryContainer>
                 <CategoryNames>
-                    <CategoryButtons names={names}/>
+                    <CategoryButtons names={names} changeCategory={(index) => changeCategory(index)}/>
                 </CategoryNames>
                 <CategoriesArea>
                     {controlArray.map((number, index) => (
                         <CategoriesBlock style={{background: 'none'}} key={Math.random()}>
                             <CategorySection
                                 name="Phones and accessories"
-                                items={items.map(item =>
-                                    item + (number + index))
-                                }
+                                // items={index === 0 ? categoryData.category0 : categoryData.category1}
+                                items={getCategoryItems(index)}
                                 numSelected={numSelected}
                                 setNumSelected={setNumSelected}
                                 selected={selected}
@@ -66,9 +96,7 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
                             />
                             <CategorySection
                                 name="Phones and accessories"
-                                items={items.map(item =>
-                                    item + (number + index + 1))
-                                }
+                                items={getCategoryItems(index + 4)}
                                 numSelected={numSelected}
                                 setNumSelected={setNumSelected}
                                 selected={selected}
