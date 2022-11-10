@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
+import { Input } from '../../elements/Input'
 import { PageContainer } from '../../elements/PageContainer'
 import { Form } from '../../elements/Form'
 import { FormContext } from '../../../contexts/CurrentFormContext'
@@ -10,6 +11,8 @@ type DescriptionProps = {
 }
 
 export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
+
+    const [charCount, setCharCount] = useState<number[]>([0,0])
 
     const { descriptionContent, setDescriptionContent } = useContext(FormContext)
 
@@ -36,13 +39,22 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
     useEffect(() => setLocalContent(descriptionContent), [descriptionContent])
 
 
-    const handleChange = (
-        e: {
-            target: any, preventDefault: () => void 
-        }) => {
+    const updateCharacterCount = (name: string, length: number) => {
+        if (name === 'title') {
+            setCharCount(prev => [length, prev[1]])
+        }
+        if (name === 'description') {
+            setCharCount(prev => [prev[0], length])
+        }
+    }
 
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         e.preventDefault()
-        setLocalContent((prev) => ({...prev, [e.target.name]: e.target.value}))
+        const { name, value } = e.target
+        setLocalContent((prev) => ({...prev, [name]: value}))
+
+        updateCharacterCount(name, value.length)
     }
 
     const handleSubmit = () => {
@@ -63,14 +75,19 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                         name='title'
                         value={localContent.title}
                         onChange={(e) => handleChange(e)}
+                        maxLength={60}
                     />
+                    <Span>{`${charCount[0]}/60`}</Span>
+                    <Spacer />
                     <DescriptionLabel>Description</DescriptionLabel>
                     <Description
                         name='description'
                         placeholder='Enter item description here'
                         value={localContent.description}
                         onChange={(e) => handleChange(e)}
+                        maxLength={1200}
                     />
+                    <Span>{`${charCount[1]}/1200`}</Span>
                 </LeftForm>
                 <RightForm>
                     <AvailabilityLabel>Number of units available</AvailabilityLabel>
@@ -83,22 +100,22 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                     />
                     <DimensionsLabel>Dimensions (optional)</DimensionsLabel>
                     <DimensionsContainer>
-                        <LengthLabel>Length [mm]</LengthLabel>
-                        <Length
+                        <DimensionLabel>Length [mm]</DimensionLabel>
+                        <Dimension
                             type='number'
                             name='length'
                             value={localContent.length}
                             onChange={(e) => handleChange(e)}
                         />
-                        <WidthLabel>Width [mm]</WidthLabel>
-                        <Width
+                        <DimensionLabel>Width [mm]</DimensionLabel>
+                        <Dimension
                             type='number'
                             name='width'
                             value={localContent.width}
                             onChange={(e) => handleChange(e)}
                         />
-                        <HeightLabel>Height [mm]</HeightLabel>
-                        <Height
+                        <DimensionLabel>Height [mm]</DimensionLabel>
+                        <Dimension
                             type='number'
                             name='height'
                             value={localContent.height}
@@ -131,9 +148,8 @@ const LeftForm = styled.div`
 const Instructions = styled.h3`
 `
 
-const Title = styled.input`
+const Title = styled(Input)`
     margin-top: 10px;
-    margin-bottom: 2rem;
     background: #F8F8F8;
     border: none;
     border-radius: 8px;
@@ -147,22 +163,37 @@ const TitleLabel = styled.div`
     font-weight: 600;
 `
 
+const Spacer = styled.div`
+    margin-bottom: 2rem;
+`
+
 const Description = styled.textarea`
     margin-top: 10px;
-    height: 250px;
+    height: 282px;
     background: #F8F8F8;
     border: none;
     border-radius: 8px;
     padding: 10px;
-    
     font-family: 'Mulish', sans-serif;
     font-style: normal;
-    font-weight: 200;
+    font-weight: 400;
     font-size: 16px;
+    
+    &:focus {
+        outline: none;
+        border: 3px solid #FF782D;
+    }
 `
 
 const DescriptionLabel = styled.label`
     font-weight: 600;
+`
+
+const Span = styled.span`
+    margin-top: 5px;
+    font-weight: 400;
+    font-size: 12px;
+    color: #8A8A8A;
 `
 
 const RightForm = styled.div`
@@ -171,6 +202,7 @@ const RightForm = styled.div`
     text-align: left;
     display: flex;
     flex-direction: column;
+    margin-bottom: 1rem;
     
     @media only screen and (max-width: 900px) {
         margin-left: 0;
@@ -178,11 +210,8 @@ const RightForm = styled.div`
     }
 `
 
-const Availability = styled.input`
+const Availability = styled(Input)`
     margin-bottom: auto;
-    background: #F8F8F8;
-    border: none;
-    border-radius: 8px;
     line-height: 2rem;
     padding: 10px;
 `
@@ -224,57 +253,20 @@ const DimensionsLabel = styled.label`
     }
 `
 
-const Length = styled.input`
+const Dimension = styled(Input)`
     width: 3rem;
     height: 3rem;
-    border-radius: 8px;
-    background: #F8F8F8;
-    border: none;
-    text-indent: 10px;
 `
 
-const LengthLabel = styled.label`
+const DimensionLabel = styled.label`
     margin: auto;
     margin-right: 1rem;
     margin-left: 0;
-    font-size: 0.8em;
+    font-weight: 600;
+    font-size: 16px;
 `
 
-const Width = styled.input`
-    width: 3rem;
-    height: 3rem;
-    border-radius: 8px;
-    background: #F8F8F8;
-    border: none;
-    text-indent: 10px;
-`
-
-const WidthLabel = styled.label`
-    margin: auto;
-    margin-right: 1rem;
-    margin-left: 0;
-    font-size: 0.8em;
-`
-
-const Height = styled.input`
-    width: 3rem;
-    height: 3rem;
-    border-radius: 8px;
-    background: #F8F8F8;
-    border: none;
-    text-indent: 10px;
-`
-const HeightLabel = styled.label`
-    margin: auto;
-    margin-right: 1rem;
-    margin-left: 0;
-    font-size: 0.8em;
-`
-
-const Price = styled.input`
-    background: #F8F8F8;
-    border: none;
-    border-radius: 8px;
+const Price = styled(Input)`
     line-height: 2rem;
     padding: 10px;
 `

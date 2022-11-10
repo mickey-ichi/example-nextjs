@@ -84,6 +84,4 @@ export const Button = styled.button`
 
 export const ActiveButton = styled(Button)`
     background: ${(props) => props.theme.colors.selected};
-    transform: scale(1.1);
-    border: 1px solid orange;
 `

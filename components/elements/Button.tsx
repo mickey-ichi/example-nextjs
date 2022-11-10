@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
-export const Button = styled.div`
+export const Button = styled.button`
+    width: 138px;
+    height: 48px;
     margin: 1em;
     padding: 5px 20px;
     display: inline-block;
@@ -10,13 +12,13 @@ export const Button = styled.div`
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
-    background: ${(props) => props.theme.colors.disabled};
-    color: ${(props) => props.theme.colors.text};
+    background: ${(props) => props.theme.colors.active};
+    color: ${(props) => props.theme.colors.light};
+    opacity: 0.9;
     
     &:hover {
-        background: ${(props) => props.theme.colors.active};
         cursor: pointer;
-        transform: scale(1.1);
+        opacity: 1;
     }
 `
 

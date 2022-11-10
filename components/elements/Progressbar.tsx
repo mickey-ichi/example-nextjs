@@ -52,16 +52,26 @@ export const Progressbar = ({ step = 1 }: ProgressbarProps ) => {
 }
 
 const BarContainer = styled.div`
-    color: black;
-    margin-top: 4rem;
-    width: 100vw;
-    height: 10rem;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    min-height: 10rem;
+    height: auto;
     display: flex;
     justify-content: center;
     color: ${(props) => props.theme.colors.text};
+    background: none;
     
-    @media only screen and (max-width: 450px) {
-        width: 90vw;
+     @media only screen and (max-width: 600px) {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        margin-top: 6rem;
+
+        div {
+            line-height: auto;
+            margin: auto;
+        }
     }
 `
 
@@ -76,7 +86,7 @@ const SectionContainer = styled.div`
     @media only screen and (max-width: 900px) {
         margin-right: 0;
         margin-left: 0;
-    }
+    }   
 `
 
 const Step = styled.div`
@@ -84,10 +94,6 @@ const Step = styled.div`
     flex-direction: column;
     justify-content: center;
     width: 5rem;
-    
-    @media only screen and (max-width: 450px) {
-        width: 4rem;
-    }
 `
 
 const IconContainer = styled.div`
@@ -145,6 +151,7 @@ const StepText = styled.div`
     }
     @media only screen and (max-width: 450px) {
         font-size: 12px;
+       padding-top: 10px;
     }
 `
 

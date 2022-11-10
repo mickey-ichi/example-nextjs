@@ -1,10 +1,76 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import OrangeImg from '../../public/images/orange_unsplash.jpg'
+import { Hamburger } from './HamburgerButton';
+import { Drawer } from './Drawer';
 
 export const Navbar = () => {
+
+    const [showDrawer, setShowDrawer] = useState<boolean>(false)
+
+    const autoHideDrawer = () => {
+        if (window.innerWidth > 600) {
+            if(showDrawer) {
+                setShowDrawer(false)
+            }
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', autoHideDrawer)
+        return () => window.removeEventListener('resize', autoHideDrawer)
+    })
+
+    const handleClick = () => {
+        setShowDrawer(prev => !prev)
+    }
+
     return (
         <MainBar>
             <LeftText>Seller</LeftText>
+            <Hamburger onClick={() => handleClick()} className={showDrawer ? 'close-burger' : 'open-burger'}>
+                {!showDrawer ?
+                    <>
+                        <Span/>
+                        <Span/>
+                        <Span/>
+                    </>
+                    :
+                    <p>X</p>
+                }
+            </Hamburger>
+            <Drawer className={showDrawer ? 'show' : 'hide'}>
+                <FirstContainer>
+                    <Picture src={'/images/profile_pic.png'} />
+                    <NameText>Jan Kowalski</NameText>
+                </FirstContainer>
+                <SecondContainer>
+                    <Row>
+                        <RowContent>
+                            <div>cart</div>
+                            <IconBox className='icon-box'>
+                                <Icon src={'/images/icons/shop.png'} className='shop'></Icon>
+                            </IconBox>
+                        </RowContent>
+                    </Row>
+                    <Row>
+                        <RowContent>
+                            <div>favorites</div>
+                            <IconBox className='icon-box'>
+                                <Icon src={'/images/icons/heart.png'} className='heart'></Icon>
+                            </IconBox>
+                        </RowContent>
+                    </Row>
+                    <Row>
+                        <RowContent>
+                            <div>exit</div>
+                            <IconBox className='icon-box'>
+                                <Icon src={'/images/icons/exit.png'} className='exit-icon'></Icon>
+                            </IconBox>
+                        </RowContent>
+                    </Row>
+                </SecondContainer>
+            </Drawer>
             <RightContainer>
                 <IconBox>
                     <Icon src={'/images/icons/shop.png'}></Icon>
@@ -36,9 +102,14 @@ const MainBar = styled.nav`
     background-color: ${(props) => props.theme.colors.light};
     color: ${(props) => props.theme.colors.text};
     font-family: ${(props) => props.theme.font.family};
+    margin: auto;
      
      @media only screen and (max-width: 600px) {
-        justify-content: space-between;
+        position: fixed;
+        margin-bottom: 2rem;
+        top: 0;
+        left: 0;
+        height: auto;
     }
 `
 
@@ -63,12 +134,84 @@ const LeftText = styled.h2`
     }
 `
 
+const FirstContainer = styled.div`
+    margin: auto;
+    height: 30%;
+    padding-top: 7rem;
+    background-image: url(${OrangeImg.src});
+    text-align: center;
+    
+    img {
+        height: 5rem;
+        width: 5rem;
+    }
+    h1 {
+        margin: auto;
+        width: 130px;
+        margin-top: 10px;
+        font-size: 20px;
+    }
+`
+
+const SecondContainer = styled.div`
+    width: 100%;
+`
+
+const Row = styled.div`
+    display: flex;
+    height: 5rem;
+    width: 100%;
+    opacity: 0.8;
+        
+    div {
+        margin: auto;
+        margin-left: auto;
+        margin-right: 1rem;
+        padding: 0;
+    }    
+    
+    &:hover {
+        background: #FF782D;
+        color: white;
+        cursor: pointer;
+        opacity: 1;
+        
+        * {
+            transform: scale(1.1);
+        }
+
+        & .icon-box {
+            opacity: 1;
+            background: white;            
+        }
+    }
+`
+
+const RowContent = styled.div`
+    display: flex;
+`
+
+const Span = styled.span`
+    width: 33px;
+    height: 4px;
+    background: white;
+    border-radius: 3px;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 0;
+`
+
 const RightContainer = styled.div`
     display: flex;
     margin-right: 4rem;
     
     @media only screen and (max-width: 600px) {
+        display: none;
         margin-right: 2rem;
+    }
+    
+    div {
+        margin: 1rem;
     }
 `
 
@@ -77,16 +220,16 @@ const IconBox = styled.div`
     height: 3rem;
     margin: auto;
     margin-top: 1rem;
-    margin-right: 1rem;
     padding: auto;
     background: #FFF5EC;
     border-radius: 8px;
+    opacity: 0.8;
     
-    @media only screen and (max-width: 450px) {
-        &.exit {
-            display: none;   
-        }
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
     }
+    
 `
 
 const Icon = styled.img`
@@ -102,7 +245,7 @@ const Picture = styled.img`
     width: 3rem;
 `
 
-const NameText = styled.div`
+const NameText = styled.h1`
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -112,10 +255,6 @@ const NameText = styled.div`
     
     @media only screen and (max-width: 600px) {
         font-size: 14px;
-        margin-right: 10px;
     }
-    
-    @media only screen and (max-width: 450px) {
-        display: none;   
-    }
+   
 `
