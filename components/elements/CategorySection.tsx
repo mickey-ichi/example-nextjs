@@ -30,6 +30,7 @@ export const CategorySection = ({ name, items, numSelected, setNumSelected, sele
                 setNumSelected(prev => prev - 1)
             }
         }
+        else (alert('please select no more than 3 categories'))
     }
 
     useEffect(() => {
@@ -86,30 +87,9 @@ export const ItemRow = styled.div`
         flex-direction: column;
     }
 `
-// export const Checkbox2 = styled(Checkbox)`
-//     height: 20px;
-//     width: 20px;
-//     margin-right: 1rem;
-//     // outline: 2.5px solid lightgrey;
-//     border-radius: 2px;
-//     accent-color: ${(props) => props.theme.colors.active};
-//     background-color: white;
-//     // appearance: none;
-//
-//     &:hover {
-//         cursor: pointer;
-//     }
-//
-//     &:checked {
-//         check-color: white;
-//     }
-//
-//     @media only screen and (max-width: 400px) {
-//         margin: auto;
-//     }
-// `
+
 export const Label = styled.label`
+    text-align: left;
     width: 100px;
-    overflow: hidden;
     white-space: nowrap;
 `

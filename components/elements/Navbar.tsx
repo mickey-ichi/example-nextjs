@@ -137,7 +137,7 @@ const LeftText = styled.h2`
 const FirstContainer = styled.div`
     margin: auto;
     height: 30%;
-    padding-top: 7rem;
+    padding-top: 9rem;
     background-image: url(${OrangeImg.src});
     text-align: center;
     
@@ -147,9 +147,9 @@ const FirstContainer = styled.div`
     }
     h1 {
         margin: auto;
-        width: 130px;
+        width: auto;
         margin-top: 10px;
-        font-size: 20px;
+        font-size: 25px;
     }
 `
 
@@ -162,6 +162,8 @@ const Row = styled.div`
     height: 5rem;
     width: 100%;
     opacity: 0.8;
+    font-weight: 800;
+    font-size: 20px;
         
     div {
         margin: auto;
@@ -169,6 +171,11 @@ const Row = styled.div`
         margin-right: 1rem;
         padding: 0;
     }    
+    
+    & .icon-box {
+        outline: 2px solid #FF782D;      
+        background: white; 
+    }
     
     &:hover {
         background: #FF782D;
@@ -179,10 +186,10 @@ const Row = styled.div`
         * {
             transform: scale(1.1);
         }
+        
 
         & .icon-box {
             opacity: 1;
-            background: white;            
         }
     }
 `

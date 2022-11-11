@@ -14,7 +14,6 @@ export const CategoryButtons = ({ names, changeCategory }: CategoryButtonsProps 
 
     const handleClick = (index: number) => {
         setActiveIndex(index)
-        console.log(index)
         changeCategory(index)
     }
 

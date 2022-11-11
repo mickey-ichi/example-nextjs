@@ -19,7 +19,8 @@ export const Hamburger = styled(Button)`
     p {
         font-size: 30px;
         margin: 0;
-        padding-left: 13px;
+        padding-left: 14px;
+        padding-top: 1px;
     }
     
     &:hover {
@@ -35,8 +36,13 @@ export const Hamburger = styled(Button)`
     } 
     
     &.close-burger {
-        background: white;
-        color: #FF782D;
+        background: none;
+        color: white;
+        outline: 2px solid white;
+        
+        &:hover {
+            background: orange;
+        }
     }
     
 `

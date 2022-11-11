@@ -36,6 +36,7 @@ export const Container = styled.div`
     margin: auto;
     margin-left: 2rem;
     display: flex;
+    flex-wrap: wrap;
 
     @media only screen and (max-width: 900px) {
         flex-direction: column;

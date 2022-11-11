@@ -12,10 +12,11 @@ export const Input = styled.input`
     
     &:hover {
        outline: none;
-       border: 3px solid #FF782D;
+       border: none;
     }
     
     &:focus {
-        outline: none;
+       outline: none;
+       border: 3px solid #FF782D;    
     }
 `

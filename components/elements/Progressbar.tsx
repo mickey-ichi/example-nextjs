@@ -19,7 +19,7 @@ export const Progressbar = ({ step = 1 }: ProgressbarProps ) => {
         <BarContainer>
             {stepData.map((item, counter) => {
                 return (
-                    <SectionContainer key={Math.random()}>
+                    <SectionContainer key={Math.random()} className={counter === 4 ? 'last' : ''}>
                         <Step>
                             {(counter + 1) === step ?
                                 <CurrentIconContainer>
@@ -76,7 +76,7 @@ const BarContainer = styled.div`
 `
 
 const SectionContainer = styled.div`
-    width: auto;
+    width: 15rem;
     margin: auto;
     margin-top: 2rem;
     margin-right: 5px;
@@ -87,6 +87,19 @@ const SectionContainer = styled.div`
         margin-right: 0;
         margin-left: 0;
     }   
+    
+    @media only screen and (max-width: 1400px) {
+        width: 10rem;
+    }   
+    
+    @media only screen and (max-width: 1000px) {
+        width: 7rem;
+    }   
+    
+    &.last {
+        width: 6rem;
+        background: #F8F8F8;
+    }
 `
 
 const Step = styled.div`
@@ -100,7 +113,8 @@ const IconContainer = styled.div`
     width: 3rem;
     height: 3rem;
     margin: auto;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
     background: #FFF5EC;
     border-radius: 50%;
     
@@ -145,23 +159,32 @@ const StepText = styled.div`
     font-size: 18px;
     text-align: center;
     margin-top: 10px;
+    width: 50px;
     
     @media only screen and (max-width: 900px) {
         font-size: 13px;
     }
     @media only screen and (max-width: 450px) {
         font-size: 12px;
-       padding-top: 10px;
+        padding-top: 10px;
     }
 `
 
 const Line = styled.img`
-    width: 100px;
+    width: 170px;
     height: 4px;
     margin-top: 1.5rem;
     
+    @media only screen and (max-width: 1400px) {
+        width: 110px;
+    }  
+    
+    @media only screen and (max-width: 1100px) {
+        width: 85px;
+    }   
+    
     @media only screen and (max-width: 900px) {
-        width: 50px;
+        width: 75px;
     }
     @media only screen and (max-width: 600px) {
         display: none;
