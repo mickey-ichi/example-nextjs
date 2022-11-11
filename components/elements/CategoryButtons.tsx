@@ -27,7 +27,7 @@ export const CategoryButtons = ({ names, changeCategory }: CategoryButtonsProps 
                         onClick={() => handleClick(index)}
                     >
                         <p>{name}</p>
-                        <span>&#62;</span>
+                        <Icon src={`/images/icons/vector_right.png`} />
                     </ActiveButton>
                     :
                     <Button
@@ -36,7 +36,7 @@ export const CategoryButtons = ({ names, changeCategory }: CategoryButtonsProps 
                         onClick={() => handleClick(index)}
                     >
                         <p>{name}</p>
-                        <span>&#62;</span>
+                        <Icon src={`/images/icons/vector_right.png`} />
                     </Button>
             )}
         </ButtonsContainer>
@@ -45,8 +45,6 @@ export const CategoryButtons = ({ names, changeCategory }: CategoryButtonsProps 
 
 export const ButtonsContainer = styled.div`
     margin: auto;
-    margin-top: 1rem;
-    margin-left: 2rem;
     margin-right: 10px;
     height: 25rem;
     min-width: 200px;
@@ -56,26 +54,22 @@ export const ButtonsContainer = styled.div`
 `
 export const Button = styled.button`
     flex: 1;
-    width: auto;
-    height: auto;
+    width: 228px;
+    height: 43px;
     border: none;
     border-radius: 10px;
     background: white;
     text-align: left;
     display: flex;
     justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
     
     @media only screen and (max-width: 600px) {
         width: 130px;
     }
     @media only screen and (max-width: 400px) {
         margin-left: -1rem;
-    }
-    
-    * {
-        margin: 0;
-        padding: 0;
-        line-height: 3rem;
     }
     
     span {
@@ -93,3 +87,9 @@ export const Button = styled.button`
 export const ActiveButton = styled(Button)`
     background: ${(props) => props.theme.colors.selected};
 `
+
+export const Icon = styled.img`
+    margin-top: auto;
+    margin-bottom: auto;
+`
+    

@@ -2,14 +2,14 @@ import styled from "styled-components";
 import {Button} from "./Button";
 
 export const Hamburger = styled(Button)`
-    z-index: 2;
+    z-index: 3;
     width: 3rem;
     height: 3rem;
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin-left: auto;
-    margin-right: 2rem;
+    margin-right: auto;
+    margin-left: 2rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
     padding: 0;
@@ -31,17 +31,14 @@ export const Hamburger = styled(Button)`
         display: none;
     }
     @media only screen and (max-width: 600px) {
-        position: fixed;
-        right: 0;
+    
     } 
     
     &.close-burger {
         background: none;
-        color: white;
-        outline: 2px solid white;
+        color: black;
         
         &:hover {
-            background: orange;
         }
     }
     

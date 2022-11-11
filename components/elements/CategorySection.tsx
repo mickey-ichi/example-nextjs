@@ -69,11 +69,15 @@ export const CategorySection = ({ name, items, numSelected, setNumSelected, sele
 
 export const Category = styled.div`
     margin: auto;
-    padding: 10px;
+    margin-top: 0;
+    padding: 5px;
+    padding-top: 0;
     height: auto;
     font-size: 12px;
 `
-export const NameText = styled.h3``
+export const NameText = styled.h3`
+    text-align: left;
+`
 
 export const ItemsContainer = styled.div`
     display: flex;
@@ -81,7 +85,7 @@ export const ItemsContainer = styled.div`
 `
 export const ItemRow = styled.div`
     display: flex;
-    line-height: 30px;
+    line-height: 20px;
     
     @media only screen and (max-width: 400px) {
         flex-direction: column;

@@ -5,6 +5,7 @@ import { PageContainer } from '../../elements/PageContainer'
 import { Form } from '../../elements/Form'
 import { FormContext } from '../../../contexts/CurrentFormContext'
 import { Checkbox } from "../../elements/Checkbox";
+import {ButtonContainer} from "../../elements/ButtonContainer";
 
 type ComplaintsProps = {
     onNext: () => void,
@@ -48,8 +49,10 @@ export const ComplaintsPage = ({ onNext, onBack }: ComplaintsProps ) => {
 
                 </Additional>
             </MainContent>
-            <Button onClick={() => onBack()}>Back</Button>
-            <Button onClick={() => handleSubmit()}>Next →</Button>
+            <ButtonContainer>
+                <Button onClick={() => onBack()}>Back</Button>
+                <Button onClick={() => handleSubmit()}>Next →</Button>
+            </ButtonContainer>
         </PageContainer>
     )
 }

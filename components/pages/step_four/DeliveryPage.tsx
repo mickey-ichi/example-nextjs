@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
 import { Checkbox } from "../../elements/Checkbox";
+import {ButtonContainer} from "../../elements/ButtonContainer";
 
 type DeliveryProps = {
     onNext: () => void,
@@ -64,15 +65,17 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
                 </OptionsContainer>
                 <ShippingInfo>
                     <ShippingText>Shipping time</ShippingText>
-                    <input
+                    <ShippingInput
                         type='date'
                         placeholder='Specify a date'
                         // className='not-filled'
                     />
                 </ShippingInfo>
             </MainContent>
-            <Button onClick={() => onBack()}>Back</Button>
-            <Button onClick={() => handleSubmit()}>Next →</Button>
+            <ButtonContainer>
+                <Button onClick={() => onBack()}>Back</Button>
+                <Button onClick={() => handleSubmit()}>Next →</Button>
+            </ButtonContainer>
         </PageContainer>
     )
 }
@@ -80,22 +83,25 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
 export const InstructionsText = styled.h4`
     text-align: left;
     margin-left: 2rem;
+    margin-top: 0;
 `
 
 export const MainContent = styled.div`
     margin: auto;
     width: 95%;
-    height: 80%;
+    height: auto;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     color: ${(props) => props.theme.colors.text};
     font-family: ${(props) => props.theme.font.family};
+    margin-bottom: 0;
 `
 
 export const OptionsContainer = styled.div`
     display: flex;
     width: 100%;
+    height: auto;
     margin: auto;
     flex-wrap: wrap;
     
@@ -118,7 +124,6 @@ export const Option = styled.div`
         width: 80%;
         margin-left: auto;
         margin-right: auto;
-        height: auto;
     }
     
     @media only screen and (max-width: 500px) {
@@ -164,4 +169,14 @@ export const ShippingText = styled.h5`
     text-align: left;
     margin-left: 1rem;
     margin-bottom: 0;
+`
+
+export const ShippingInput = styled.input`
+    outline: none;
+    height: 50px;
+        
+    &:hover {
+        background: #FFC0C0;
+        outline: 2px solid #FF3030;
+    }
 `

@@ -18,7 +18,7 @@ export const SellerLayout = ({ step, onNext, onBack }: SellerLayoutProps ) => {
 
     return (
         <>
-            <Navbar></Navbar>
+            <Navbar />
             <Progressbar step={step}></Progressbar>
             <PageBody>
                 {step === 1 && <DescriptionPage onNext={onNext} />}
