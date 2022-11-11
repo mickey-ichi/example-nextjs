@@ -19,7 +19,7 @@ export const Progressbar = ({ step = 1 }: ProgressbarProps ) => {
         <BarContainer>
             {stepData.map((item, counter) => {
                 return (
-                    <SectionContainer key={Math.random()}>
+                    <SectionContainer key={Math.random()} className={counter === 4 ? 'last' : ''}>
                         <Step>
                             {(counter + 1) === step ?
                                 <CurrentIconContainer>
@@ -53,9 +53,9 @@ export const Progressbar = ({ step = 1 }: ProgressbarProps ) => {
 
 const BarContainer = styled.div`
     margin: auto;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    max-width: 1290px
     min-height: 10rem;
     height: auto;
     display: flex;
@@ -65,28 +65,30 @@ const BarContainer = styled.div`
     
      @media only screen and (max-width: 600px) {
         flex-wrap: wrap;
-        justify-content: flex-start;
-        margin-top: 6rem;
-
-        div {
-            line-height: auto;
-            margin: auto;
-        }
+        justify-content: center;
     }
 `
 
 const SectionContainer = styled.div`
-    width: auto;
+    width: 15rem;
     margin: auto;
     margin-top: 2rem;
     margin-right: 5px;
     margin-left: 5px;
     display: flex;
     
-    @media only screen and (max-width: 900px) {
-        margin-right: 0;
-        margin-left: 0;
+    @media only screen and (max-width: 1400px) {
+        width: 10rem;
     }   
+    
+    @media only screen and (max-width: 1000px) {
+        width: 7rem;
+    }   
+    
+    &.last {
+        width: 6rem;
+        background: #F8F8F8;
+    }
 `
 
 const Step = styled.div`
@@ -94,13 +96,18 @@ const Step = styled.div`
     flex-direction: column;
     justify-content: center;
     width: 5rem;
+    
+    @media only screen and (max-width: 600px) {
+        margin: auto;
+    }   
 `
 
 const IconContainer = styled.div`
     width: 3rem;
     height: 3rem;
     margin: auto;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
     background: #FFF5EC;
     border-radius: 50%;
     
@@ -145,23 +152,32 @@ const StepText = styled.div`
     font-size: 18px;
     text-align: center;
     margin-top: 10px;
+    width: 50px;
     
     @media only screen and (max-width: 900px) {
         font-size: 13px;
     }
     @media only screen and (max-width: 450px) {
         font-size: 12px;
-       padding-top: 10px;
+        padding-top: 10px;
     }
 `
 
 const Line = styled.img`
-    width: 100px;
+    width: 170px;
     height: 4px;
     margin-top: 1.5rem;
     
+    @media only screen and (max-width: 1400px) {
+        width: 110px;
+    }  
+    
+    @media only screen and (max-width: 1100px) {
+        width: 85px;
+    }   
+    
     @media only screen and (max-width: 900px) {
-        width: 50px;
+        width: 75px;
     }
     @media only screen and (max-width: 600px) {
         display: none;

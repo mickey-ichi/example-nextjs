@@ -36,6 +36,7 @@ export const Container = styled.div`
     margin: auto;
     margin-left: 2rem;
     display: flex;
+    flex-wrap: wrap;
 
     @media only screen and (max-width: 900px) {
         flex-direction: column;
@@ -47,7 +48,7 @@ export const Container = styled.div`
 
 export const Item = styled.div`
     background: ${(props) => props.theme.colors.selected};
-    padding: 10px;
+    padding: 7px;
     padding-right: 30px;
     padding-left: 30px;
     margin: 1rem;
@@ -55,6 +56,9 @@ export const Item = styled.div`
     white-space: nowrap;
     display: flex;
     justify-content: space-between;
+    font-weight: 600;
+    font-size: 14px;
+    font-style: normal;
 
     * {
         margin: 0;

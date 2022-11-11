@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
 import { FormContext } from '../../../contexts/CurrentFormContext'
+import {ButtonContainer} from "../../elements/ButtonContainer";
 
 type PhotosProps = {
     onNext: () => void,
@@ -92,8 +93,10 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
                     }
                 </PhotosUploaded>
             </PhotosContainer>
-            <Button onClick={() => onBack()}>Back</Button>
-            <Button onClick={() => handleSubmit()}>Next →</Button>
+            <ButtonContainer>
+                <Button onClick={() => onBack()}>Back</Button>
+                <Button onClick={() => handleSubmit()}>Next →</Button>
+            </ButtonContainer>
         </PageContainer>
     )
 }
@@ -138,7 +141,7 @@ export const Label = styled.label`
     height: 8rem;
     display: flex;
     flex-direction: column;
-    border: 2px solid #2D5BFF;
+    border: 3px solid #2D5BFF;
     border-radius: 8px;
        
     p {

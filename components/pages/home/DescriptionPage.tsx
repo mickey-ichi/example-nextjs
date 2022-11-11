@@ -5,6 +5,7 @@ import { Input } from '../../elements/Input'
 import { PageContainer } from '../../elements/PageContainer'
 import { Form } from '../../elements/Form'
 import { FormContext } from '../../../contexts/CurrentFormContext'
+import {ButtonContainer} from "../../elements/ButtonContainer";
 
 type DescriptionProps = {
     onNext: () => void
@@ -132,7 +133,9 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                     />
                 </RightForm>
             </Form>
-            <Button onClick={() => handleSubmit()}>Next →</Button>
+            <ButtonContainer>
+                <Button onClick={() => handleSubmit()}>Next →</Button>
+            </ButtonContainer>
         </PageContainer>
     )
 }

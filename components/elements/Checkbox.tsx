@@ -67,6 +67,7 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
   
   &:hover {
     cursor: pointer;
+    outline: 3px solid #FF782D;
   }
 
   ${HiddenCheckbox}:focus + & {
