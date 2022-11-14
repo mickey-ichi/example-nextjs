@@ -62,8 +62,7 @@ export const ComplaintsPage = ({ onNext, onBack }: ComplaintsProps ) => {
 export const MainContent = styled.div`
     margin: auto;
     width: 95%;
-    height: 80%;
-    min-height: 30rem;
+    height: 500px;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;

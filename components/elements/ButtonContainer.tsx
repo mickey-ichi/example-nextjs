@@ -1,14 +1,7 @@
 import styled from "styled-components";
 
 export const ButtonContainer = styled.div`
-    margin: auto;
-    margin-top: auto;
+    margin-bottom: 42px;
     display: flex;
     justify-content: center;
-    
-    // @media only screen and (max-width: 600px) {
-    //     * {
-    //         margin: 0;
-    //     }
-    // }
 `

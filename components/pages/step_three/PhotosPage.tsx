@@ -108,10 +108,10 @@ export const InstructionsText = styled.h4`
 
 export const PhotosContainer = styled.div`
     margin: auto;
+    margin-bottom: 2rem;
     padding-bottom: 1rem;
     width: 95%;
-    height: auto;
-    min-height: 50vh;
+    min-height: 440px;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;

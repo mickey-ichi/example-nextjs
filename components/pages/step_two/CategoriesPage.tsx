@@ -125,7 +125,7 @@ export const CategoryNames = styled.div`
 export const CategoriesArea = styled.div`
     display: flex;
     flex-wrap: wrap;
-    max-width: 900px;
+    max-width: 1000px;
 `
 
 export const CategoriesBlock = styled.div`
@@ -137,19 +137,31 @@ export const CategoriesBlock = styled.div`
         margin-left: 5%;
         max-width: 100vw;
     }    
+    
+    @media only screen and (max-width: 700px) {
+       margin-left: -5rem;
+    }    
 `
 
 export const Selected = styled.div`
     display: flex;
     margin-bottom: 5px;
+    
+    @media only screen and (max-width: 500px) {
+       flex-direction: column;
+       align-items: center;
+    }    
 `
 
 export const SelectedContainer = styled.div`
     display: flex;
-    margin-top: 10px;
-    margin-left: -2rem;
+    margin-top: 1.7rem;
+    margin-bottom: 1rem;
+    margin-right: auto;
     
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 500px) {
+        margin-left: auto;
+        margin-top: 0;
         flex-direction: column;
         align-items: center;
     }
@@ -158,7 +170,8 @@ export const SelectedContainer = styled.div`
 export const SelectedText = styled.h4`
     text-align: left;
     margin-left: 2rem;
-    margin-top: 2rem;
+    margin-right: 2rem;
+    margin-top: 3rem;
     min-width: 170px;
     white-space: no-wrap;
 `

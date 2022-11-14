@@ -65,18 +65,17 @@ export const Button = styled.button`
     padding-left: 20px;
     padding-right: 20px;
     
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 700px) {
         width: 130px;
-    }
-    @media only screen and (max-width: 400px) {
-        margin-left: -1rem;
+        line-height: 14px;
+        
+        span {
+            display: none;
+        }  
     }
     
-    span {
-        @media only screen and (max-width: 600px) {
-            display: none;
-        }
-    }
+    @media only screen and (max-width: 400px) {
+        margin-left: -1rem;
     }
     
     &:hover {
