@@ -17,6 +17,7 @@ export const Hamburger = styled(Button)`
     padding-top: 8px;
     
     p {
+        color: white;
         font-size: 30px;
         margin: 0;
         padding-left: 14px;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
@@ -11,6 +11,8 @@ type DeliveryProps = {
 }
 
 export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
+
+    const inputRef = useRef<HTMLInputElement>(null);
 
     // const { descriptionContent, categoriesContent, photosContent, setPhotosContent } = useContext(FormContext)
     const DeliveryOptions = [
@@ -36,6 +38,7 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
         e.preventDefault()
         const stringIndex = e.currentTarget.id
         const numIndex = Number(stringIndex)
+        !checked[numIndex] && inputRef.current && inputRef.current.focus()
         setChecked(prev => prev.map((item,index) => index !== numIndex ? item : !item))
     }
 
@@ -64,12 +67,15 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
                     ))}
                 </OptionsContainer>
                 <ShippingInfo>
-                    <ShippingText>Shipping time</ShippingText>
+                    <ShippingText
+                        as='h4'
+                    >Shipping time</ShippingText>
                     <ShippingInput
-                        type='date'
-                        placeholder='Specify a date'
-                        // className='not-filled'
-                    />
+                        type='text'
+                        ref={inputRef}
+                        onFocus={(e) => e.target.type = 'date'}
+                        onBlur={(e) => e.target.type = 'text'}
+                        placeholder='Specify a date'></ShippingInput>
                 </ShippingInfo>
             </MainContent>
             <ButtonContainer>
@@ -84,12 +90,14 @@ export const InstructionsText = styled.h4`
     text-align: left;
     margin-left: 2rem;
     margin-top: 0;
+    margin-bottom: 0;
 `
 
 export const MainContent = styled.div`
     margin: auto;
+    margin-bottom: 1rem;
     width: 95%;
-    height: auto;
+    min-height: 515px;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -148,35 +156,46 @@ export const Icon = styled.img`
 export const ShippingInfo = styled.div`
     display: flex;
     flex-direction: column;
-    
-    input {
-        background: #F8F8F8;
-        border: 1px solid grey;
-        border-radius: 8px;
-        width: auto;
-        height: 4rem;
-        line-height: calc(4rem - 10px);
-        margin: 1rem;
-        padding: 10px;
-    }
+    margin-top: -1rem;
+
     .not-filled {
         background: rgba(255, 192, 192, 0.1);
         border: 1px solid #FF3030;
     }
 `
 
-export const ShippingText = styled.h5`
+export const ShippingText = styled.label`
     text-align: left;
     margin-left: 1rem;
     margin-bottom: 0;
+    position: relative;
 `
 
 export const ShippingInput = styled.input`
+    font-size: 16px;
+    background: #F8F8F8;
+    border: 1px solid grey;
+    border-radius: 8px;
+    width: auto;
+    height: 4rem;
+    line-height: calc(4rem - 10px);
+    margin: 1rem;
+    padding: 10px;
     outline: none;
-    height: 50px;
-        
-    &:hover {
+    max-height: 50px;
+    cursor: pointer;
+    
+    &:focus {
         background: #FFC0C0;
         outline: 2px solid #FF3030;
     }
+    
+  &::-webkit-calendar-picker-indicator {
+    // background: rgba(0,0,0,0);
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
 `

@@ -43,7 +43,8 @@ export const Navbar = () => {
                 <Drawer className={showDrawer ? 'show' : 'hide'}>
                     <FirstContainer>
                         <Picture src={'/images/profile_pic.png'} />
-                        <NameText>Jan Kowalski</NameText>
+                        <NameText style={{fontWeight: 500}}>Jan Kowalski</NameText>
+                        <EmailText>jan.kowalski@gmail.com</EmailText>
                     </FirstContainer>
                     <SecondContainer>
                         <Row>
@@ -181,6 +182,10 @@ const Row = styled.div`
     
     & .icon-box {
         background: none; 
+        
+        @media only screen and (max-width: 350px) {
+            display: none;
+        }
     }
     
     &:hover {
@@ -267,6 +272,18 @@ const NameText = styled.h1`
     
     @media only screen and (max-width: 600px) {
         font-size: 14px;
+    }
+`
+
+const EmailText = styled.h3`
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 180px;
+    
+    @media only screen and (max-width: 350px) {
+        display: none;
     }
 `
 

@@ -94,6 +94,7 @@ export const ItemRow = styled.div`
 
 export const Label = styled.label`
     text-align: left;
-    width: 100px;
+    width: 120px;
     white-space: nowrap;
+    overflow: hidden;
 `
