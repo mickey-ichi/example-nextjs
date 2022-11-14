@@ -10,7 +10,7 @@ type PhotosProps = {
     onBack: () => void,
 }
 
-export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
+ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
 
     const { descriptionContent, categoriesContent, photosContent, setPhotosContent } = useContext(FormContext)
 
@@ -101,12 +101,12 @@ export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
     )
 }
 
-export const InstructionsText = styled.h4`
+ const InstructionsText = styled.h4`
     text-align: left;
     margin-left: 2rem;
 `
 
-export const PhotosContainer = styled.div`
+ const PhotosContainer = styled.div`
     margin: auto;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
@@ -127,7 +127,7 @@ export const PhotosContainer = styled.div`
     border: 2px dotted #D7D7D7;
 `
 
-export const UploadSection = styled.div`
+ const UploadSection = styled.div`
     width: 10rem;
     
     @media only screen and (max-width: 600px) {
@@ -135,7 +135,7 @@ export const UploadSection = styled.div`
     }
 `
 
-export const Label = styled.label`
+ const Label = styled.label`
     margin: 1rem;
     width: 8rem;
     height: 8rem;
@@ -154,7 +154,7 @@ export const Label = styled.label`
     }
 `
 
-export const Icon = styled.img`
+ const Icon = styled.img`
     margin: auto;
     margin-top: 2rem;
     margin-bottom: 0;
@@ -162,7 +162,7 @@ export const Icon = styled.img`
     height: 1rem;
 `
 
-export const UploadInfo = styled.h4`
+ const UploadInfo = styled.h4`
     color: #5C5C5C;
     font-weight: 400;
     font-size: 12px;
@@ -171,13 +171,13 @@ export const UploadInfo = styled.h4`
     width: 100px;
 `
 
-export const PhotosUploaded = styled.div`
+ const PhotosUploaded = styled.div`
     display: flex;
     justify-content: left;
     flex-wrap: wrap;
 `
 
-export const PhotoBox = styled.div`
+ const PhotoBox = styled.div`
     display: flex;
     flex-direction: column;
     margin: 10px;
@@ -192,7 +192,7 @@ export const PhotoBox = styled.div`
     }
 `
 
-export const Photo = styled.img`
+ const Photo = styled.img`
     margin: 10px;
     margin-bottom: 1rem;
     width: 7rem;
@@ -201,7 +201,7 @@ export const Photo = styled.img`
     flex-direction: column;
 `
 
-export const PhotoDetails = styled.div`
+ const PhotoDetails = styled.div`
     display: flex;
     flex-direction: column;
     width: 8rem;
@@ -212,7 +212,7 @@ export const PhotoDetails = styled.div`
     }
 `
 
-export const TrashContainer = styled.div`
+ const TrashContainer = styled.div`
     background: #FF3030;
     border-radius: 8px;
     width: 2.5rem;
@@ -232,12 +232,12 @@ export const TrashContainer = styled.div`
     }
 `
 
-export const Name = styled.h4`
+ const Name = styled.h4`
     font-weight: 700;
     font-size: 12px;
 `
 
-export const Size = styled.h4`
+ const Size = styled.h4`
     margin-top: 5px;
     color: #5C5C5C;
     font-weight: 400;

@@ -136,7 +136,7 @@ const LeftText = styled.h2`
         margin-right: 2rem;
     }
     @media only screen and (max-width: 450px) {
-        margin-right: 1rem;
+        margin-right: 2rem;
     }
 `
 

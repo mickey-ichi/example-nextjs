@@ -31,9 +31,6 @@ export const Hamburger = styled(Button)`
     @media only screen and (min-width: 600px) {
         display: none;
     }
-    @media only screen and (max-width: 600px) {
-    
-    } 
     
     &.close-burger {
         background: none;

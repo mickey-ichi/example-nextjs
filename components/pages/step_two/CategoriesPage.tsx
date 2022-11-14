@@ -15,7 +15,7 @@ type CategoriesProps = {
     onBack: () => void,
 }
 
-export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
+ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
 
     useEffect(() => {
         axios({
@@ -107,28 +107,28 @@ export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
     )
 }
 
-export const InstructionsText = styled.h4`
+ const InstructionsText = styled.h4`
     text-align: left;
     margin: 10px;
     margin-left: 2rem;
 `
 
-export const CategoryContainer = styled.div`
+ const CategoryContainer = styled.div`
     display: flex;
     margin-left: 2rem;
 `
 
-export const CategoryNames = styled.div`
+ const CategoryNames = styled.div`
     width: auto;
 `
 
-export const CategoriesArea = styled.div`
+ const CategoriesArea = styled.div`
     display: flex;
     flex-wrap: wrap;
     max-width: 1000px;
 `
 
-export const CategoriesBlock = styled.div`
+ const CategoriesBlock = styled.div`
     display: flex;
     flex-wrap: wrap;
     flex-grow: 1;
@@ -143,7 +143,7 @@ export const CategoriesBlock = styled.div`
     }    
 `
 
-export const Selected = styled.div`
+ const Selected = styled.div`
     display: flex;
     margin-bottom: 5px;
     
@@ -153,7 +153,7 @@ export const Selected = styled.div`
     }    
 `
 
-export const SelectedContainer = styled.div`
+ const SelectedContainer = styled.div`
     display: flex;
     margin-top: 1.7rem;
     margin-bottom: 1rem;
@@ -167,7 +167,7 @@ export const SelectedContainer = styled.div`
     }
 `
 
-export const SelectedText = styled.h4`
+ const SelectedText = styled.h4`
     text-align: left;
     margin-left: 2rem;
     margin-right: 2rem;
