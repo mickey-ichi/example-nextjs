@@ -86,14 +86,14 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
     )
 }
 
-export const InstructionsText = styled.h4`
+const InstructionsText = styled.h4`
     text-align: left;
     margin-left: 2rem;
     margin-top: 0;
     margin-bottom: 0;
 `
 
-export const MainContent = styled.div`
+const MainContent = styled.div`
     margin: auto;
     margin-bottom: 1rem;
     width: 95%;
@@ -106,7 +106,7 @@ export const MainContent = styled.div`
     margin-bottom: 0;
 `
 
-export const OptionsContainer = styled.div`
+const OptionsContainer = styled.div`
     display: flex;
     width: 100%;
     height: auto;
@@ -118,7 +118,7 @@ export const OptionsContainer = styled.div`
     }
 `
 
-export const Option = styled.div`
+const Option = styled.div`
     width: 44%;
     display: flex;
     height: 4rem;
@@ -143,17 +143,17 @@ export const Option = styled.div`
     }
 `
 
-export const Left = styled.div`
+const Left = styled.div`
     padding-top: 5px;
     font-weight: 400;
     font-size: 16px;
 `
 
-export const Icon = styled.img`
+const Icon = styled.img`
     margin-right: 1rem;
 `
 
-export const ShippingInfo = styled.div`
+const ShippingInfo = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: -1rem;
@@ -164,14 +164,14 @@ export const ShippingInfo = styled.div`
     }
 `
 
-export const ShippingText = styled.label`
+const ShippingText = styled.label`
     text-align: left;
     margin-left: 1rem;
     margin-bottom: 0;
     position: relative;
 `
 
-export const ShippingInput = styled.input`
+const ShippingInput = styled.input`
     font-size: 16px;
     background: #F8F8F8;
     border: 1px solid grey;

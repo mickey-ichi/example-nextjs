@@ -16,11 +16,9 @@ export const Drawer = styled.div`
         width: 0 !important;
         left: -20rem;
     }
-    
     @media only screen and (max-width: 600px) {
         width: 80vw;
     }   
-    
     @media only screen and (min-width: 600px) {
         display: none;
         width: 0;

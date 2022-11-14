@@ -148,7 +148,7 @@ const Checkmark = styled.img`
 
 const StepText = styled.div`
     font-style: normal;
-    font-weight: 300;
+    font-weight: 700;
     font-size: 18px;
     text-align: center;
     margin-top: 10px;
