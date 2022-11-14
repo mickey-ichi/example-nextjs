@@ -12,15 +12,41 @@ type ComplaintsProps = {
 
  export const ComplaintsPage = ({ onNext, onBack }: ComplaintsProps ) => {
 
+     type LocalContent = {
+         complaintTime: string,
+         returnTime: string,
+         street: string,
+         buildingNum: number | string,
+         premisesNum: number | string,
+         zip: number | string,
+         city: string,
+         additional: string,
+     }
+
+     const [localContent, setLocalContent] = useState<LocalContent>({
+         complaintTime: '',
+         returnTime: '',
+         street: '',
+         buildingNum: '',
+         premisesNum: '',
+         zip: '',
+         city: '',
+         additional: '',
+     })
+
     const handleSubmit = () => {
         // setPhotosContent(uploads)
         // reloads this page until next page is built
         onNext()
     }
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        e.preventDefault()
-    }
+     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+         e.preventDefault()
+         const { name, value } = e.target
+         setLocalContent((prev) => ({...prev, [name]: value}))
+
+         // updateCharacterCount(name, value.length)
+     }
 
     return (
         <PageContainer>
@@ -30,14 +56,28 @@ type ComplaintsProps = {
                         <ComplaintsText>Complaints</ComplaintsText>
                         <Complaints>
                             <Label htmlFor='complaints'>Time to make complaints</Label>
-                            <Input type='text' value='value' id='complaints' placeholder='3 years for warranty claims'></Input>
+                            <Input
+                                type='text'
+                                value={localContent.complaintTime}
+                                id='complaints'
+                                name='complaintTime'
+                                onChange={e => handleChange(e)}
+                                placeholder='3 years for warranty claims'
+                            />
                         </Complaints>
                     </ComplaintsContainer>
                     <ReturnsContainer>
                         <ReturnsText>Returns</ReturnsText>
                         <Returns>
                             <Label htmlFor='returns'>Time to withdraw from the contract</Label>
-                            <Input type='text' value='value' id='returns' placeholder='14 working days'></Input>
+                            <Input
+                                type='text'
+                                value={localContent.returnTime}
+                                id='returns'
+                                name='returnTime'
+                                onChange={e => handleChange(e)}
+                                placeholder='14 working days'
+                            />
                         </Returns>
                     </ReturnsContainer>
                 </ComplaintsAndReturns>
@@ -46,33 +86,78 @@ type ComplaintsProps = {
                     <AddressDetails>
                         <Street className='street'>
                             <Label htmlFor='street'>Street</Label>
-                            <Input type='text' value='value' id='street' placeholder='Maple'></Input>
+                            <Input
+                                type='text'
+                                value={localContent.street}
+                                id='street'
+                                name='street'
+                                onChange={e => handleChange(e)}
+                                placeholder='Street name'
+                            />
                         </Street>
                         <BuildingAndPremises className="building-premises">
                             <Building>
                                 <Label htmlFor='building'>Building number</Label>
-                                <Input type='number' value='value' id='building' placeholder='Building'></Input>
+                                <Input
+                                    type='text'
+                                    value={localContent.buildingNum}
+                                    id='building'
+                                    name='buildingNum'
+                                    onChange={e => handleChange(e)}
+                                    placeholder='Building'
+                                    onFocus={(e) => e.target.type = 'number'}
+                                />
                             </Building>
                             <Premises>
                                 <Label htmlFor='premises'>Premises number (optional)</Label>
-                                <Input type='number' value='value' id='premises' placeholder='Premises number (optional)'></Input>
+                                <Input
+                                    type='text'
+                                    value={localContent.premisesNum}
+                                    id='premises'
+                                    name='premisesNum'
+                                    onChange={e => handleChange(e)}
+                                    placeholder='Premises number (optional)'
+                                    onFocus={(e) => e.target.type = 'number'}
+                                />
                             </Premises>
                         </BuildingAndPremises>
                     </AddressDetails>
                     <ZipAndCity>
                         <Zip>
                             <Label htmlFor='zip'>Zip code</Label>
-                            <Input type='number' value='value' id='zip' placeholder='00-000'></Input>
+                            <Input
+                                type='text'
+                                value={localContent.zip}
+                                id='zip'
+                                name='zip'
+                                onChange={e => handleChange(e)}
+                                placeholder='00-000'
+                                onFocus={(e) => e.target.type = 'number'}
+                            />
                         </Zip>
                         <City>
                             <Label htmlFor='city'>City</Label>
-                            <Input type='text' value='value' id='city' placeholder='Enter a city'></Input>
+                            <Input
+                                type='text'
+                                value={localContent.city}
+                                id='city'
+                                name='city'
+                                onChange={e => handleChange(e)}
+                                placeholder='Enter a city'
+                            />
                         </City>
                     </ZipAndCity>
                 </Address>
                 <Additional>
                     <Label as='h3'>Additional Information</Label>
-                    <Input type='text' value='value' id='additional' placeholder='Provide more details'></Input>
+                    <Input
+                        type='text'
+                        value={localContent.additional}
+                        id='additional'
+                        name='additional'
+                        onChange={e => handleChange(e)}
+                        placeholder='Provide more details'
+                    />
                 </Additional>
             </MainContent>
             <ButtonContainer>
@@ -120,6 +205,7 @@ type ComplaintsProps = {
         }
     } 
 `
+
 const ComplaintsContainer = styled.div`
     display: flex;
     flex-direction: column;
