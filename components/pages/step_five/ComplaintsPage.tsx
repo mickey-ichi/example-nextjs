@@ -5,6 +5,7 @@ import { ReqInput, Input } from '../../elements/Input'
 import { PageContainer } from '../../elements/PageContainer'
 import {ButtonContainer} from "../../elements/ButtonContainer";
 import {Form} from "../../elements/Form";
+import {FormContext} from "../../../contexts/CurrentFormContext";
 
 type ComplaintsProps = {
     onNext: () => void,
@@ -12,6 +13,8 @@ type ComplaintsProps = {
 }
 
  export const ComplaintsPage = ({ onNext, onBack }: ComplaintsProps ) => {
+
+     const { complaintContent, setComplaintContent } = useContext(FormContext)
 
      type LocalContent = {
          complaintTime: string | null,
@@ -35,10 +38,17 @@ type ComplaintsProps = {
          additional: null,
      })
 
-    const handleSubmit = () => {
-        // setPhotosContent(uploads)
-        // reloads this page until next page is built
-        onNext()
+     useEffect(() => setLocalContent(complaintContent), [complaintContent])
+
+     const handleBack = () => {
+         setComplaintContent(localContent)
+         onBack()
+     }
+
+     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+         e.preventDefault()
+         setComplaintContent(localContent)
+         onNext()
     }
 
      const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +72,7 @@ type ComplaintsProps = {
 
     return (
         <PageContainer>
-            <ComplaintsForm>
+            <ComplaintsForm onSubmit={(e) => handleSubmit(e)} id='form1'>
                 <MainContent>
                     <ComplaintsAndReturns>
                         <ComplaintsContainer>
@@ -174,8 +184,8 @@ type ComplaintsProps = {
                     </Additional>
                 </MainContent>
                 <ButtonContainer>
-                    <Button onClick={() => onBack()}>Back</Button>
-                    <Button disabled={formInProgress} onClick={() => handleSubmit()}>Finish →</Button>
+                    <Button onClick={handleBack}>Back</Button>
+                    <Button disabled={formInProgress} type='submit'>Finish →</Button>
                 </ButtonContainer>
             </ComplaintsForm>
         </PageContainer>
@@ -396,7 +406,9 @@ const Additional = styled.div`
     }
 `
 
- const Label = styled.label``
+const Label = styled.label`
+    white-space: nowrap;
+`
 
 const ComplaintsForm = styled(Form)`
     & ${ReqInput}:invalid {

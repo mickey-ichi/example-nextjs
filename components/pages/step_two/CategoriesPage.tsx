@@ -9,6 +9,8 @@ import { SelectedItems } from "../../elements/SelectedItems";
 import { items, names } from './placeholderData'
 import axios from "axios";
 import {ButtonContainer} from "../../elements/ButtonContainer";
+import {Form} from "../../elements/Form";
+import {ReqInput} from "../../elements/Input";
 
 type CategoriesProps = {
     onNext: () => void,
@@ -32,17 +34,19 @@ type CategoriesProps = {
             });
     },[])
 
-    const [numSelected, setNumSelected] = useState<number>(0)
-    const [selected, setSelected] = useState<string[]>([])
+    const { categoriesContent, setCategoriesContent } = useContext(FormContext)
 
+    const [selected, setSelected] = useState<string []>([])
     const [mockData, setMockData] = useState([])
     const [categoryData, setCategoryData] = useState([])
     const [categoryNames, setCategoryNames] = useState<string[]>([])
 
+    useEffect(() => setSelected(categoriesContent), [categoriesContent])
+
     const changeCategory = (index: number) => {
-        if (mockData[index]) {
-            setCategoryData(Object.values(mockData[index]))
-        }
+    if (mockData[index]) {
+        setCategoryData(Object.values(mockData[index]))
+    }
     }
 
     const getCategoryItems = (index: number) => {
@@ -55,61 +59,59 @@ type CategoriesProps = {
 
     const controlArray = [0,1,2,3]
 
-    const { setCategoriesContent } = useContext(FormContext)
 
-    const handleSubmit = () => {
-        setCategoriesContent({category1: selected[0] || '', category2: selected[1] || '', category3: selected[2] || ''})
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        setCategoriesContent( [...selected])
         onNext()
     }
 
      const [formInProgress, setFormInProgress] = useState<boolean>(true)
-     useEffect(() => checkFormProgress(), [numSelected])
+     useEffect(() => checkFormProgress(), [selected.length])
 
      const checkFormProgress = () => {
-         setFormInProgress(numSelected > 0 ? false : true)
+         setFormInProgress(selected.length > 0 ? false : true)
      }
 
     return (
         <PageContainer>
-            <InstructionsText>Select the category your goods belong to (max 3)</InstructionsText>
-            <CategoryContainer>
-                <CategoryNames>
-                    <CategoryButtons names={names} changeCategory={(index) => changeCategory(index)}/>
-                </CategoryNames>
-                <CategoriesArea>
-                    {controlArray.map((number, index) => (
-                        <CategoriesBlock style={{background: 'none'}} key={Math.random()}>
-                            <CategorySection
-                                name={categoryNames[index]}
-                                // items={index === 0 ? categoryData.category0 : categoryData.category1}
-                                items={getCategoryItems(index)}
-                                numSelected={numSelected}
-                                setNumSelected={setNumSelected}
-                                selected={selected}
-                                setSelected={setSelected}
-                            />
-                            <CategorySection
-                                name={categoryNames[index + 4]}
-                                items={getCategoryItems(index + 4)}
-                                numSelected={numSelected}
-                                setNumSelected={setNumSelected}
-                                selected={selected}
-                                setSelected={setSelected}
-                            />
-                        </CategoriesBlock>
-                    ))}
-                </CategoriesArea>
-            </CategoryContainer>
-            <Selected>
-                <SelectedText>Selected categories:</SelectedText>
-                <SelectedContainer>
-                    <SelectedItems selected={selected} setSelected={setSelected} setNumSelected={setNumSelected}></SelectedItems>
-                </SelectedContainer>
-            </Selected>
-            <ButtonContainer>
-                <Button onClick={() => onBack()}>Back</Button>
-                <Button disabled={formInProgress} onClick={() => handleSubmit()}>Next →</Button>
-            </ButtonContainer>
+            <CategoryForm onSubmit={(e) => handleSubmit(e)}>
+                <InstructionsText>Select the category your goods belong to (max 3)</InstructionsText>
+                <CategoryContainer>
+                    <CategoryNames>
+                        <CategoryButtons names={names} changeCategory={(index) => changeCategory(index)}/>
+                    </CategoryNames>
+                    <CategoriesArea>
+                        {controlArray.map((number, index) => (
+                            <CategoriesBlock style={{background: 'none'}} key={Math.random()}>
+                                <CategorySection
+                                    name={categoryNames[index]}
+                                    // items={index === 0 ? categoryData.category0 : categoryData.category1}
+                                    items={getCategoryItems(index)}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                                <CategorySection
+                                    name={categoryNames[index + 4]}
+                                    items={getCategoryItems(index + 4)}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
+                            </CategoriesBlock>
+                        ))}
+                    </CategoriesArea>
+                </CategoryContainer>
+                <Selected>
+                    <SelectedText>Selected categories:</SelectedText>
+                    <SelectedContainer>
+                        <SelectedItems selected={selected} setSelected={setSelected}></SelectedItems>
+                    </SelectedContainer>
+                </Selected>
+                <ButtonContainer>
+                    <Button onClick={() => onBack()}>Back</Button>
+                    <Button disabled={formInProgress} type='submit'>Next →</Button>
+                </ButtonContainer>
+            </CategoryForm>
         </PageContainer>
     )
 }
@@ -184,4 +186,9 @@ type CategoriesProps = {
     white-space: no-wrap;
 `
 
+const CategoryForm = styled(Form)`
+    & ${ReqInput}:invalid {
+        border: 3px solid ${props => props.theme.colors.error};
+    }
+`
 

@@ -4,6 +4,9 @@ import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
 import { FormContext } from '../../../contexts/CurrentFormContext'
 import {ButtonContainer} from "../../elements/ButtonContainer";
+import {Form} from "../../elements/Form";
+import {ReqInput} from "../../elements/Input";
+import photosPageStories from "../../../stories/pages/PhotosPage.stories";
 
 type PhotosProps = {
     onNext: () => void,
@@ -12,13 +15,16 @@ type PhotosProps = {
 
  export const PhotosPage = ({ onNext, onBack }: PhotosProps ) => {
 
-    const { descriptionContent, categoriesContent, photosContent, setPhotosContent } = useContext(FormContext)
+    const { photosContent, setPhotosContent } = useContext(FormContext)
 
     const [uploads, setUploads] = useState<{
         url: string,
         name: string,
         size: number,
     }[]>([],)
+
+     useEffect(() => setUploads(photosContent), [photosContent])
+
 
      const [formInProgress, setFormInProgress] = useState<boolean>(true)
      useEffect(() => checkFormProgress(), [uploads])
@@ -53,57 +59,59 @@ type PhotosProps = {
         setUploads(prev => prev.filter(item => (item.url !== urlToDelete)))
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e: { preventDefault: () => void }) => {
+        e.preventDefault()
         setPhotosContent(uploads)
-        // reloads this page until next page is built
         onNext()
     }
 
     return (
         <PageContainer>
-            <InstructionsText>Add product photos (max 10)</InstructionsText>
-            <PhotosContainer>
-                <UploadSection>
-                    <Label htmlFor='upload'>
-                        <Icon src={'/images/icons/upload.png'}></Icon>
-                        <p>Upload photo(s)</p>
-                    </Label>
-                    <input
-                        id='upload'
-                        type='file'
-                        multiple
-                        accept='.jpg,.JPG,.jpeg,.JPEG,.png,.PNG,.gif,.GIF'
-                        onChange={(e) => handleChange(e)}
-                        style={{visibility: 'hidden'}}
-                    />
-                    <UploadInfo>Max size - 25Mb  Jpg, Png, Gif</UploadInfo>
-                </UploadSection>
-                <PhotosUploaded>
-                    {uploads &&
-                        uploads.map((item) => (
-                            <PhotoBox key={Math.random()}>
-                                <Photo src={item.url} />
-                                <PhotoDetails>
-                                    <TrashContainer
-                                        className="trash-container"
-                                        onClick={() => handleDelete(item.url)}
-                                    >
-                                        <Icon src={'/images/icons/trash.png'}></Icon>
-                                    </TrashContainer>
-                                    <Name>{item.name}</Name>
-                                    <Size>{`${item.size} Mb`}</Size>
-                                    {/*<label htmlFor='progress'>upload progress</label>*/}
-                                    {/*<progress id='progress' value='100' max='100'></progress>*/}
-                                </PhotoDetails>
-                            </PhotoBox>
-                        ))
-                    }
-                </PhotosUploaded>
-            </PhotosContainer>
-            <ButtonContainer>
-                <Button onClick={() => onBack()}>Back</Button>
-                <Button disabled={formInProgress} onClick={() => handleSubmit()}>Next →</Button>
-            </ButtonContainer>
+            <PhotosForm onSubmit={(e) => handleSubmit(e)}>
+                <InstructionsText>Add product photos (max 10)</InstructionsText>
+                <PhotosContainer>
+                    <UploadSection>
+                        <Label htmlFor='upload'>
+                            <Icon src={'/images/icons/upload.png'}></Icon>
+                            <p>Upload photo(s)</p>
+                        </Label>
+                        <input
+                            id='upload'
+                            type='file'
+                            multiple
+                            accept='.jpg,.JPG,.jpeg,.JPEG,.png,.PNG,.gif,.GIF'
+                            onChange={(e) => handleChange(e)}
+                            style={{visibility: 'hidden'}}
+                        />
+                        <UploadInfo>Max size - 25Mb  Jpg, Png, Gif</UploadInfo>
+                    </UploadSection>
+                    <PhotosUploaded>
+                        {uploads &&
+                            uploads.map((item) => (
+                                <PhotoBox key={Math.random()}>
+                                    <Photo src={item.url} />
+                                    <PhotoDetails>
+                                        <TrashContainer
+                                            className="trash-container"
+                                            onClick={() => handleDelete(item.url)}
+                                        >
+                                            <Icon src={'/images/icons/trash.png'}></Icon>
+                                        </TrashContainer>
+                                        <Name>{item.name}</Name>
+                                        <Size>{`${item.size} Mb`}</Size>
+                                        {/*<label htmlFor='progress'>upload progress</label>*/}
+                                        {/*<progress id='progress' value='100' max='100'></progress>*/}
+                                    </PhotoDetails>
+                                </PhotoBox>
+                            ))
+                        }
+                    </PhotosUploaded>
+                </PhotosContainer>
+                <ButtonContainer>
+                    <Button onClick={() => onBack()}>Back</Button>
+                    <Button disabled={formInProgress} type='submit'>Next →</Button>
+                </ButtonContainer>
+            </PhotosForm>
         </PageContainer>
     )
 }
@@ -250,3 +258,5 @@ type PhotosProps = {
     font-weight: 400;
     font-size: 12px;
 `
+
+const PhotosForm = styled(Form)``

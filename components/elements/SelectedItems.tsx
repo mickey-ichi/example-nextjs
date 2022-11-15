@@ -4,17 +4,15 @@ import styled from 'styled-components'
 type SelectedItemsProps = {
     selected: string[],
     setSelected: React.Dispatch<React.SetStateAction<string[]>>,
-    setNumSelected: React.Dispatch<React.SetStateAction<number>>,
 }
 
-export const SelectedItems = ({ selected, setSelected, setNumSelected }: SelectedItemsProps ) => {
+export const SelectedItems = ({ selected, setSelected }: SelectedItemsProps ) => {
     const handleClick = (itemToRemove: string) => {
         setSelected(prev => {
             const indexToRemove = prev.indexOf(itemToRemove)
             const newArray = prev.filter((data, index) => index !== indexToRemove)
             return newArray
         })
-        setNumSelected(prev => prev - 1)
     }
 
     return (

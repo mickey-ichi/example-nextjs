@@ -68,15 +68,15 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
         updateCharacterCount(name, value.length)
     }
 
-    const handleSubmit = () => {
-        // setContent((prev: object) => ({...prev, [e.target.name]: e.target.value}))
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         setDescriptionContent(localContent)
         onNext()
     }
 
     return (
         <PageContainer>
-            <DescriptionForm>
+            <DescriptionForm onSubmit={(e) => handleSubmit(e)} id='form1'>
                 <LeftForm>
                     <Instructions>Fill in the basic information about your item</Instructions>
                     <TitleLabel>Title</TitleLabel>
@@ -144,7 +144,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                 </RightForm>
             </DescriptionForm>
             <ButtonContainer style={{marginTop: '-1rem'}}>
-                <Button disabled={formInProgress} onClick={() => handleSubmit()}>Next →</Button>
+                <Button disabled={formInProgress} type='submit'>Next →</Button>
             </ButtonContainer>
         </PageContainer>
     )

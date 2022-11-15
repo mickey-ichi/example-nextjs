@@ -17,13 +17,22 @@ function MyApp({ Component, pageProps }: AppProps) {
     price: 0,
     })
 
-    const [categoriesContent, setCategoriesContent] = useState({
-        category1: '',
-        category2: '',
-        category3: '',
-    })
+    const [categoriesContent, setCategoriesContent] = useState([])
 
     const [photosContent, setPhotosContent] = useState([])
+
+    const [deliveryContent, setDeliveryContent] = useState([ '', [], [] ])
+
+    const [complaintContent, setComplaintContent] = useState({
+        complaintTime: '',
+        returnTime: '',
+        street: '',
+        buildingNum: 0,
+        premisesNum: 0,
+        zip: 0,
+        city: '',
+        additional: '',
+    })
 
     return (
         <ThemeProvider theme={theme}>
@@ -31,6 +40,9 @@ function MyApp({ Component, pageProps }: AppProps) {
               descriptionContent, setDescriptionContent,
               categoriesContent, setCategoriesContent,
               photosContent, setPhotosContent,
+              // @ts-ignore
+              deliveryContent, setDeliveryContent,
+              complaintContent, setComplaintContent,
           }}>
               <Component {...pageProps} />
           </FormContext.Provider>

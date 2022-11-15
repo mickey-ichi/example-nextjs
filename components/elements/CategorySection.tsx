@@ -5,29 +5,27 @@ import { Checkbox } from './Checkbox'
 type CategorySectionProps = {
     name: string,
     items: string[],
-    numSelected: number,
-    setNumSelected: React.Dispatch<React.SetStateAction<number>>,
     selected: string[],
     setSelected: React.Dispatch<React.SetStateAction<string[]>>,
 }
 
-export const CategorySection = ({ name, items, numSelected, setNumSelected, selected, setSelected }: CategorySectionProps ) => {
+export const CategorySection = ({ name, items, selected, setSelected }: CategorySectionProps ) => {
 
     const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false])
+    console.log(selected.length)
 
     const handleClick = (index: number) => {
-        if (numSelected < 3 || (numSelected === 3 && selected.includes(items[index]))) {
+        console.log(selected.length)
+        if (selected.length < 3 || (selected.length === 3 && selected.includes(items[index]))) {
             setChecked((prev) =>
                 prev.map((item, arrIndex) =>
                     arrIndex === index ? !prev[index] : prev[index])
             )
             if (!selected.includes(items[index])) {
                 setSelected((prev) => [...prev, items[index]])
-                setNumSelected(prev => prev + 1)
             }
             else {
                 setSelected((prev) => prev.filter(item => item !== items[index]))
-                setNumSelected(prev => prev - 1)
             }
         }
         else (alert('please select no more than 3 categories'))
@@ -55,8 +53,6 @@ export const CategorySection = ({ name, items, numSelected, setNumSelected, sele
                                 width='24px'
                                 height='24px'
                                 isChecked={checked[index]}
-                                // onClick={() => handleClick(index)}
-                                // disabled={numSelected < 3 ? false : true}
                             />
                             <Label>{item}</Label>
                         </ItemRow>
