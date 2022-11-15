@@ -20,6 +20,11 @@ export const Button = styled.button`
         cursor: pointer;
         opacity: 1;
     }
+    
+    &:disabled {
+        background: #EFEFEF;
+        color: #8A8A8A;
+    }
 `
 
 

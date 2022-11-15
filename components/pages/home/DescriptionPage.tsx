@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
-import { Input } from '../../elements/Input'
+import {Input, ReqInput} from '../../elements/Input'
 import { PageContainer } from '../../elements/PageContainer'
 import { Form } from '../../elements/Form'
 import { FormContext } from '../../../contexts/CurrentFormContext'
@@ -18,27 +18,36 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
     const { descriptionContent, setDescriptionContent } = useContext(FormContext)
 
     type LocalContent = {
-            title: string,
-            description: string,
-            numUnits: number,
+            title: string | null,
+            description: string | null,
+            numUnits: number | null,
             length: number,
             width: number,
             height: number,
-            price: number,
+            price: number | null,
     }
 
     const [localContent, setLocalContent] = useState<LocalContent>({
-        title: '',
-        description: '',
-        numUnits: 0,
+        title: null,
+        description: null,
+        numUnits: null,
         length: 0,
         width: 0,
         height: 0,
-        price: 0,
+        price: null,
     })
 
     useEffect(() => setLocalContent(descriptionContent), [descriptionContent])
 
+    const [formInProgress, setFormInProgress] = useState<boolean>(true)
+    useEffect(() => checkFormProgress(), [localContent])
+
+    const checkFormProgress = () => {
+        if(localContent.title && localContent.description && localContent.numUnits && localContent.price) {
+            setFormInProgress(false)
+        }
+        else setFormInProgress(true)
+    }
 
     const updateCharacterCount = (name: string, length: number) => {
         if (name === 'title') {
@@ -48,6 +57,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
             setCharCount(prev => [prev[0], length])
         }
     }
+
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -66,7 +76,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
 
     return (
         <PageContainer>
-            <Form>
+            <Form2>
                 <LeftForm>
                     <Instructions>Fill in the basic information about your item</Instructions>
                     <TitleLabel>Title</TitleLabel>
@@ -74,7 +84,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                         type='text'
                         placeholder='Enter item title here'
                         name='title'
-                        value={localContent.title}
+                        value={localContent.title || ''}
                         onChange={(e) => handleChange(e)}
                         maxLength={60}
                     />
@@ -84,7 +94,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                     <Description
                         name='description'
                         placeholder='Enter item description here'
-                        value={localContent.description}
+                        value={localContent.description || ''}
                         onChange={(e) => handleChange(e)}
                         maxLength={1200}
                     />
@@ -96,7 +106,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                         type='number'
                         placeholder='Availability'
                         name='numUnits'
-                        value={localContent.numUnits}
+                        value={localContent.numUnits || ''}
                         onChange={(e) => handleChange(e)}
                     />
                     <DimensionsLabel>Dimensions (optional)</DimensionsLabel>
@@ -128,18 +138,17 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                         type='number'
                         placeholder='Product price in PLN (gross)'
                         name='price'
-                        value={localContent.price}
+                        value={localContent.price || ''}
                         onChange={(e) => handleChange(e)}
                     />
                 </RightForm>
-            </Form>
+            </Form2>
             <ButtonContainer style={{marginTop: '-1rem'}}>
-                <Button onClick={() => handleSubmit()}>Next →</Button>
+                <Button disabled={formInProgress} onClick={() => handleSubmit()}>Next →</Button>
             </ButtonContainer>
         </PageContainer>
     )
 }
-
 
 const LeftForm = styled.div`
     flex-grow: 0.7;
@@ -151,10 +160,9 @@ const LeftForm = styled.div`
 const Instructions = styled.h3`
 `
 
-const Title = styled(Input)`
+const Title = styled(ReqInput)`
     margin-top: 10px;
     background: #F8F8F8;
-    border: none;
     border-radius: 8px;
     line-height: 2rem;
     padding: 10px;
@@ -170,7 +178,7 @@ const Spacer = styled.div`
     margin-bottom: 2rem;
 `
 
-const Description = styled.textarea`
+const Description = styled.textarea.attrs({required: true})`
     margin-top: 10px;
     min-height: 282px;
     background: #F8F8F8;
@@ -213,7 +221,7 @@ const RightForm = styled.div`
     }
 `
 
-const Availability = styled(Input)`
+const Availability = styled(ReqInput)`
     margin-bottom: auto;
     line-height: 2rem;
     padding: 10px;
@@ -257,8 +265,8 @@ const DimensionsLabel = styled.label`
 `
 
 const Dimension = styled(Input)`
-    width: 3rem;
     height: 3rem;
+    border: none;
 `
 
 const DimensionLabel = styled.label`
@@ -269,13 +277,19 @@ const DimensionLabel = styled.label`
     font-size: 16px;
 `
 
-const Price = styled(Input)`
+const Price = styled(ReqInput)`
     line-height: 2rem;
     padding: 10px;
 `
 
 const PriceLabel = styled.label`
     font-weight: 600;
+`
+
+const Form2 = styled(Form)`
+    & ${ReqInput}:invalid, ${Description}:invalid {
+        border: 3px solid ${props => props.theme.colors.error};
+    }
 `
 
 

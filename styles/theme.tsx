@@ -10,6 +10,8 @@ export const theme: DefaultTheme = {
         disabled: '#EFEFEF',
         active: '#FF782D',
         selected: '#FFF5EC',
+        error: `#FF3030`,
+
     },
     font: {
         family: 'sans-serif',

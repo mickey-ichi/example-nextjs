@@ -62,6 +62,13 @@ type CategoriesProps = {
         onNext()
     }
 
+     const [formInProgress, setFormInProgress] = useState<boolean>(true)
+     useEffect(() => checkFormProgress(), [numSelected])
+
+     const checkFormProgress = () => {
+         setFormInProgress(numSelected > 0 ? false : true)
+     }
+
     return (
         <PageContainer>
             <InstructionsText>Select the category your goods belong to (max 3)</InstructionsText>
@@ -101,7 +108,7 @@ type CategoriesProps = {
             </Selected>
             <ButtonContainer>
                 <Button onClick={() => onBack()}>Back</Button>
-                <Button onClick={() => handleSubmit()}>Next →</Button>
+                <Button disabled={formInProgress} onClick={() => handleSubmit()}>Next →</Button>
             </ButtonContainer>
         </PageContainer>
     )
@@ -155,7 +162,8 @@ type CategoriesProps = {
 
  const SelectedContainer = styled.div`
     display: flex;
-    margin-top: 1.7rem;
+    min-height: 4rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     margin-right: auto;
     
@@ -171,7 +179,7 @@ type CategoriesProps = {
     text-align: left;
     margin-left: 2rem;
     margin-right: 2rem;
-    margin-top: 3rem;
+    margin-top: 2.2rem;
     min-width: 170px;
     white-space: no-wrap;
 `

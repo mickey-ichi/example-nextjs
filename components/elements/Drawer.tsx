@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Drawer = styled.div`
-    transition: all 0.4s ease-out;
+    transition: all 0.6s ease-out;
     position: fixed;
     left: -3.5rem;
     top: -1rem;
@@ -13,7 +13,7 @@ export const Drawer = styled.div`
 
 
     &.hide {
-        width: 0 !important;
+        width: 10rem;
         left: -20rem;
     }
     @media only screen and (max-width: 600px) {

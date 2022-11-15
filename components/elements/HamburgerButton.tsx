@@ -3,8 +3,8 @@ import {Button} from "./Button";
 
 export const Hamburger = styled(Button)`
     z-index: 3;
-    width: 3rem;
-    height: 3rem;
+    width: 40px;
+    height: 38px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -13,8 +13,8 @@ export const Hamburger = styled(Button)`
     margin-top: 1rem;
     margin-bottom: 1rem;
     padding: 0;
+    padding-top: 3px;
     border-radius: 8px;
-    padding-top: 8px;
     
     p {
         color: white;

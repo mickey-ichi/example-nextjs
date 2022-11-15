@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
@@ -19,6 +19,13 @@ type PhotosProps = {
         name: string,
         size: number,
     }[]>([],)
+
+     const [formInProgress, setFormInProgress] = useState<boolean>(true)
+     useEffect(() => checkFormProgress(), [uploads])
+
+     const checkFormProgress = () => {
+         setFormInProgress(uploads.length > 0 ? false : true)
+     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let fileTooBig: boolean = false
@@ -95,7 +102,7 @@ type PhotosProps = {
             </PhotosContainer>
             <ButtonContainer>
                 <Button onClick={() => onBack()}>Back</Button>
-                <Button onClick={() => handleSubmit()}>Next →</Button>
+                <Button disabled={formInProgress} onClick={() => handleSubmit()}>Next →</Button>
             </ButtonContainer>
         </PageContainer>
     )

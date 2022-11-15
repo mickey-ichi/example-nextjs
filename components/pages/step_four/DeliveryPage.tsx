@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
@@ -33,6 +33,7 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
     }
 
     const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false, false, false, false])
+    const [shipDate, setShipDate] = useState<string>('')
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.preventDefault()
@@ -40,6 +41,18 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
         const numIndex = Number(stringIndex)
         !checked[numIndex] && inputRef.current && inputRef.current.focus()
         setChecked(prev => prev.map((item,index) => index !== numIndex ? item : !item))
+    }
+
+    const handleDate = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+        e.target.type = 'text'
+        setShipDate(e.target.value)
+    }
+
+    const [formInProgress, setFormInProgress] = useState<boolean>(true)
+    useEffect(() => checkFormProgress(), [checked, shipDate])
+
+    const checkFormProgress = () => {
+        setFormInProgress(checked.includes(true) && shipDate ? false : true)
     }
 
     return (
@@ -74,13 +87,14 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
                         type='text'
                         ref={inputRef}
                         onFocus={(e) => e.target.type = 'date'}
-                        onBlur={(e) => e.target.type = 'text'}
+                        onBlur={(e) => handleDate(e)}
+                        // onBlurCapture={(e) => handleDate(e)}
                         placeholder='Specify a date'></ShippingInput>
                 </ShippingInfo>
             </MainContent>
             <ButtonContainer>
                 <Button onClick={() => onBack()}>Back</Button>
-                <Button onClick={() => handleSubmit()}>Next →</Button>
+                <Button disabled={formInProgress} onClick={() => handleSubmit()}>Next →</Button>
             </ButtonContainer>
         </PageContainer>
     )
