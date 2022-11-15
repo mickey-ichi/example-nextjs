@@ -76,7 +76,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
 
     return (
         <PageContainer>
-            <Form2>
+            <DescriptionForm>
                 <LeftForm>
                     <Instructions>Fill in the basic information about your item</Instructions>
                     <TitleLabel>Title</TitleLabel>
@@ -142,7 +142,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                         onChange={(e) => handleChange(e)}
                     />
                 </RightForm>
-            </Form2>
+            </DescriptionForm>
             <ButtonContainer style={{marginTop: '-1rem'}}>
                 <Button disabled={formInProgress} onClick={() => handleSubmit()}>Next →</Button>
             </ButtonContainer>
@@ -286,7 +286,9 @@ const PriceLabel = styled.label`
     font-weight: 600;
 `
 
-const Form2 = styled(Form)`
+const DescriptionForm = styled(Form)`
+    display: flex;
+    
     & ${ReqInput}:invalid, ${Description}:invalid {
         border: 3px solid ${props => props.theme.colors.error};
     }
