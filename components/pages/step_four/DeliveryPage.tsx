@@ -16,14 +16,14 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
 
     // const { descriptionContent, categoriesContent, photosContent, setPhotosContent } = useContext(FormContext)
     const DeliveryOptions = [
-        {name: 'Self pickup', src: '/images/icons/delivery-box.png'},
-        {name: 'Parcel machine Inpost', src: '/images/icons/delivery-InPost.png'},
-        {name: 'Courier DPD', src: '/images/icons/delivery-dpd.png'},
-        {name: 'Paczka Orlen', src: '/images/icons/delivery-PaczkaOrlen.png'},
-        {name: 'Courier DPD cash on delivery', src: '/images/icons/delivery-dpd.png'},
-        {name: 'Branch Poczta Polska', src: '/images/icons/delivery-PocztaPolska.png'},
-        {name: 'Courier Inpost', src: '/images/icons/delivery-InPost.png'},
-        {name: 'Courier Poczta Polska', src: '/images/icons/delivery-PocztaPolska.png'},
+        {name: 'Self pickup', src: '/images/icons/delivery_box.png'},
+        {name: 'Parcel machine Inpost', src: '/images/icons/delivery_InPost.png'},
+        {name: 'Courier DPD', src: '/images/icons/delivery_dpd.png'},
+        {name: 'Paczka Orlen', src: '/images/icons/delivery_PaczkaOrlen.png'},
+        {name: 'Courier DPD cash on delivery', src: '/images/icons/delivery_dpd.png'},
+        {name: 'Branch Poczta Polska', src: '/images/icons/delivery_PocztaPolska.png'},
+        {name: 'Courier Inpost', src: '/images/icons/delivery_InPost.png'},
+        {name: 'Courier Poczta Polska', src: '/images/icons/delivery_PocztaPolska.png'},
     ]
 
     const handleSubmit = () => {

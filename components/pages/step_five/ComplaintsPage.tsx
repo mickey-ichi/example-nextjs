@@ -204,6 +204,13 @@ type ComplaintsProps = {
             width: auto;
         }
     } 
+    
+    @media only screen and (max-width: 400px) {
+        label, input {
+            margin-left: -2rem;
+            margin-right: -2rem;
+        }
+    }
 `
 
 const ComplaintsContainer = styled.div`
@@ -284,11 +291,25 @@ const Street = styled.div`
     display: flex;
     flex-direction: column;
     width: 50%;
+    
+    @media only screen and (max-width: 400px) {
+        label, input {
+            margin-left: -2rem;
+            margin-right: -2rem;
+        }
+    }
 `
 
 const BuildingAndPremises = styled.div`
     display: flex;
     width: 50%;
+    
+    @media only screen and (max-width: 400px) {
+        label, input {
+            margin-left: -2rem;
+            margin-right: -2rem;
+        }
+    }
 `
 
 const Building = styled.div`
@@ -316,6 +337,12 @@ const ZipAndCity = styled.div`
             width: 50%;
         }
     }   
+    @media only screen and (max-width: 400px) {
+        label, input {
+            margin-left: -2rem;
+            width: 200%;
+        }
+    }
 `
 
 const Zip = styled.div`
@@ -339,14 +366,20 @@ const Additional = styled.div`
     
     input {
         margin-top: 0;
+        width: calc(100% - 4rem);
     }
-    
     @media only screen and (max-width: 600px) {
         input {
             margin-left: 2rem;
         }
     }
-
+    @media only screen and (max-width: 400px) {
+        input {
+            margin-right: auto;
+            margin-left: 0;
+            width: 100%;
+        }
+    }
 `
 
  const Label = styled.label``
