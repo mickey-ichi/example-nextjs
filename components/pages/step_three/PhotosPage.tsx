@@ -59,6 +59,12 @@ type PhotosProps = {
         setUploads(prev => prev.filter(item => (item.url !== urlToDelete)))
     }
 
+    const handleBack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+         e.preventDefault()
+         setPhotosContent(uploads)
+         onBack()
+    }
+
     const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault()
         setPhotosContent(uploads)
@@ -108,7 +114,7 @@ type PhotosProps = {
                     </PhotosUploaded>
                 </PhotosContainer>
                 <ButtonContainer>
-                    <Button onClick={() => onBack()}>Back</Button>
+                    <Button onClick={(e) => handleBack(e)}>Back</Button>
                     <Button disabled={formInProgress} type='submit'>Next →</Button>
                 </ButtonContainer>
             </PhotosForm>
@@ -126,20 +132,20 @@ type PhotosProps = {
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     width: 95%;
-    min-height: 440px;
+    min-height: 445px;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     display: flex;
+    border: 2px dotted #D7D7D7;
     color: ${(props) => props.theme.colors.text};
     font-family: ${(props) => props.theme.font.family};
-    
+  
      @media only screen and (max-width: 600px) {
         flex-direction: column;
         width: 100%;
     }
     
-    border: 2px dotted #D7D7D7;
 `
 
  const UploadSection = styled.div`

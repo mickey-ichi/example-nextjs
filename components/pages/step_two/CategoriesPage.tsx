@@ -36,7 +36,7 @@ type CategoriesProps = {
 
     const { categoriesContent, setCategoriesContent } = useContext(FormContext)
 
-    const [selected, setSelected] = useState<string []>([])
+     const [selected, setSelected] = useState<string []>([])
     const [mockData, setMockData] = useState([])
     const [categoryData, setCategoryData] = useState([])
     const [categoryNames, setCategoryNames] = useState<string[]>([])
@@ -44,9 +44,9 @@ type CategoriesProps = {
     useEffect(() => setSelected(categoriesContent), [categoriesContent])
 
     const changeCategory = (index: number) => {
-    if (mockData[index]) {
-        setCategoryData(Object.values(mockData[index]))
-    }
+        if (mockData[index]) {
+            setCategoryData(Object.values(mockData[index]))
+        }
     }
 
     const getCategoryItems = (index: number) => {
@@ -60,17 +60,23 @@ type CategoriesProps = {
     const controlArray = [0,1,2,3]
 
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        setCategoriesContent( [...selected])
-        onNext()
-    }
-
      const [formInProgress, setFormInProgress] = useState<boolean>(true)
      useEffect(() => checkFormProgress(), [selected.length])
 
      const checkFormProgress = () => {
-         setFormInProgress(selected.length > 0 ? false : true)
+         setFormInProgress(selected.length <= 0)
+     }
+
+     const handleBack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+         e.preventDefault()
+         setCategoriesContent( [...selected])
+         onBack()
+     }
+
+     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+         e.preventDefault()
+         setCategoriesContent( [...selected])
+         onNext()
      }
 
     return (
@@ -108,7 +114,7 @@ type CategoriesProps = {
                     </SelectedContainer>
                 </Selected>
                 <ButtonContainer>
-                    <Button onClick={() => onBack()}>Back</Button>
+                    <Button onClick={(e) => handleBack(e)}>Back</Button>
                     <Button disabled={formInProgress} type='submit'>Next →</Button>
                 </ButtonContainer>
             </CategoryForm>

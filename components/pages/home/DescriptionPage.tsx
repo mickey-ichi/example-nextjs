@@ -58,8 +58,6 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
         }
     }
 
-
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         e.preventDefault()
         const { name, value } = e.target
@@ -76,81 +74,88 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
 
     return (
         <PageContainer>
-            <DescriptionForm onSubmit={(e) => handleSubmit(e)} id='form1'>
-                <LeftForm>
-                    <Instructions>Fill in the basic information about your item</Instructions>
-                    <TitleLabel>Title</TitleLabel>
-                    <Title
-                        type='text'
-                        placeholder='Enter item title here'
-                        name='title'
-                        value={localContent.title || ''}
-                        onChange={(e) => handleChange(e)}
-                        maxLength={60}
-                    />
-                    <Span>{`${charCount[0]}/60`}</Span>
-                    <Spacer />
-                    <DescriptionLabel>Description</DescriptionLabel>
-                    <Description
-                        name='description'
-                        placeholder='Enter item description here'
-                        value={localContent.description || ''}
-                        onChange={(e) => handleChange(e)}
-                        maxLength={1200}
-                    />
-                    <Span>{`${charCount[1]}/1200`}</Span>
-                </LeftForm>
-                <RightForm>
-                    <AvailabilityLabel>Number of units available</AvailabilityLabel>
-                    <Availability
-                        type='number'
-                        placeholder='Availability'
-                        name='numUnits'
-                        value={localContent.numUnits || ''}
-                        onChange={(e) => handleChange(e)}
-                    />
-                    <DimensionsLabel>Dimensions (optional)</DimensionsLabel>
-                    <DimensionsContainer>
-                        <DimensionLabel>Length [mm]</DimensionLabel>
-                        <Dimension
+            <DescriptionForm onSubmit={(e) => handleSubmit(e)} style={{flexDirection: 'column'}}>
+                <Wrapper>
+                    <LeftSide>
+                        <Instructions>Fill in the basic information about your item</Instructions>
+                        <TitleLabel>Title</TitleLabel>
+                        <Title
+                            type='text'
+                            placeholder='Enter item title here'
+                            name='title'
+                            value={localContent.title || ''}
+                            onChange={(e) => handleChange(e)}
+                            maxLength={60}
+                        />
+                        <Span>{`${charCount[0]}/60`}</Span>
+                        <Spacer />
+                        <DescriptionLabel>Description</DescriptionLabel>
+                        <Description
+                            name='description'
+                            placeholder='Enter item description here'
+                            value={localContent.description || ''}
+                            onChange={(e) => handleChange(e)}
+                            maxLength={1200}
+                        />
+                        <Span>{`${charCount[1]}/1200`}</Span>
+                    </LeftSide>
+                    <RightSide>
+                        <AvailabilityLabel>Number of units available</AvailabilityLabel>
+                        <Availability
                             type='number'
-                            name='length'
-                            value={localContent.length}
+                            placeholder='Availability'
+                            name='numUnits'
+                            value={localContent.numUnits || ''}
                             onChange={(e) => handleChange(e)}
                         />
-                        <DimensionLabel>Width [mm]</DimensionLabel>
-                        <Dimension
+                        <DimensionsLabel>Dimensions (optional)</DimensionsLabel>
+                        <DimensionsContainer>
+                            <DimensionLabel>Length [mm]</DimensionLabel>
+                            <Dimension
+                                type='number'
+                                name='length'
+                                value={localContent.length}
+                                onChange={(e) => handleChange(e)}
+                            />
+                            <DimensionLabel>Width [mm]</DimensionLabel>
+                            <Dimension
+                                type='number'
+                                name='width'
+                                value={localContent.width}
+                                onChange={(e) => handleChange(e)}
+                            />
+                            <DimensionLabel>Height [mm]</DimensionLabel>
+                            <Dimension
+                                type='number'
+                                name='height'
+                                value={localContent.height}
+                                onChange={(e) => handleChange(e)}
+                            />
+                        </DimensionsContainer>
+                        <PriceLabel>Price</PriceLabel>
+                        <Price
                             type='number'
-                            name='width'
-                            value={localContent.width}
+                            placeholder='Product price in PLN (gross)'
+                            name='price'
+                            value={localContent.price || ''}
                             onChange={(e) => handleChange(e)}
                         />
-                        <DimensionLabel>Height [mm]</DimensionLabel>
-                        <Dimension
-                            type='number'
-                            name='height'
-                            value={localContent.height}
-                            onChange={(e) => handleChange(e)}
-                        />
-                    </DimensionsContainer>
-                    <PriceLabel>Price</PriceLabel>
-                    <Price
-                        type='number'
-                        placeholder='Product price in PLN (gross)'
-                        name='price'
-                        value={localContent.price || ''}
-                        onChange={(e) => handleChange(e)}
-                    />
-                </RightForm>
+                    </RightSide>
+                </Wrapper>
+                <ButtonContainer style={{marginTop: '-1rem'}}>
+                    <Button disabled={formInProgress} type='submit'>Next →</Button>
+                </ButtonContainer>
             </DescriptionForm>
-            <ButtonContainer style={{marginTop: '-1rem'}}>
-                <Button disabled={formInProgress} type='submit'>Next →</Button>
-            </ButtonContainer>
         </PageContainer>
     )
 }
 
-const LeftForm = styled.div`
+const Wrapper = styled.div`
+    display: flex;
+    margin-bottom: 2rem;
+`
+
+const LeftSide = styled.div`
     flex-grow: 0.7;
     text-align: left;
     display: flex;
@@ -192,7 +197,6 @@ const Description = styled.textarea.attrs({required: true})`
     
     &:focus {
         outline: none;
-        border: 3px solid #FF782D;
     }
 `
 
@@ -207,7 +211,7 @@ const Span = styled.span`
     color: #8A8A8A;
 `
 
-const RightForm = styled.div`
+const RightSide = styled.div`
     margin-left: 2rem;
     flex-grow: 0.3;
     text-align: left;

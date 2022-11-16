@@ -12,7 +12,8 @@ type ComplaintsProps = {
     onBack: () => void,
 }
 
- export const ComplaintsPage = ({ onNext, onBack }: ComplaintsProps ) => {
+export const ComplaintsPage = ({ onNext, onBack }: ComplaintsProps ) => {
+     const context = useContext(FormContext)
 
      const { complaintContent, setComplaintContent } = useContext(FormContext)
 
@@ -40,35 +41,38 @@ type ComplaintsProps = {
 
      useEffect(() => setLocalContent(complaintContent), [complaintContent])
 
-     const handleBack = () => {
-         setComplaintContent(localContent)
-         onBack()
-     }
+    const [charCount, setCharCount] = useState(0)
 
-     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-         e.preventDefault()
-         setComplaintContent(localContent)
-         onNext()
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+        e.preventDefault()
+        const { name, value } = e.target
+        setLocalContent((prev) => ({...prev, [name]: value}))
+        setCharCount(value.length)
     }
 
-     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-         e.preventDefault()
-         const { name, value } = e.target
-         setLocalContent((prev) => ({...prev, [name]: value}))
+    const [formInProgress, setFormInProgress] = useState<boolean>(true)
+    useEffect(() => checkFormProgress(), [localContent])
 
-         // updateCharacterCount(name, value.length)
-     }
-
-     const [formInProgress, setFormInProgress] = useState<boolean>(true)
-     useEffect(() => checkFormProgress(), [localContent])
-
-     const checkFormProgress = () => {
-         if(localContent.complaintTime && localContent.returnTime && localContent.street
+    const checkFormProgress = () => {
+        if(localContent.complaintTime && localContent.returnTime && localContent.street
              && localContent.buildingNum && localContent.zip && localContent.city && localContent.additional) {
              setFormInProgress(false)
-         }
-         else setFormInProgress(true)
-     }
+        }
+     else setFormInProgress(true)
+    }
+
+    const handleBack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+         e.preventDefault()
+         setComplaintContent(localContent)
+         onBack()
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+         e.preventDefault()
+         setComplaintContent(localContent)
+         console.log(context)
+         onNext()
+    }
 
     return (
         <PageContainer>
@@ -173,26 +177,26 @@ type ComplaintsProps = {
                     </Address>
                     <Additional>
                         <Label as='h3'>Additional Information</Label>
-                        <ReqInput
-                            type='text'
+                        <TextArea
                             value={localContent.additional || ''}
                             id='additional'
                             name='additional'
                             onChange={e => handleChange(e)}
                             placeholder='Provide more details'
+                            maxLength={600}
+                            style={{minHeight: charCount > 343 ? '150px' : '45px'}}
                         />
+                        <Span>{`${charCount}/600`}</Span>
                     </Additional>
                 </MainContent>
                 <ButtonContainer>
-                    <Button onClick={handleBack}>Back</Button>
+                    <Button onClick={(e) => handleBack(e)}>Back</Button>
                     <Button disabled={formInProgress} type='submit'>Finish →</Button>
                 </ButtonContainer>
             </ComplaintsForm>
         </PageContainer>
     )
 }
-
-
 
  const MainContent = styled.div`
     text-align: left;
@@ -406,12 +410,36 @@ const Additional = styled.div`
     }
 `
 
+const TextArea = styled.textarea.attrs({required: true})`
+    background: #F8F8F8;
+    border-radius: 8px;
+    height: 45px;
+    font-family: 'Mulish', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #181818;
+    text-indent: 10px;
+    border: none;    
+    padding: 10px;
+ 
+    &:focus {
+       outline: none;
+    }
+`
+
+const Span = styled.span`
+    margin-top: 5px;
+    font-weight: 400;
+    font-size: 12px;
+    color: #8A8A8A;
+`
+
 const Label = styled.label`
     white-space: nowrap;
 `
 
 const ComplaintsForm = styled(Form)`
-    & ${ReqInput}:invalid {
+    & ${ReqInput}:invalid, ${TextArea}:invalid {
         border: 3px solid ${props => props.theme.colors.error};
     }
 `

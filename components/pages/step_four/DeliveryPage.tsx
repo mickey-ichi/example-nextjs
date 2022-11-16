@@ -30,12 +30,6 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
         {name: 'Courier Poczta Polska', src: '/images/icons/delivery_PocztaPolska.png'},
     ]
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        setDeliveryContent([shipDate, deliveryOptions[0], deliveryOptions[1]])
-        onNext()
-    }
-
     const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false, false, false, false])
     const [deliveryOptions, setDeliveryOptions] = useState<any>([[], []])
 
@@ -82,6 +76,18 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
         setFormInProgress(!(checked.includes(true) && shipDate))
     }
 
+    const handleBack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault()
+        setDeliveryContent([shipDate, deliveryOptions[0], deliveryOptions[1]])
+        onBack()
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        setDeliveryContent([shipDate, deliveryOptions[0], deliveryOptions[1]])
+        onNext()
+    }
+
     return (
         <PageContainer>
             <DeliveryForm onSubmit={(e) => handleSubmit(e)}>
@@ -123,7 +129,7 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
                     </ShippingInfo>
                 </MainContent>
                 <ButtonContainer>
-                    <Button onClick={() => onBack()}>Back</Button>
+                    <Button onClick={(e) => handleBack(e)}>Back</Button>
                     <Button disabled={formInProgress} type='submit'>Next →</Button>
                 </ButtonContainer>
             </DeliveryForm>

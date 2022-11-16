@@ -5,7 +5,7 @@ export const PageContainer = styled.div`
     margin-bottom: 3rem;
     background: white;
     border-radius: 16px;
-    height: 650px;
+    min-height: 650px;
     max-width: 1290px;
     text-align: center;
     padding-top: 2rem;
