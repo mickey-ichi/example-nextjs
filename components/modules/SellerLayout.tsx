@@ -6,6 +6,8 @@ import { CategoriesPage } from "../pages/step_two/CategoriesPage";
 import { PhotosPage } from "../pages/step_three/PhotosPage";
 import { DeliveryPage } from "../pages/step_four/DeliveryPage";
 import { ComplaintsPage } from "../pages/step_five/ComplaintsPage";
+import { FinishPage } from "../pages/step_six/FinishPage"
+
 import {PageBody} from "../elements/PageBody";
 
 type SellerLayoutProps = {
@@ -26,6 +28,7 @@ export const SellerLayout = ({ step, onNext, onBack }: SellerLayoutProps ) => {
                 {step === 3 && <PhotosPage onNext={onNext} onBack={onBack} />}
                 {step === 4 && <DeliveryPage onNext={onNext} onBack={onBack} />}
                 {step === 5 && <ComplaintsPage onNext={onNext} onBack={onBack} />}
+                {step === 6 && <FinishPage onNext={onNext} onBack={onBack} />}
             </PageBody>
         </>
     )

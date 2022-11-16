@@ -6,9 +6,7 @@ const StepFive: NextPage = () => {
   const router = useRouter()
 
   const handleNext = () => {
-    // updateContext
-    // push to step 2
-    router.push('/step_five').then(() => console.log('loaded page five'))
+    router.push('/step_six').then(() => console.log('loaded page six'))
   }
 
   const handleBack = () => {
