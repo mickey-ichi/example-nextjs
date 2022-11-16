@@ -6,7 +6,7 @@ const StepFive: NextPage = () => {
   const router = useRouter()
 
   const handleNext = () => {
-    router.push('/step_six').then(() => console.log('loaded page six'))
+    router.push('/finish').then(() => console.log('loaded finish page'))
   }
 
   const handleBack = () => {

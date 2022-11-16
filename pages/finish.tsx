@@ -2,15 +2,15 @@ import type { NextPage } from 'next'
 import { SellerLayout } from "../components/modules/SellerLayout";
 import { useRouter } from 'next/router'
 
-const StepSix: NextPage = () => {
+const Finish: NextPage = () => {
   const router = useRouter()
 
   const handleNext = () => {
-    router.push('/step_six').then(() => console.log('loaded page six again'))
+    router.push('/display_results').then(() => console.log('loaded display results page again'))
   }
 
   const handleBack = () => {
-    router.push('/step_five').then(() => console.log('loaded page five'))
+    router.push('/finish').then(() => console.log('loaded finish page'))
   }
 
   return (
@@ -18,4 +18,4 @@ const StepSix: NextPage = () => {
   )
 }
 
-export default StepSix
+export default Finish
