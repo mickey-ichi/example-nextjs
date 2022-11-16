@@ -46,16 +46,31 @@ export const CategoryButtons = ({ names, changeCategory }: CategoryButtonsProps 
 export const ButtonsContainer = styled.div`
     margin: auto;
     margin-right: 10px;
-    height: 25rem;
-    min-width: 200px;
+    min-height: 25rem;
+    min-width: 100px;
     font-size: 12px;
     display: flex;
     flex-direction: column;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+    @media only screen and (max-width: 770px) {
+        min-width: 300px;
+        margin: auto;
+        margin-bottom: 1rem;
+    }
+    
+    @media only screen and (max-width: 400px) {
+        min-width: 100px;
+        button {
+            min-width: 100px;
+        }
+    }
 `
 export const Button = styled.button`
     flex: 1;
-    width: 228px;
-    height: 43px;
+    min-width: 228px;
+    min-height: 43px;
     border: none;
     border-radius: 10px;
     background: white;
@@ -65,20 +80,19 @@ export const Button = styled.button`
     padding-left: 20px;
     padding-right: 20px;
     
-    @media only screen and (max-width: 700px) {
-        width: 130px;
-        line-height: 14px;
-        
-        span {
+    @media only screen and (max-width: 770px) {
+        margin: auto;
+        width: 100%;
+        line-height: 35px;
+        justify-content: center;
+
+        img {
             display: none;
         }  
     }
     
-    @media only screen and (max-width: 400px) {
-        margin-left: -1rem;
-    }
-    
     &:hover {
+        cursor: pointer;
         background: ${(props) => props.theme.colors.selected};
     }
 `
