@@ -153,6 +153,9 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
 const Wrapper = styled.div`
     display: flex;
     margin-bottom: 2rem;
+    @media only screen and (max-width: 900px) {
+        flex-direction: column;
+    }    
 `
 
 const LeftSide = styled.div`
