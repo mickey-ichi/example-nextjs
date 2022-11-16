@@ -1,9 +1,12 @@
-import React, { useState, useRef } from 'react'
+import React, {useState, useRef, useEffect, useContext} from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
 import { PageContainer } from '../../elements/PageContainer'
 import { Checkbox } from "../../elements/Checkbox";
 import {ButtonContainer} from "../../elements/ButtonContainer";
+import {Form} from "../../elements/Form";
+import {ReqInput} from "../../elements/Input";
+import {FormContext} from "../../../contexts/CurrentFormContext";
 
 type DeliveryProps = {
     onNext: () => void,
@@ -14,74 +17,122 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // const { descriptionContent, categoriesContent, photosContent, setPhotosContent } = useContext(FormContext)
+    const { deliveryContent, setDeliveryContent } = useContext(FormContext)
+
     const DeliveryOptions = [
-        {name: 'Self pickup', src: '/images/icons/delivery-box.png'},
-        {name: 'Parcel machine Inpost', src: '/images/icons/delivery-InPost.png'},
-        {name: 'Courier DPD', src: '/images/icons/delivery-dpd.png'},
-        {name: 'Paczka Orlen', src: '/images/icons/delivery-PaczkaOrlen.png'},
-        {name: 'Courier DPD cash on delivery', src: '/images/icons/delivery-dpd.png'},
-        {name: 'Branch Poczta Polska', src: '/images/icons/delivery-PocztaPolska.png'},
-        {name: 'Courier Inpost', src: '/images/icons/delivery-InPost.png'},
-        {name: 'Courier Poczta Polska', src: '/images/icons/delivery-PocztaPolska.png'},
+        {name: 'Self pickup', src: '/images/icons/delivery_box.png'},
+        {name: 'Parcel machine Inpost', src: '/images/icons/delivery_InPost.png'},
+        {name: 'Courier DPD', src: '/images/icons/delivery_dpd.png'},
+        {name: 'Paczka Orlen', src: '/images/icons/delivery_PaczkaOrlen.png'},
+        {name: 'Courier DPD cash on delivery', src: '/images/icons/delivery_dpd.png'},
+        {name: 'Branch Poczta Polska', src: '/images/icons/delivery_PocztaPolska.png'},
+        {name: 'Courier Inpost', src: '/images/icons/delivery_InPost.png'},
+        {name: 'Courier Poczta Polska', src: '/images/icons/delivery_PocztaPolska.png'},
     ]
 
-    const handleSubmit = () => {
-        // setPhotosContent(uploads)
-        // reloads this page until next page is built
-        onNext()
-    }
-
     const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false, false, false, false])
+    const [deliveryOptions, setDeliveryOptions] = useState<any>([[], []])
+
+    const [shipDate, setShipDate] = useState<string>('')
+
+    useEffect(() => {
+        setShipDate(deliveryContent[0])
+        setDeliveryOptions(deliveryContent.slice(1))
+        deliveryContent[2] !== undefined &&
+            setChecked(checked.map((item, index) => (
+                deliveryContent[2].includes(index)))
+            )
+    }, [deliveryContent])
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.preventDefault()
         const stringIndex = e.currentTarget.id
         const numIndex = Number(stringIndex)
-        !checked[numIndex] && inputRef.current && inputRef.current.focus()
+
+        const nameToAdd = e.currentTarget.getAttribute('name')
+
+        if (!checked[numIndex]) {
+            inputRef.current && inputRef.current.focus()
+            nameToAdd && setDeliveryOptions((prev: any) => (
+                    [
+                        [...prev[0], nameToAdd],
+                        [...prev[1], numIndex],
+                    ]
+                )
+            )
+        }
         setChecked(prev => prev.map((item,index) => index !== numIndex ? item : !item))
+    }
+
+    const handleDate = (e: React.FocusEvent<HTMLInputElement>) => {
+        e.target.type = 'text'
+        setShipDate(e.target.value)
+    }
+
+    const [formInProgress, setFormInProgress] = useState<boolean>(true)
+    useEffect(() => checkFormProgress(), [checked, shipDate])
+
+    const checkFormProgress = () => {
+        setFormInProgress(!(checked.includes(true) && shipDate))
+    }
+
+    const handleBack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault()
+        setDeliveryContent([shipDate, deliveryOptions[0], deliveryOptions[1]])
+        onBack()
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        setDeliveryContent([shipDate, deliveryOptions[0], deliveryOptions[1]])
+        onNext()
     }
 
     return (
         <PageContainer>
-            <InstructionsText>Select delivery options</InstructionsText>
-            <MainContent>
-                <OptionsContainer>
-                    {DeliveryOptions.map((option, index) => (
-                        <Option key={Math.random()}>
-                            <Left
-                                id={index.toString()}
-                                onClick={(e) => handleClick(e)}
-                            >
-                                <Checkbox
-                                    width='32px'
-                                    height='32px'
-                                    isChecked={checked[index]}
-                                ></Checkbox>
-                                <label htmlFor={option.name}>
-                                    {option.name}
-                                </label>
-                            </Left>
-                            <Icon src={option.src}></Icon>
-                        </Option>
-                    ))}
-                </OptionsContainer>
-                <ShippingInfo>
-                    <ShippingText
-                        as='h4'
-                    >Shipping time</ShippingText>
-                    <ShippingInput
-                        type='text'
-                        ref={inputRef}
-                        onFocus={(e) => e.target.type = 'date'}
-                        onBlur={(e) => e.target.type = 'text'}
-                        placeholder='Specify a date'></ShippingInput>
-                </ShippingInfo>
-            </MainContent>
-            <ButtonContainer>
-                <Button onClick={() => onBack()}>Back</Button>
-                <Button onClick={() => handleSubmit()}>Next →</Button>
-            </ButtonContainer>
+            <DeliveryForm onSubmit={(e) => handleSubmit(e)}>
+                <InstructionsText>Select delivery options</InstructionsText>
+                <MainContent>
+                    <OptionsContainer>
+                        {DeliveryOptions.map((option, index) => (
+                            <Option key={Math.random()}>
+                                <Left
+                                    name={option.name}
+                                    id={index.toString()}
+                                    onClick={(e) => handleClick(e)}
+                                >
+                                    <Checkbox
+                                        width='32px'
+                                        height='32px'
+                                        isChecked={checked[index]}
+                                    />
+                                    <label htmlFor={option.name}>
+                                        {option.name}
+                                    </label>
+                                </Left>
+                                <Icon src={option.src}></Icon>
+                            </Option>
+                        ))}
+                    </OptionsContainer>
+                    <ShippingInfo>
+                        <ShippingText
+                            as='h4'
+                        >Shipping time</ShippingText>
+                        <ShippingInput
+                            type='text'
+                            ref={inputRef}
+                            defaultValue={shipDate}
+                            onFocus={(e) => e.target.type = 'date'}
+                            onBlur={(e) => handleDate(e)}
+                            // onBlurCapture={(e) => handleDate(e)}
+                            placeholder='Specify a date'></ShippingInput>
+                    </ShippingInfo>
+                </MainContent>
+                <ButtonContainer>
+                    <Button onClick={(e) => handleBack(e)}>Back</Button>
+                    <Button disabled={formInProgress} type='submit'>Next →</Button>
+                </ButtonContainer>
+            </DeliveryForm>
         </PageContainer>
     )
 }
@@ -143,7 +194,11 @@ const Option = styled.div`
     }
 `
 
-const Left = styled.div`
+type LeftProps = {
+    name: string,
+}
+
+const Left = styled.div<LeftProps>`
     padding-top: 5px;
     font-weight: 400;
     font-size: 16px;
@@ -198,4 +253,10 @@ const ShippingInput = styled.input`
     padding: 0;
     cursor: pointer;
 }
+`
+
+const DeliveryForm = styled(Form)`
+    & ${ReqInput}:invalid {
+        border: 3px solid ${props => props.theme.colors.error};
+    }
 `

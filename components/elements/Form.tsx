@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 
-export const Form = styled.div`
+export const Form = styled.form`
     margin: auto;
     width: 95%;
     height: auto;
-    display: flex;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;

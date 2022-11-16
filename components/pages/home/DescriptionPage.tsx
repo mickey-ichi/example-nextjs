@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
-import { Input } from '../../elements/Input'
+import {Input, ReqInput} from '../../elements/Input'
 import { PageContainer } from '../../elements/PageContainer'
 import { Form } from '../../elements/Form'
 import { FormContext } from '../../../contexts/CurrentFormContext'
@@ -18,27 +18,36 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
     const { descriptionContent, setDescriptionContent } = useContext(FormContext)
 
     type LocalContent = {
-            title: string,
-            description: string,
-            numUnits: number,
+            title: string | null,
+            description: string | null,
+            numUnits: number | null,
             length: number,
             width: number,
             height: number,
-            price: number,
+            price: number | null,
     }
 
     const [localContent, setLocalContent] = useState<LocalContent>({
-        title: '',
-        description: '',
-        numUnits: 0,
+        title: null,
+        description: null,
+        numUnits: null,
         length: 0,
         width: 0,
         height: 0,
-        price: 0,
+        price: null,
     })
 
     useEffect(() => setLocalContent(descriptionContent), [descriptionContent])
 
+    const [formInProgress, setFormInProgress] = useState<boolean>(true)
+    useEffect(() => checkFormProgress(), [localContent])
+
+    const checkFormProgress = () => {
+        if(localContent.title && localContent.description && localContent.numUnits && localContent.price) {
+            setFormInProgress(false)
+        }
+        else setFormInProgress(true)
+    }
 
     const updateCharacterCount = (name: string, length: number) => {
         if (name === 'title') {
@@ -49,7 +58,6 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
         }
     }
 
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         e.preventDefault()
         const { name, value } = e.target
@@ -58,90 +66,96 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
         updateCharacterCount(name, value.length)
     }
 
-    const handleSubmit = () => {
-        // setContent((prev: object) => ({...prev, [e.target.name]: e.target.value}))
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         setDescriptionContent(localContent)
         onNext()
     }
 
     return (
         <PageContainer>
-            <Form>
-                <LeftForm>
-                    <Instructions>Fill in the basic information about your item</Instructions>
-                    <TitleLabel>Title</TitleLabel>
-                    <Title
-                        type='text'
-                        placeholder='Enter item title here'
-                        name='title'
-                        value={localContent.title}
-                        onChange={(e) => handleChange(e)}
-                        maxLength={60}
-                    />
-                    <Span>{`${charCount[0]}/60`}</Span>
-                    <Spacer />
-                    <DescriptionLabel>Description</DescriptionLabel>
-                    <Description
-                        name='description'
-                        placeholder='Enter item description here'
-                        value={localContent.description}
-                        onChange={(e) => handleChange(e)}
-                        maxLength={1200}
-                    />
-                    <Span>{`${charCount[1]}/1200`}</Span>
-                </LeftForm>
-                <RightForm>
-                    <AvailabilityLabel>Number of units available</AvailabilityLabel>
-                    <Availability
-                        type='number'
-                        placeholder='Availability'
-                        name='numUnits'
-                        value={localContent.numUnits}
-                        onChange={(e) => handleChange(e)}
-                    />
-                    <DimensionsLabel>Dimensions (optional)</DimensionsLabel>
-                    <DimensionsContainer>
-                        <DimensionLabel>Length [mm]</DimensionLabel>
-                        <Dimension
+            <DescriptionForm onSubmit={(e) => handleSubmit(e)} style={{flexDirection: 'column'}}>
+                <Wrapper>
+                    <LeftSide>
+                        <Instructions>Fill in the basic information about your item</Instructions>
+                        <TitleLabel>Title</TitleLabel>
+                        <Title
+                            type='text'
+                            placeholder='Enter item title here'
+                            name='title'
+                            value={localContent.title || ''}
+                            onChange={(e) => handleChange(e)}
+                            maxLength={60}
+                        />
+                        <Span>{`${charCount[0]}/60`}</Span>
+                        <Spacer />
+                        <DescriptionLabel>Description</DescriptionLabel>
+                        <Description
+                            name='description'
+                            placeholder='Enter item description here'
+                            value={localContent.description || ''}
+                            onChange={(e) => handleChange(e)}
+                            maxLength={1200}
+                        />
+                        <Span>{`${charCount[1]}/1200`}</Span>
+                    </LeftSide>
+                    <RightSide>
+                        <AvailabilityLabel>Number of units available</AvailabilityLabel>
+                        <Availability
                             type='number'
-                            name='length'
-                            value={localContent.length}
+                            placeholder='Availability'
+                            name='numUnits'
+                            value={localContent.numUnits || ''}
                             onChange={(e) => handleChange(e)}
                         />
-                        <DimensionLabel>Width [mm]</DimensionLabel>
-                        <Dimension
+                        <DimensionsLabel>Dimensions (optional)</DimensionsLabel>
+                        <DimensionsContainer>
+                            <DimensionLabel>Length [mm]</DimensionLabel>
+                            <Dimension
+                                type='number'
+                                name='length'
+                                value={localContent.length}
+                                onChange={(e) => handleChange(e)}
+                            />
+                            <DimensionLabel>Width [mm]</DimensionLabel>
+                            <Dimension
+                                type='number'
+                                name='width'
+                                value={localContent.width}
+                                onChange={(e) => handleChange(e)}
+                            />
+                            <DimensionLabel>Height [mm]</DimensionLabel>
+                            <Dimension
+                                type='number'
+                                name='height'
+                                value={localContent.height}
+                                onChange={(e) => handleChange(e)}
+                            />
+                        </DimensionsContainer>
+                        <PriceLabel>Price</PriceLabel>
+                        <Price
                             type='number'
-                            name='width'
-                            value={localContent.width}
+                            placeholder='Product price in PLN (gross)'
+                            name='price'
+                            value={localContent.price || ''}
                             onChange={(e) => handleChange(e)}
                         />
-                        <DimensionLabel>Height [mm]</DimensionLabel>
-                        <Dimension
-                            type='number'
-                            name='height'
-                            value={localContent.height}
-                            onChange={(e) => handleChange(e)}
-                        />
-                    </DimensionsContainer>
-                    <PriceLabel>Price</PriceLabel>
-                    <Price
-                        type='number'
-                        placeholder='Product price in PLN (gross)'
-                        name='price'
-                        value={localContent.price}
-                        onChange={(e) => handleChange(e)}
-                    />
-                </RightForm>
-            </Form>
-            <ButtonContainer style={{marginTop: '-1rem'}}>
-                <Button onClick={() => handleSubmit()}>Next →</Button>
-            </ButtonContainer>
+                    </RightSide>
+                </Wrapper>
+                <ButtonContainer style={{marginTop: '-1rem'}}>
+                    <Button disabled={formInProgress} type='submit'>Next →</Button>
+                </ButtonContainer>
+            </DescriptionForm>
         </PageContainer>
     )
 }
 
+const Wrapper = styled.div`
+    display: flex;
+    margin-bottom: 2rem;
+`
 
-const LeftForm = styled.div`
+const LeftSide = styled.div`
     flex-grow: 0.7;
     text-align: left;
     display: flex;
@@ -151,10 +165,9 @@ const LeftForm = styled.div`
 const Instructions = styled.h3`
 `
 
-const Title = styled(Input)`
+const Title = styled(ReqInput)`
     margin-top: 10px;
     background: #F8F8F8;
-    border: none;
     border-radius: 8px;
     line-height: 2rem;
     padding: 10px;
@@ -170,7 +183,7 @@ const Spacer = styled.div`
     margin-bottom: 2rem;
 `
 
-const Description = styled.textarea`
+const Description = styled.textarea.attrs({required: true})`
     margin-top: 10px;
     min-height: 282px;
     background: #F8F8F8;
@@ -184,7 +197,6 @@ const Description = styled.textarea`
     
     &:focus {
         outline: none;
-        border: 3px solid #FF782D;
     }
 `
 
@@ -199,7 +211,7 @@ const Span = styled.span`
     color: #8A8A8A;
 `
 
-const RightForm = styled.div`
+const RightSide = styled.div`
     margin-left: 2rem;
     flex-grow: 0.3;
     text-align: left;
@@ -213,7 +225,7 @@ const RightForm = styled.div`
     }
 `
 
-const Availability = styled(Input)`
+const Availability = styled(ReqInput)`
     margin-bottom: auto;
     line-height: 2rem;
     padding: 10px;
@@ -257,8 +269,8 @@ const DimensionsLabel = styled.label`
 `
 
 const Dimension = styled(Input)`
-    width: 3rem;
     height: 3rem;
+    border: none;
 `
 
 const DimensionLabel = styled.label`
@@ -269,13 +281,21 @@ const DimensionLabel = styled.label`
     font-size: 16px;
 `
 
-const Price = styled(Input)`
+const Price = styled(ReqInput)`
     line-height: 2rem;
     padding: 10px;
 `
 
 const PriceLabel = styled.label`
     font-weight: 600;
+`
+
+const DescriptionForm = styled(Form)`
+    display: flex;
+    
+    & ${ReqInput}:invalid, ${Description}:invalid {
+        border: 3px solid ${props => props.theme.colors.error};
+    }
 `
 
 

@@ -1,174 +1,202 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import styled from 'styled-components'
 import { Button } from '../../elements/Button'
-import { Input } from '../../elements/Input'
+import { ReqInput, Input } from '../../elements/Input'
 import { PageContainer } from '../../elements/PageContainer'
 import {ButtonContainer} from "../../elements/ButtonContainer";
+import {Form} from "../../elements/Form";
+import {FormContext} from "../../../contexts/CurrentFormContext";
 
 type ComplaintsProps = {
     onNext: () => void,
     onBack: () => void,
 }
 
- export const ComplaintsPage = ({ onNext, onBack }: ComplaintsProps ) => {
+export const ComplaintsPage = ({ onNext, onBack }: ComplaintsProps ) => {
+     const context = useContext(FormContext)
+
+     const { complaintContent, setComplaintContent } = useContext(FormContext)
 
      type LocalContent = {
-         complaintTime: string,
-         returnTime: string,
-         street: string,
-         buildingNum: number | string,
+         complaintTime: string | null,
+         returnTime: string | null,
+         street: string | null,
+         buildingNum: number | string | null,
          premisesNum: number | string,
-         zip: number | string,
-         city: string,
-         additional: string,
+         zip: number | string | null,
+         city: string | null,
+         additional: string | null,
      }
 
      const [localContent, setLocalContent] = useState<LocalContent>({
-         complaintTime: '',
-         returnTime: '',
-         street: '',
-         buildingNum: '',
+         complaintTime: null,
+         returnTime: null,
+         street: null,
+         buildingNum: null,
          premisesNum: '',
-         zip: '',
-         city: '',
-         additional: '',
+         zip: null,
+         city: null,
+         additional: null,
      })
 
-    const handleSubmit = () => {
-        // setPhotosContent(uploads)
-        // reloads this page until next page is built
-        onNext()
+     useEffect(() => setLocalContent(complaintContent), [complaintContent])
+
+    const [charCount, setCharCount] = useState(0)
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+        e.preventDefault()
+        const { name, value } = e.target
+        setLocalContent((prev) => ({...prev, [name]: value}))
+        setCharCount(value.length)
     }
 
-     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-         e.preventDefault()
-         const { name, value } = e.target
-         setLocalContent((prev) => ({...prev, [name]: value}))
+    const [formInProgress, setFormInProgress] = useState<boolean>(true)
+    useEffect(() => checkFormProgress(), [localContent])
 
-         // updateCharacterCount(name, value.length)
-     }
+    const checkFormProgress = () => {
+        if(localContent.complaintTime && localContent.returnTime && localContent.street
+             && localContent.buildingNum && localContent.zip && localContent.city && localContent.additional) {
+             setFormInProgress(false)
+        }
+     else setFormInProgress(true)
+    }
+
+    const handleBack = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+         e.preventDefault()
+         setComplaintContent(localContent)
+         onBack()
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+         e.preventDefault()
+         setComplaintContent(localContent)
+         console.log(context)
+         onNext()
+    }
 
     return (
         <PageContainer>
-            <MainContent>
-                <ComplaintsAndReturns>
-                    <ComplaintsContainer>
-                        <ComplaintsText>Complaints</ComplaintsText>
-                        <Complaints>
-                            <Label htmlFor='complaints'>Time to make complaints</Label>
-                            <Input
-                                type='text'
-                                value={localContent.complaintTime}
-                                id='complaints'
-                                name='complaintTime'
-                                onChange={e => handleChange(e)}
-                                placeholder='3 years for warranty claims'
-                            />
-                        </Complaints>
-                    </ComplaintsContainer>
-                    <ReturnsContainer>
-                        <ReturnsText>Returns</ReturnsText>
-                        <Returns>
-                            <Label htmlFor='returns'>Time to withdraw from the contract</Label>
-                            <Input
-                                type='text'
-                                value={localContent.returnTime}
-                                id='returns'
-                                name='returnTime'
-                                onChange={e => handleChange(e)}
-                                placeholder='14 working days'
-                            />
-                        </Returns>
-                    </ReturnsContainer>
-                </ComplaintsAndReturns>
-                <AddressText>Address for complaint or return</AddressText>
-                <Address>
-                    <AddressDetails>
-                        <Street className='street'>
-                            <Label htmlFor='street'>Street</Label>
-                            <Input
-                                type='text'
-                                value={localContent.street}
-                                id='street'
-                                name='street'
-                                onChange={e => handleChange(e)}
-                                placeholder='Street name'
-                            />
-                        </Street>
-                        <BuildingAndPremises className="building-premises">
-                            <Building>
-                                <Label htmlFor='building'>Building number</Label>
-                                <Input
+            <ComplaintsForm onSubmit={(e) => handleSubmit(e)} id='form1'>
+                <MainContent>
+                    <ComplaintsAndReturns>
+                        <ComplaintsContainer>
+                            <ComplaintsText>Complaints</ComplaintsText>
+                            <Complaints>
+                                <Label htmlFor='complaints'>Time to make complaints</Label>
+                                <ReqInput
                                     type='text'
-                                    value={localContent.buildingNum}
-                                    id='building'
-                                    name='buildingNum'
+                                    value={localContent.complaintTime || ''}
+                                    id='complaints'
+                                    name='complaintTime'
                                     onChange={e => handleChange(e)}
-                                    placeholder='Building'
+                                    placeholder='3 years for warranty claims'
+                                />
+                            </Complaints>
+                        </ComplaintsContainer>
+                        <ReturnsContainer>
+                            <ReturnsText>Returns</ReturnsText>
+                            <Returns>
+                                <Label htmlFor='returns'>Time to withdraw from the contract</Label>
+                                <ReqInput
+                                    type='text'
+                                    value={localContent.returnTime || ''}
+                                    id='returns'
+                                    name='returnTime'
+                                    onChange={e => handleChange(e)}
+                                    placeholder='14 working days'
+                                />
+                            </Returns>
+                        </ReturnsContainer>
+                    </ComplaintsAndReturns>
+                    <AddressText>Address for complaint or return</AddressText>
+                    <Address>
+                        <AddressDetails>
+                            <Street className='street'>
+                                <Label htmlFor='street'>Street</Label>
+                                <ReqInput
+                                    type='text'
+                                    value={localContent.street || ''}
+                                    id='street'
+                                    name='street'
+                                    onChange={e => handleChange(e)}
+                                    placeholder='Street name'
+                                />
+                            </Street>
+                            <BuildingAndPremises className="building-premises">
+                                <Building>
+                                    <Label htmlFor='building'>Building number</Label>
+                                    <ReqInput
+                                        type='text'
+                                        value={localContent.buildingNum || ''}
+                                        id='building'
+                                        name='buildingNum'
+                                        onChange={e => handleChange(e)}
+                                        placeholder='Building'
+                                        onFocus={(e) => e.target.type = 'number'}
+                                    />
+                                </Building>
+                                <Premises>
+                                    <Label htmlFor='premises'>Premises number (optional)</Label>
+                                    <Input
+                                        type='text'
+                                        value={localContent.premisesNum}
+                                        id='premises'
+                                        name='premisesNum'
+                                        onChange={e => handleChange(e)}
+                                        placeholder='Premises number (optional)'
+                                        onFocus={(e) => e.target.type = 'number'}
+                                    />
+                                </Premises>
+                            </BuildingAndPremises>
+                        </AddressDetails>
+                        <ZipAndCity>
+                            <Zip>
+                                <Label htmlFor='zip'>Zip code</Label>
+                                <ReqInput
+                                    type='text'
+                                    value={localContent.zip || ''}
+                                    id='zip'
+                                    name='zip'
+                                    onChange={e => handleChange(e)}
+                                    placeholder='00-000'
                                     onFocus={(e) => e.target.type = 'number'}
                                 />
-                            </Building>
-                            <Premises>
-                                <Label htmlFor='premises'>Premises number (optional)</Label>
-                                <Input
+                            </Zip>
+                            <City>
+                                <Label htmlFor='city'>City</Label>
+                                <ReqInput
                                     type='text'
-                                    value={localContent.premisesNum}
-                                    id='premises'
-                                    name='premisesNum'
+                                    value={localContent.city || ''}
+                                    id='city'
+                                    name='city'
                                     onChange={e => handleChange(e)}
-                                    placeholder='Premises number (optional)'
-                                    onFocus={(e) => e.target.type = 'number'}
+                                    placeholder='Enter a city'
                                 />
-                            </Premises>
-                        </BuildingAndPremises>
-                    </AddressDetails>
-                    <ZipAndCity>
-                        <Zip>
-                            <Label htmlFor='zip'>Zip code</Label>
-                            <Input
-                                type='text'
-                                value={localContent.zip}
-                                id='zip'
-                                name='zip'
-                                onChange={e => handleChange(e)}
-                                placeholder='00-000'
-                                onFocus={(e) => e.target.type = 'number'}
-                            />
-                        </Zip>
-                        <City>
-                            <Label htmlFor='city'>City</Label>
-                            <Input
-                                type='text'
-                                value={localContent.city}
-                                id='city'
-                                name='city'
-                                onChange={e => handleChange(e)}
-                                placeholder='Enter a city'
-                            />
-                        </City>
-                    </ZipAndCity>
-                </Address>
-                <Additional>
-                    <Label as='h3'>Additional Information</Label>
-                    <Input
-                        type='text'
-                        value={localContent.additional}
-                        id='additional'
-                        name='additional'
-                        onChange={e => handleChange(e)}
-                        placeholder='Provide more details'
-                    />
-                </Additional>
-            </MainContent>
-            <ButtonContainer>
-                <Button onClick={() => onBack()}>Back</Button>
-                <Button onClick={() => handleSubmit()}>Next →</Button>
-            </ButtonContainer>
+                            </City>
+                        </ZipAndCity>
+                    </Address>
+                    <Additional>
+                        <Label as='h3'>Additional Information</Label>
+                        <TextArea
+                            value={localContent.additional || ''}
+                            id='additional'
+                            name='additional'
+                            onChange={e => handleChange(e)}
+                            placeholder='Provide more details'
+                            maxLength={600}
+                            style={{minHeight: charCount > 343 ? '150px' : '45px'}}
+                        />
+                        <Span>{`${charCount}/600`}</Span>
+                    </Additional>
+                </MainContent>
+                <ButtonContainer>
+                    <Button onClick={(e) => handleBack(e)}>Back</Button>
+                    <Button disabled={formInProgress} type='submit'>Finish →</Button>
+                </ButtonContainer>
+            </ComplaintsForm>
         </PageContainer>
     )
 }
-
-
 
  const MainContent = styled.div`
     text-align: left;
@@ -204,6 +232,13 @@ type ComplaintsProps = {
             width: auto;
         }
     } 
+    
+    @media only screen and (max-width: 400px) {
+        label, input {
+            margin-left: -2rem;
+            margin-right: -2rem;
+        }
+    }
 `
 
 const ComplaintsContainer = styled.div`
@@ -284,11 +319,25 @@ const Street = styled.div`
     display: flex;
     flex-direction: column;
     width: 50%;
+    
+    @media only screen and (max-width: 400px) {
+        label, input {
+            margin-left: -2rem;
+            margin-right: -2rem;
+        }
+    }
 `
 
 const BuildingAndPremises = styled.div`
     display: flex;
     width: 50%;
+    
+    @media only screen and (max-width: 400px) {
+        label, input {
+            margin-left: -2rem;
+            margin-right: -2rem;
+        }
+    }
 `
 
 const Building = styled.div`
@@ -316,6 +365,12 @@ const ZipAndCity = styled.div`
             width: 50%;
         }
     }   
+    @media only screen and (max-width: 400px) {
+        label, input {
+            margin-left: -2rem;
+            width: 200%;
+        }
+    }
 `
 
 const Zip = styled.div`
@@ -339,14 +394,52 @@ const Additional = styled.div`
     
     input {
         margin-top: 0;
+        width: calc(100% - 4rem);
     }
-    
     @media only screen and (max-width: 600px) {
         input {
             margin-left: 2rem;
         }
     }
-
+    @media only screen and (max-width: 400px) {
+        input {
+            margin-right: auto;
+            margin-left: 0;
+            width: 100%;
+        }
+    }
 `
 
- const Label = styled.label``
+const TextArea = styled.textarea.attrs({required: true})`
+    background: #F8F8F8;
+    border-radius: 8px;
+    height: 45px;
+    font-family: 'Mulish', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #181818;
+    text-indent: 10px;
+    border: none;    
+    padding: 10px;
+ 
+    &:focus {
+       outline: none;
+    }
+`
+
+const Span = styled.span`
+    margin-top: 5px;
+    font-weight: 400;
+    font-size: 12px;
+    color: #8A8A8A;
+`
+
+const Label = styled.label`
+    white-space: nowrap;
+`
+
+const ComplaintsForm = styled(Form)`
+    & ${ReqInput}:invalid, ${TextArea}:invalid {
+        border: 3px solid ${props => props.theme.colors.error};
+    }
+`

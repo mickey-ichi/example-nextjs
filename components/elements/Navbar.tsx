@@ -159,6 +159,11 @@ const FirstContainer = styled.div`
         margin-top: 10px;
         font-size: 25px;
     }
+    h1, h3 {
+        max-width: 200px;
+        margin-left: 0;
+        margin-top: 0 !important;
+    }
 `
 
 const SecondContainer = styled.div`
