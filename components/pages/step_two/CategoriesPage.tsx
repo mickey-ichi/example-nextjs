@@ -126,11 +126,22 @@ type CategoriesProps = {
     text-align: left;
     margin: 10px;
     margin-left: 2rem;
+    
+    @media only screen and (max-width: 770px) {
+        margin: auto;
+        margin-bottom: 20px;
+        text-align: center;
+    }  
 `
 
  const CategoryContainer = styled.div`
     display: flex;
     margin-left: 2rem;
+    
+    @media only screen and (max-width: 770px) {
+        margin: auto;
+        flex-direction: column;
+    }  
 `
 
  const CategoryNames = styled.div`
@@ -140,7 +151,13 @@ type CategoriesProps = {
  const CategoriesArea = styled.div`
     display: flex;
     flex-wrap: wrap;
-    max-width: 1000px;
+    max-width: 1000px;    
+
+    @media only screen and (max-width: 490px) {
+       width: 100vw;
+       margin-left: -2rem;
+       margin-right: auto;
+    }    
 `
 
  const CategoriesBlock = styled.div`
@@ -148,14 +165,12 @@ type CategoriesProps = {
     flex-wrap: wrap;
     flex-grow: 1;
         
-    @media only screen and (min-width: 1200px) {
-        margin-left: 5%;
-        max-width: 100vw;
-    }    
+    // @media only screen and (min-width: 1200px) {
+    //     margin-left: 5%;
+    //     max-width: 100vw;
+    // }    
     
-    @media only screen and (max-width: 700px) {
-       margin-left: -5rem;
-    }    
+
 `
 
  const Selected = styled.div`

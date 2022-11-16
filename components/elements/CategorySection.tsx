@@ -82,10 +82,6 @@ export const ItemsContainer = styled.div`
 export const ItemRow = styled.div`
     display: flex;
     line-height: 20px;
-    
-    @media only screen and (max-width: 400px) {
-        flex-direction: column;
-    }
 `
 
 export const Label = styled.label`
