@@ -12,6 +12,7 @@ export const Button = styled.button`
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
+    white-space: nowrap;
     background: ${(props) => props.theme.colors.active};
     color: ${(props) => props.theme.colors.light};
     opacity: 0.9;
