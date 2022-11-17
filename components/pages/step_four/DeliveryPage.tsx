@@ -155,6 +155,12 @@ const MainContent = styled.div`
     color: ${(props) => props.theme.colors.text};
     font-family: ${(props) => props.theme.font.family};
     margin-bottom: 0;
+    
+        
+    @media only screen and (max-width: 500px) {
+        width: 90vw;
+    }
+    
 `
 
 const OptionsContainer = styled.div`
@@ -166,13 +172,14 @@ const OptionsContainer = styled.div`
     
     @media only screen and (max-width: 950px) {
         flex-direction: column;
+        margin-bottom: 2rem;
     }
 `
 
 const Option = styled.div`
     width: 44%;
     display: flex;
-    height: 4rem;
+    min-height: 4rem;
     justify-content: space-between;
     margin: 1rem;
     background: #F8F8F8;
@@ -188,6 +195,7 @@ const Option = styled.div`
     @media only screen and (max-width: 500px) {
         justify-content: left;
         width: 100%;
+        margin-left: -2rem;
         img {
             display: none;
         }
@@ -216,6 +224,12 @@ const ShippingInfo = styled.div`
     .not-filled {
         background: rgba(255, 192, 192, 0.1);
         border: 1px solid #FF3030;
+    }
+    
+    @media only screen and (max-width: 500px) {
+        width: 100%;
+        margin-left: -2rem;
+        margin-bottom: 2rem;
     }
 `
 
