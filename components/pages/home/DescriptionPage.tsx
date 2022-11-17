@@ -143,7 +143,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                     </RightSide>
                 </Wrapper>
                 <ButtonContainer style={{marginTop: '-1rem'}}>
-                    <Button disabled={formInProgress} type='submit'>Next →</Button>
+                    <Button disabled={false} type='submit'>Next →</Button>
                 </ButtonContainer>
             </DescriptionForm>
         </PageContainer>
@@ -186,7 +186,7 @@ const Spacer = styled.div`
     margin-bottom: 2rem;
 `
 
-const Description = styled.textarea.attrs({required: true})`
+const Description = styled.textarea.attrs({required: false})`
     margin-top: 10px;
     min-height: 282px;
     background: #F8F8F8;

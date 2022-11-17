@@ -25,6 +25,7 @@ type CategoriesProps = {
             method: "GET",
         })
             .then((res) => {
+                console.log(res)
                 setMockData(res.data)
                 setCategoryData(Object.values(res.data[0]))
                 setCategoryNames(Array.from(Object.keys(res.data[0])))
@@ -115,7 +116,7 @@ type CategoriesProps = {
                 </Selected>
                 <ButtonContainer>
                     <Button onClick={(e) => handleBack(e)}>Back</Button>
-                    <Button disabled={formInProgress} type='submit'>Next →</Button>
+                    <Button disabled={false} type='submit'>Next →</Button>
                 </ButtonContainer>
             </CategoryForm>
         </PageContainer>

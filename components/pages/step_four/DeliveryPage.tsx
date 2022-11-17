@@ -130,7 +130,7 @@ export const DeliveryPage = ({ onNext, onBack }: DeliveryProps ) => {
                 </MainContent>
                 <ButtonContainer>
                     <Button onClick={(e) => handleBack(e)}>Back</Button>
-                    <Button disabled={formInProgress} type='submit'>Next →</Button>
+                    <Button disabled={false} type='submit'>Next →</Button>
                 </ButtonContainer>
             </DeliveryForm>
         </PageContainer>

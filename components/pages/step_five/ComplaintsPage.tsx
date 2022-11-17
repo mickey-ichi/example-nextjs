@@ -191,7 +191,7 @@ export const ComplaintsPage = ({ onNext, onBack }: ComplaintsProps ) => {
                 </MainContent>
                 <ButtonContainer>
                     <Button onClick={(e) => handleBack(e)}>Back</Button>
-                    <Button disabled={formInProgress} type='submit'>Finish →</Button>
+                    <Button disabled={false} type='submit'>Finish →</Button>
                 </ButtonContainer>
             </ComplaintsForm>
         </PageContainer>
@@ -410,7 +410,7 @@ const Additional = styled.div`
     }
 `
 
-const TextArea = styled.textarea.attrs({required: true})`
+const TextArea = styled.textarea.attrs({required: false})`
     background: #F8F8F8;
     border-radius: 8px;
     height: 45px;

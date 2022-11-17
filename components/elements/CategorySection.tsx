@@ -12,10 +12,8 @@ type CategorySectionProps = {
 export const CategorySection = ({ name, items, selected, setSelected }: CategorySectionProps ) => {
 
     const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false])
-    console.log(selected.length)
 
     const handleClick = (index: number) => {
-        console.log(selected.length)
         if (selected.length < 3 || (selected.length === 3 && selected.includes(items[index]))) {
             setChecked((prev) =>
                 prev.map((item, arrIndex) =>
