@@ -74,7 +74,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
 
     return (
         <PageContainer>
-            <DescriptionForm onSubmit={(e) => handleSubmit(e)} style={{flexDirection: 'column'}}>
+            <DescriptionForm onSubmit={(e) => handleSubmit(e)}>
                 <Wrapper>
                     <LeftSide>
                         <Instructions>Fill in the basic information about your item</Instructions>
@@ -295,6 +295,7 @@ const PriceLabel = styled.label`
 
 const DescriptionForm = styled(Form)`
     display: flex;
+    flex-direction: column;
     
     & ${ReqInput}:invalid, ${Description}:invalid {
         border: 3px solid ${props => props.theme.colors.error};
