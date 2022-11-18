@@ -12,7 +12,13 @@ type FinishProps = {
 
 export const FinishPage = ({ onNext, onBack }: FinishProps ) => {
 
-    const { setDescriptionContent, setCategoriesContent, setPhotosContent, setDeliveryContent, setComplaintContent } = useContext(FormContext)
+    const {
+        setDescriptionContent,
+        setCategoriesContent,
+        setPhotosContent,
+        setDeliveryContent,
+        setComplaintContent
+    } = useContext(FormContext)
 
     const clearContextData = () => {
         setDescriptionContent({
@@ -39,7 +45,11 @@ export const FinishPage = ({ onNext, onBack }: FinishProps ) => {
         })
     }
 
-    const handleNext = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const handleNext = () => {
+        onNext()
+    }
+
+    const handleReturn = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         if (confirm('Are you sure you want to restart and lose your progress?')) {
             clearContextData()
         } else {
@@ -54,9 +64,9 @@ export const FinishPage = ({ onNext, onBack }: FinishProps ) => {
                     <img src='/images/icons/success_image.png' />
                 </ImageContainer>
                 <FinishedText>Your advertisement was successfully added!</FinishedText>
-                <FinishedButton>View your advertisement →</FinishedButton>
+                <FinishedButton onClick={handleNext}>View your advertisement →</FinishedButton>
                 <Link href='/' passHref>
-                    <LinkToHome onClick={(e) => handleNext(e)}>or <span>Return to home page</span></LinkToHome>
+                    <LinkToHome onClick={(e) => handleReturn(e)}>or <span>Return to home page</span></LinkToHome>
                 </Link>
             </MainContent>
         </PageContainer>

@@ -15,4 +15,5 @@ export const Input = styled.input`
     }
 `
 
-export const ReqInput = styled(Input).attrs({required: true})``
+// export const ReqInput = styled(Input).attrs({required: true})``
+export const ReqInput = styled(Input)``

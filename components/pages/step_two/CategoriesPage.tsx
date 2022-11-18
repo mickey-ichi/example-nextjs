@@ -7,52 +7,56 @@ import { CategorySection } from '../../elements/CategorySection'
 import { CategoryButtons } from "../../elements/CategoryButtons";
 import { SelectedItems } from "../../elements/SelectedItems";
 import { items, names } from './placeholderData'
-import axios from "axios";
 import {ButtonContainer} from "../../elements/ButtonContainer";
 import {Form} from "../../elements/Form";
 import {ReqInput} from "../../elements/Input";
+import {MockData} from "../../../types/types";
+import axios from "../../../config/axios";
 
 type CategoriesProps = {
     onNext: () => void,
     onBack: () => void,
 }
 
- export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
-
-    useEffect(() => {
-        axios({
-            url: "https://635a2a5538725a1746bf2903.mockapi.io/category",
-            method: "GET",
-        })
-            .then((res) => {
-                setMockData(res.data)
-                setCategoryData(Object.values(res.data[0]))
-                setCategoryNames(Array.from(Object.keys(res.data[0])))
-            })
-            .catch((err) => {
-                console.log(err)
-            });
-    },[])
-
+export const CategoriesPage = ({ onNext, onBack }: CategoriesProps ) => {
+    const [mockData, setMockData] = useState<MockData | null>(null)
     const { categoriesContent, setCategoriesContent } = useContext(FormContext)
+    const [selected, setSelected] = useState<string []>([])
 
-     const [selected, setSelected] = useState<string []>([])
-    const [mockData, setMockData] = useState([])
-    const [categoryData, setCategoryData] = useState([])
+    const [categoryData, setCategoryData] = useState<any>([])
     const [categoryNames, setCategoryNames] = useState<string[]>([])
 
     useEffect(() => setSelected(categoriesContent), [categoriesContent])
 
+    useEffect(() => {
+        getMockData().then((data: MockData) => setMockData(data))
+    },[])
+
+    useEffect(() => {
+        if(null !== mockData) {
+            const [firstObject]: any = mockData
+            const newMockData: any = Array.from(Object.values(firstObject).slice(0,-1))
+            setCategoryData(newMockData)
+            setCategoryNames(Array.from(Object.keys(firstObject)))
+        }
+    }, [mockData])
+
+    const getMockData = async () => {
+        return axios.get<MockData>('/category').then(res => res.data);
+    }
+
     const changeCategory = (index: number) => {
-        if (mockData[index]) {
-            setCategoryData(Object.values(mockData[index]))
+        if (null !== mockData) {
+            // @ts-ignore
+            const newStuff: any = Array.from(Object.values(mockData[index]).slice(0,-1))
+            setCategoryData(newStuff)
         }
     }
 
     const getCategoryItems = (index: number) => {
         if (categoryData[index]) {
-            const newData: string[] = Array.from(categoryData[index])
-            return newData.map(item => item.substring(0,20))
+            const newData = categoryData[index]
+            return newData.map((item: string) => item.substring(0,20))
         }
         return items
     }
@@ -115,7 +119,7 @@ type CategoriesProps = {
                 </Selected>
                 <ButtonContainer>
                     <Button onClick={(e) => handleBack(e)}>Back</Button>
-                    <Button disabled={formInProgress} type='submit'>Next →</Button>
+                    <Button disabled={false} type='submit'>Next →</Button>
                 </ButtonContainer>
             </CategoryForm>
         </PageContainer>

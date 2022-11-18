@@ -74,7 +74,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
 
     return (
         <PageContainer>
-            <DescriptionForm onSubmit={(e) => handleSubmit(e)} style={{flexDirection: 'column'}}>
+            <DescriptionForm onSubmit={(e) => handleSubmit(e)}>
                 <Wrapper>
                     <LeftSide>
                         <Instructions>Fill in the basic information about your item</Instructions>
@@ -143,7 +143,7 @@ export const DescriptionPage = ({ onNext }: DescriptionProps ) => {
                     </RightSide>
                 </Wrapper>
                 <ButtonContainer style={{marginTop: '-1rem'}}>
-                    <Button disabled={formInProgress} type='submit'>Next →</Button>
+                    <Button disabled={false} type='submit'>Next →</Button>
                 </ButtonContainer>
             </DescriptionForm>
         </PageContainer>
@@ -186,7 +186,7 @@ const Spacer = styled.div`
     margin-bottom: 2rem;
 `
 
-const Description = styled.textarea.attrs({required: true})`
+const Description = styled.textarea.attrs({required: false})`
     margin-top: 10px;
     min-height: 282px;
     background: #F8F8F8;
@@ -295,6 +295,7 @@ const PriceLabel = styled.label`
 
 const DescriptionForm = styled(Form)`
     display: flex;
+    flex-direction: column;
     
     & ${ReqInput}:invalid, ${Description}:invalid {
         border: 3px solid ${props => props.theme.colors.error};
